@@ -1,7 +1,13 @@
 import 'package:geburtstags_app/models/birthday.dart';
 
 class BirthdayRepo {
-  BirthdayRepo() {
+  static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
+
+  factory BirthdayRepo() {
+    return _birthdayRepo;
+  }
+
+  BirthdayRepo._internal() {
     repo.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
     repo.add(Birthday(date: DateTime(1999, 1, 11), name: "Flo"));
     repo.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
@@ -18,7 +24,8 @@ class BirthdayRepo {
   }
 
   Birthday insert(Birthday birthday) {
-    throw UnimplementedError();
+    repo.add(birthday);
+    return birthday;
   }
 
   Birthday update(Birthday birthday) {
