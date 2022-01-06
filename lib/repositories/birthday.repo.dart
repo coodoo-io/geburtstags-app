@@ -33,6 +33,6 @@ class BirthdayRepo {
   }
 
   void delete(Birthday birthday) {
-    throw UnimplementedError();
+    repo.remove(birthday);
   }
 }
