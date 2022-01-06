@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geburtstags_app/template/template.dart';
+import 'package:geburtstags_app/templates/template.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

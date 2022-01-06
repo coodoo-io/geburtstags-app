@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatelessWidget {
@@ -6,35 +7,21 @@ class BirthdaysScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final birthdays = BirthdayRepo().getBirthdays();
+
     return Scaffold(
       appBar: AppBar(title: const Text("Geburtstage")),
-      body: ListView(
-        children: [
-          ListTile(
-            title: const Text('Julia'),
+      body: ListView.builder(
+        itemCount: birthdays.length,
+        itemBuilder: (context, index) {
+          final birthday = birthdays[index];
+          return ListTile(
+            title: Text(birthday.name),
             trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(1993, 4, 16),
-              ),
+              DateFormat('dd.MM.yyyy').format(birthday.date),
             ),
-          ),
-          ListTile(
-            title: const Text('Flo'),
-            trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(2003, 5, 7),
-              ),
-            ),
-          ),
-          ListTile(
-            title: const Text('Marcel'),
-            trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(1984, 3, 9),
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
