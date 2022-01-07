@@ -76,7 +76,11 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                   },
                 ),
               )
-              .then((value) => setState(() {}));
+              .then(
+                (value) => setState(() {
+                  // refresh birthday list
+                }),
+              );
         },
         child: const Icon(Icons.add),
       ),
