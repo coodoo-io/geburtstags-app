@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/widgets/date_picker.dart';
+import 'package:geburtstags_app/screens/birthday/widgets/name_field.dart';
 import 'package:intl/intl.dart';
 
 class BirthdayForm extends StatefulWidget {
@@ -11,7 +14,6 @@ class BirthdayForm extends StatefulWidget {
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
-  DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
   TextEditingController nameController = TextEditingController();
 
@@ -43,36 +45,13 @@ class _BirthdayFormState extends State<BirthdayForm> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(label: Text("Name")),
-                autofocus: true,
-              ),
+              NameField(controller: nameController),
               const SizedBox(height: 10),
-              TextField(
-                controller: dateController,
-                decoration: const InputDecoration(label: Text("Datum")),
-                onTap: () => _selectDate(context),
-                readOnly: true,
-              ),
-              const SizedBox(height: 20),
+              DatePicker(controller: dateController),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() => selectedDate = picked);
-      dateController.text = DateFormat('dd.MM.yyyy').format(picked);
-    }
   }
 }
