@@ -18,7 +18,26 @@ class _BirthdayFormState extends State<BirthdayForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Geburtstag hinzufügen')),
+      appBar: AppBar(
+        title: const Text('Geburtstag'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              BirthdayRepo().insert(
+                Birthday(
+                  name: nameController.text,
+                  date: DateFormat("dd.MM.yyyy").parse(dateController.text),
+                ),
+              );
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'Speichern',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -37,18 +56,6 @@ class _BirthdayFormState extends State<BirthdayForm> {
                 readOnly: true,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  BirthdayRepo().insert(
-                    Birthday(
-                      name: nameController.text,
-                      date: DateFormat("dd.MM.yyyy").parse(dateController.text),
-                    ),
-                  );
-                  Navigator.pop(context);
-                },
-                child: const Text("Hinzufügen"),
-              )
             ],
           ),
         ),
