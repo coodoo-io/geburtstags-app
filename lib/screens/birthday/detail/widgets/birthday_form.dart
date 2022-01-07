@@ -11,8 +11,9 @@ class BirthdayForm extends StatefulWidget {
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
-  TextEditingController nameController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,15 @@ class _BirthdayFormState extends State<BirthdayForm> {
             children: [
               TextField(
                 controller: nameController,
-                autofocus: true,
                 decoration: const InputDecoration(label: Text("Name")),
+                autofocus: true,
               ),
               const SizedBox(height: 10),
               TextField(
                 controller: dateController,
-                autofocus: true,
-                decoration: const InputDecoration(label: Text("Datum"), hintText: "Tag.Monat.Jahr"),
+                decoration: const InputDecoration(label: Text("Datum")),
+                onTap: () => _selectDate(context),
+                readOnly: true,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -52,5 +54,18 @@ class _BirthdayFormState extends State<BirthdayForm> {
         ),
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() => selectedDate = picked);
+      dateController.text = DateFormat('dd.MM.yyyy').format(picked);
+    }
   }
 }
