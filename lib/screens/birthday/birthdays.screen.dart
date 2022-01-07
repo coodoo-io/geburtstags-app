@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
-import 'package:geburtstags_app/screens/birthday/detail/widgets/birthday_form.dart';
+import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatefulWidget {

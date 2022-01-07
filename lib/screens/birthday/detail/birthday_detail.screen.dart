@@ -19,7 +19,6 @@ class BirthdayDetailScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Name
@@ -28,7 +27,7 @@ class BirthdayDetailScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 5),
-            Text(DateFormat('dd.MM.yyyy').format(birthday.date)),
+            Text(birthday.name),
             // Datum
             const SizedBox(height: 20),
             const Text(
