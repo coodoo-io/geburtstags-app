@@ -28,7 +28,7 @@ class BirthdayDetailScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 5),
-            Text(DateFormat('dd.MM.yyyy').format(birthday.date)),
+            Text(birthday.name),
             // Datum
             const SizedBox(height: 20),
             const Text(
