@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatelessWidget {
   const BirthdaysScreen({Key? key}) : super(key: key);
@@ -9,30 +8,18 @@ class BirthdaysScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Geburtstage")),
       body: ListView(
-        children: [
+        children: const [
           ListTile(
-            title: const Text('Julia'),
-            trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(1993, 4, 16),
-              ),
-            ),
+            title: Text('Julia'),
+            trailing: Text("16.04.1993"),
           ),
           ListTile(
-            title: const Text('Flo'),
-            trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(2003, 5, 7),
-              ),
-            ),
+            title: Text('Flo'),
+            trailing: Text("07.05.2003"),
           ),
           ListTile(
-            title: const Text('Marcel'),
-            trailing: Text(
-              DateFormat('dd.MM.yyyy').format(
-                DateTime(1984, 3, 9),
-              ),
-            ),
+            title: Text('Marcel'),
+            trailing: Text("09.03.1984"),
           ),
         ],
       ),
