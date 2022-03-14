@@ -37,6 +37,10 @@ class _BirthdayFormState extends State<BirthdayForm> {
                     ),
                   ),
                 );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text('${nameController.text} hinzugefügt.')),
+                );
                 Navigator.pop(context);
               }
             },
@@ -77,12 +81,14 @@ class _BirthdayFormState extends State<BirthdayForm> {
                     child: TextFormField(
                       controller: dateControllerDay,
                       keyboardType: TextInputType.number,
+                      maxLength: 2,
                       onChanged: (value) {
                         if (dateControllerDay.text.length == 2) {
                           FocusScope.of(context).requestFocus(monthFocusNode);
                         }
                       },
                       decoration: InputDecoration(
+                        counterText: '',
                         labelText: 'Tag',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -93,6 +99,8 @@ class _BirthdayFormState extends State<BirthdayForm> {
                           return 'Bitte Tag eintragen';
                         } else if (value.length > 2) {
                           return 'Zu lang';
+                        } else if (int.parse(value) > 31) {
+                          return 'ungültig';
                         }
                         return null;
                       },
@@ -103,6 +111,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                     child: TextFormField(
                       controller: dateControllerMonth,
                       keyboardType: TextInputType.number,
+                      maxLength: 2,
                       focusNode: monthFocusNode,
                       onChanged: (value) {
                         if (dateControllerMonth.text.length == 2) {
@@ -110,6 +119,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                         }
                       },
                       decoration: InputDecoration(
+                        counterText: '',
                         labelText: 'Monat',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -120,6 +130,8 @@ class _BirthdayFormState extends State<BirthdayForm> {
                           return 'Bitte Monat eintragen';
                         } else if (value.length > 2) {
                           return 'Zu lang';
+                        } else if (int.parse(value) > 12) {
+                          return 'ungültig';
                         }
                         return null;
                       },
@@ -130,8 +142,10 @@ class _BirthdayFormState extends State<BirthdayForm> {
                     child: TextFormField(
                       controller: dateControllerYear,
                       keyboardType: TextInputType.number,
+                      maxLength: 4,
                       focusNode: yearFocusNode,
                       decoration: InputDecoration(
+                        counterText: '',
                         labelText: 'Jahr',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -142,6 +156,8 @@ class _BirthdayFormState extends State<BirthdayForm> {
                           return 'Bitte Jahr eintragen';
                         } else if (value.length > 4) {
                           return 'Zu lang';
+                        } else if (int.parse(value) > DateTime.now().year) {
+                          return 'ungültig';
                         }
                         return null;
                       },

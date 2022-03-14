@@ -23,7 +23,7 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
         itemBuilder: (context, index) {
           final birthday = birthdays[index];
           return Dismissible(
-            key: Key(index.toString()),
+            key: UniqueKey(),
             direction: DismissDirection.endToStart,
             background: Container(
               color: Colors.red,
