@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BirthdayForm extends StatefulWidget {
   const BirthdayForm({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
   final dateControllerYear = TextEditingController();
   final monthFocusNode = FocusNode();
   final yearFocusNode = FocusNode();
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +37,11 @@ class _BirthdayFormState extends State<BirthdayForm> {
                       int.parse(dateControllerMonth.text),
                       int.parse(dateControllerDay.text),
                     ),
+                    profileImage: image?.path,
                   ),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text('${nameController.text} hinzugefügt.')),
+                  SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                 );
                 Navigator.pop(context);
               }
@@ -165,6 +167,26 @@ class _BirthdayFormState extends State<BirthdayForm> {
                   ),
                 ],
               ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  image = await _picker.pickImage(source: ImageSource.gallery);
+                },
+                child: const Text("Bild auswählen"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  try {
+                    image = await _picker.pickImage(source: ImageSource.camera);
+                  } catch (e) {
+                    // camera permission denied
+                    debugPrint("Error: $e");
+                  }
+                },
+                child: const Text("Bild erstellen"),
+              )
             ],
           ),
         ),

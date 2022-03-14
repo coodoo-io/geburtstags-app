@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
@@ -61,7 +63,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
                           ).then((value) => setState(() {})),
                           leading: CircleAvatar(
-                            child: Image.asset("assets/images/default.png"),
+                            backgroundImage: birthday.profileImage != null
+                                ? FileImage(File(birthday.profileImage!))
+                                : const AssetImage("assets/images/default.png") as ImageProvider,
                             radius: 25,
                             backgroundColor: Colors.white,
                           ),
@@ -117,7 +121,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
                         ).then((value) => setState(() {})),
                         leading: CircleAvatar(
-                          child: Image.asset("assets/images/default.png"),
+                          backgroundImage: birthday.profileImage != null
+                              ? FileImage(File(birthday.profileImage!))
+                              : const AssetImage("assets/images/default.png") as ImageProvider,
                           radius: 25,
                           backgroundColor: Colors.white,
                         ),
