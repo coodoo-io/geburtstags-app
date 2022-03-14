@@ -57,7 +57,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               onPressed: () {
                 _showAlertDialog();
               },
-              icon: Icon(Icons.delete))
+              icon: const Icon(Icons.delete))
         ],
       ),
       body: Padding(
