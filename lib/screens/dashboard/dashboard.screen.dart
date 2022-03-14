@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
+import 'package:geburtstags_app/util/datetime.util.dart';
+import 'package:intl/intl.dart';
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final repo = BirthdayRepo();
+    final nextbirthdays = repo.getNextFiveBirthdays();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Dashboard"),
+        actions: [
+          IconButton(
+            onPressed: () => setState(() {}),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const Text("Anstehende Geburtstage"),
+            Expanded(
+              child: ListView.builder(
+                itemCount: nextbirthdays.length,
+                itemBuilder: (context, index) {
+                  final dateTimeUtil = DateTimeUtil();
+                  final birthday = nextbirthdays[index];
+                  final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
+                  final getAge = dateTimeUtil.getAge(birthday.date);
+
+                  return Card(
+                    child: ListTile(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                      ),
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.person),
+                        radius: 25,
+                      ),
+                      title: Text(birthday.name),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5),
+                          Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                          const SizedBox(height: 5),
+                          Text(
+                            "In $daysUntilBirthday Tagen",
+                            style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                          ),
+                        ],
+                      ),
+                      trailing: Text("$getAge Jahre"),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

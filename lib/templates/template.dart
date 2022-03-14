@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/screens/birthday/birthdays.screen.dart';
-import 'package:geburtstags_app/screens/home/home.screen.dart';
+import 'package:geburtstags_app/screens/dashboard/dashboard.screen.dart';
 import 'package:geburtstags_app/screens/settings/settings.screen.dart';
 
 class Template extends StatefulWidget {
@@ -37,7 +37,7 @@ class _TemplateState extends State<Template> {
       body: IndexedStack(
         index: _index,
         children: const [
-          HomeScreen(),
+          DashboardScreen(),
           BirthdaysScreen(),
           SettingsScreen(),
         ],
