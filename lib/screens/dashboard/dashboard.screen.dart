@@ -56,7 +56,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             context,
                             MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
                           ).then((value) => setState(() {})),
-                          leading: const CircleAvatar(child: Icon(Icons.person), radius: 25),
+                          leading: CircleAvatar(
+                            child: Image.asset("assets/images/default.png"),
+                            radius: 25,
+                            backgroundColor: Colors.white,
+                          ),
                           title: Text(birthday.name),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
