@@ -55,6 +55,10 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                       birthday: birthday,
                     ),
                   ),
+                ).then(
+                  (value) => setState(
+                    () {},
+                  ),
                 );
               },
               title: Text(birthday.name),
