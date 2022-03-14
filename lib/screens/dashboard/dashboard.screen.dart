@@ -46,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
-                      ),
+                      ).then((value) => setState(() {})),
                       leading: const CircleAvatar(
                         child: Icon(Icons.person),
                         radius: 25,

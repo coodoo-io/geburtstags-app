@@ -17,13 +17,21 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
     final repo = BirthdayRepo();
     final birthdays = repo.getBirthdays();
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
+      appBar: AppBar(
+        title: const Text("Geburtstage"),
+        actions: [
+          IconButton(
+            onPressed: () => setState(() {}),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: birthdays.length,
         itemBuilder: (context, index) {
           final birthday = birthdays[index];
           return Dismissible(
-            key: Key(index.toString()),
+            key: UniqueKey(),
             direction: DismissDirection.endToStart,
             background: Container(
               color: Colors.red,
@@ -54,6 +62,10 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                     builder: (context) => BirthdayDetailScreen(
                       birthday: birthday,
                     ),
+                  ),
+                ).then(
+                  (value) => setState(
+                    () {},
                   ),
                 );
               },

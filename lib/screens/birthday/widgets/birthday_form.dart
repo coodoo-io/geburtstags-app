@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
-import 'package:geburtstags_app/screens/birthday/widgets/date_picker.dart';
-import 'package:geburtstags_app/screens/birthday/widgets/name_field.dart';
-import 'package:intl/intl.dart';
 
 class BirthdayForm extends StatefulWidget {
   const BirthdayForm({Key? key}) : super(key: key);
@@ -13,8 +10,13 @@ class BirthdayForm extends StatefulWidget {
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
-  TextEditingController dateController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final dateControllerDay = TextEditingController();
+  final dateControllerMonth = TextEditingController();
+  final dateControllerYear = TextEditingController();
+  final monthFocusNode = FocusNode();
+  final yearFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,23 @@ class _BirthdayFormState extends State<BirthdayForm> {
         actions: [
           TextButton(
             onPressed: () {
-              BirthdayRepo().insert(
-                Birthday(
-                  name: nameController.text,
-                  date: DateFormat("dd.MM.yyyy").parse(dateController.text),
-                ),
-              );
-              Navigator.pop(context);
+              if (_formKey.currentState!.validate()) {
+                BirthdayRepo().insert(
+                  Birthday(
+                    name: nameController.text,
+                    date: DateTime(
+                      int.parse(dateControllerYear.text),
+                      int.parse(dateControllerMonth.text),
+                      int.parse(dateControllerDay.text),
+                    ),
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text('${nameController.text} hinzugefügt.')),
+                );
+                Navigator.pop(context);
+              }
             },
             child: const Text(
               'Speichern',
@@ -39,14 +51,120 @@ class _BirthdayFormState extends State<BirthdayForm> {
           ),
         ],
       ),
-      body: Center(
+      body: Form(
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              NameField(controller: nameController),
-              const SizedBox(height: 10),
-              DatePicker(controller: dateController),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: nameController,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(labelText: 'Name'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Bitte Name eintragen';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: dateControllerDay,
+                      keyboardType: TextInputType.number,
+                      maxLength: 2,
+                      onChanged: (value) {
+                        if (dateControllerDay.text.length == 2) {
+                          FocusScope.of(context).requestFocus(monthFocusNode);
+                        }
+                      },
+                      decoration: InputDecoration(
+                        counterText: '',
+                        labelText: 'Tag',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Bitte Tag eintragen';
+                        } else if (value.length > 2) {
+                          return 'Zu lang';
+                        } else if (int.parse(value) > 31) {
+                          return 'ungültig';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: dateControllerMonth,
+                      keyboardType: TextInputType.number,
+                      maxLength: 2,
+                      focusNode: monthFocusNode,
+                      onChanged: (value) {
+                        if (dateControllerMonth.text.length == 2) {
+                          FocusScope.of(context).requestFocus(yearFocusNode);
+                        }
+                      },
+                      decoration: InputDecoration(
+                        counterText: '',
+                        labelText: 'Monat',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Bitte Monat eintragen';
+                        } else if (value.length > 2) {
+                          return 'Zu lang';
+                        } else if (int.parse(value) > 12) {
+                          return 'ungültig';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: dateControllerYear,
+                      keyboardType: TextInputType.number,
+                      maxLength: 4,
+                      focusNode: yearFocusNode,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        labelText: 'Jahr',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Bitte Jahr eintragen';
+                        } else if (value.length > 4) {
+                          return 'Zu lang';
+                        } else if (int.parse(value) > DateTime.now().year) {
+                          return 'ungültig';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
