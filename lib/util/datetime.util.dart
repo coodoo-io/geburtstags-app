@@ -6,7 +6,6 @@ class DateTimeUtil {
       nextBirthday = DateTime(now.year + 1, birthday.month, birthday.day);
     }
 
-    // Plus 1, da der Geburtstagstag selbst noch ein Tag ist.
     return nextBirthday.difference(now).inDays + 1;
   }
 
