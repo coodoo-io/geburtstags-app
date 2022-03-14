@@ -129,7 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
                             const SizedBox(height: 5),
                             Text(
-                              "In $daysUntilBirthday Tagen",
+                              daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
                               style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
                             ),
                           ],
