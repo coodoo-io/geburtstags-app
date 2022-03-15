@@ -41,7 +41,8 @@ class _BirthdayFormState extends State<BirthdayForm> {
                   ),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('${nameController.text} hinzugefügt.')),
+                  SnackBar(
+                      content: Text('${nameController.text} hinzugefügt.')),
                 );
                 Navigator.pop(context);
               }
