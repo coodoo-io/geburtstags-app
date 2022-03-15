@@ -9,25 +9,25 @@ class BirthdayRepo {
   }
 
   BirthdayRepo._internal() {
-    birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
-    birthdays.add(Birthday(date: DateTime(1999, 3, 15), name: "Flo"));
-    birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
-    birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: "Julia"));
-    birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: "Markus"));
-    birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: "Rüdiger"));
-    birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));
-    birthdays.add(Birthday(date: DateTime.now(), name: "Meier"));
+    _birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
+    _birthdays.add(Birthday(date: DateTime(1999, 3, 15), name: "Flo"));
+    _birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
+    _birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: "Julia"));
+    _birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: "Markus"));
+    _birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: "Rüdiger"));
+    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));
+    _birthdays.add(Birthday(date: DateTime.now(), name: "Meier"));
   }
 
-  final List<Birthday> birthdays = [];
+  final List<Birthday> _birthdays = [];
 
   List<Birthday> getBirthdays() {
-    return birthdays;
+    return _birthdays;
   }
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
-    List<Birthday> nextFiveBirthdays = birthdays;
+    List<Birthday> nextFiveBirthdays = _birthdays;
 
     nextFiveBirthdays.sort((a, b) => dateTimeUtil
         .remainingDaysUntilBirthday(a.date)
@@ -42,10 +42,10 @@ class BirthdayRepo {
   List<Birthday> getTodaysBirthdays() {
     List<Birthday> list = [];
 
-    for (var i = 0; i < birthdays.length; i++) {
-      if (birthdays[i].date.day == DateTime.now().day &&
-          birthdays[i].date.month == DateTime.now().month) {
-        list.add(birthdays[i]);
+    for (var i = 0; i < _birthdays.length; i++) {
+      if (_birthdays[i].date.day == DateTime.now().day &&
+          _birthdays[i].date.month == DateTime.now().month) {
+        list.add(_birthdays[i]);
       }
     }
 
@@ -53,7 +53,7 @@ class BirthdayRepo {
   }
 
   Birthday insert(Birthday birthday) {
-    birthdays.add(birthday);
+    _birthdays.add(birthday);
     return birthday;
   }
 
@@ -62,6 +62,6 @@ class BirthdayRepo {
   }
 
   void delete(Birthday birthday) {
-    birthdays.remove(birthday);
+    _birthdays.remove(birthday);
   }
 }
