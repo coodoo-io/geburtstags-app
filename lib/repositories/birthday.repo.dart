@@ -29,17 +29,22 @@ class BirthdayRepo {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = repo;
 
-    nextFiveBirthdays.sort((a, b) =>
-        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) => dateTimeUtil
+        .remainingDaysUntilBirthday(a.date)
+        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
-    return nextFiveBirthdays.sublist(0, 5);
+    if (nextFiveBirthdays.length > 5) {
+      return nextFiveBirthdays.sublist(0, 5);
+    }
+    return nextFiveBirthdays;
   }
 
   List<Birthday> getTodaysBirthdays() {
     List<Birthday> list = [];
 
     for (var i = 0; i < repo.length; i++) {
-      if (repo[i].date.day == DateTime.now().day && repo[i].date.month == DateTime.now().month) list.add(repo[i]);
+      if (repo[i].date.day == DateTime.now().day &&
+          repo[i].date.month == DateTime.now().month) list.add(repo[i]);
     }
 
     return list;
