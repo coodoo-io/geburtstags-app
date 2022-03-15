@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
@@ -13,13 +15,12 @@ class BirthdayRepo extends ChangeNotifier {
 
   final List<Birthday> _birthdays = [];
 
-  List<Birthday> getBirthdays() {
-    return _birthdays;
-  }
+  /// An unmodifiable view of the items in the cart.
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
-    List<Birthday> nextFiveBirthdays = _birthdays;
+    List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
     nextFiveBirthdays.sort((a, b) =>
         dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
