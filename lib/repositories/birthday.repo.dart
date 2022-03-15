@@ -50,7 +50,7 @@ class BirthdayRepo extends ChangeNotifier {
 
   Birthday insert(Birthday birthday) {
     _birthdays.add(birthday);
-    //saveBirthdaysToSP();
+    saveBirthdaysToSP();
     notifyListeners();
     return birthday;
   }
