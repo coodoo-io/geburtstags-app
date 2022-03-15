@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
-import 'package:geburtstags_app/util/datetime.util.dart';
+import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
