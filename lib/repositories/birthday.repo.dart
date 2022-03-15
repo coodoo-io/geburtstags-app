@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class BirthdayRepo {
+class BirthdayRepo extends ChangeNotifier {
   static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
 
   factory BirthdayRepo() {
@@ -14,15 +15,15 @@ class BirthdayRepo {
     loadBirthdaysToSP();
   }
 
-  final List<Birthday> birthdays = [];
+  List<Birthday> _birthdays = [];
 
   List<Birthday> getBirthdays() {
-    return birthdays;
+    return _birthdays;
   }
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
-    List<Birthday> nextFiveBirthdays = birthdays;
+    List<Birthday> nextFiveBirthdays = _birthdays;
 
     nextFiveBirthdays.sort((a, b) => dateTimeUtil
         .remainingDaysUntilBirthday(a.date)
@@ -37,10 +38,10 @@ class BirthdayRepo {
   List<Birthday> getTodaysBirthdays() {
     List<Birthday> list = [];
 
-    for (var i = 0; i < birthdays.length; i++) {
-      if (birthdays[i].date.day == DateTime.now().day &&
-          birthdays[i].date.month == DateTime.now().month) {
-        list.add(birthdays[i]);
+    for (var i = 0; i < _birthdays.length; i++) {
+      if (_birthdays[i].date.day == DateTime.now().day &&
+          _birthdays[i].date.month == DateTime.now().month) {
+        list.add(_birthdays[i]);
       }
     }
 
@@ -48,8 +49,9 @@ class BirthdayRepo {
   }
 
   Birthday insert(Birthday birthday) {
-    birthdays.add(birthday);
-    saveBirthdaysToSP();
+    _birthdays.add(birthday);
+    //saveBirthdaysToSP();
+    notifyListeners();
     return birthday;
   }
 
@@ -58,13 +60,15 @@ class BirthdayRepo {
   }
 
   void delete(Birthday birthday) {
-    birthdays.remove(birthday);
+    _birthdays.remove(birthday);
+    saveBirthdaysToSP();
+    notifyListeners();
   }
 
   Future<void> saveBirthdaysToSP() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> birthdaysEncoded =
-        birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
+        _birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
     prefs.setStringList("birthdays", birthdaysEncoded);
   }
 
@@ -73,6 +77,7 @@ class BirthdayRepo {
     final jsonList = sharedPreferences.getStringList("birthdays");
     final decodedList =
         jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
-    birthdays.addAll(decodedList ?? []);
+    _birthdays.addAll(decodedList ?? []);
+    notifyListeners();
   }
 }
