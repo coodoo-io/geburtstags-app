@@ -3,13 +3,15 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
 
 class BirthdayRepo extends ChangeNotifier {
-  final List<Birthday> birthdays = [];
+  List<Birthday> _birthdays = [];
 
-  List<Birthday> get getBirthdays => birthdays;
+  List<Birthday> getBirthdays() {
+    return _birthdays;
+  }
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
-    List<Birthday> nextFiveBirthdays = birthdays;
+    List<Birthday> nextFiveBirthdays = _birthdays;
 
     nextFiveBirthdays.sort((a, b) => dateTimeUtil
         .remainingDaysUntilBirthday(a.date)
@@ -24,10 +26,10 @@ class BirthdayRepo extends ChangeNotifier {
   List<Birthday> getTodaysBirthdays() {
     List<Birthday> list = [];
 
-    for (var i = 0; i < birthdays.length; i++) {
-      if (birthdays[i].date.day == DateTime.now().day &&
-          birthdays[i].date.month == DateTime.now().month) {
-        list.add(birthdays[i]);
+    for (var i = 0; i < _birthdays.length; i++) {
+      if (_birthdays[i].date.day == DateTime.now().day &&
+          _birthdays[i].date.month == DateTime.now().month) {
+        list.add(_birthdays[i]);
       }
     }
 
@@ -35,7 +37,7 @@ class BirthdayRepo extends ChangeNotifier {
   }
 
   Birthday insert(Birthday birthday) {
-    birthdays.add(birthday);
+    _birthdays.add(birthday);
     notifyListeners();
     return birthday;
   }
@@ -45,7 +47,7 @@ class BirthdayRepo extends ChangeNotifier {
   }
 
   void delete(Birthday birthday) {
-    birthdays.remove(birthday);
+    _birthdays.remove(birthday);
     notifyListeners();
   }
 }

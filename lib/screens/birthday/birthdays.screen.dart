@@ -11,7 +11,7 @@ class BirthdaysScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final birthdays = context.watch<BirthdayRepo>().getBirthdays;
+    final birthdays = context.watch<BirthdayRepo>().getBirthdays();
     Birthday birthday;
 
     return Scaffold(
