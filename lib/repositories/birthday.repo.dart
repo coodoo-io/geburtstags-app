@@ -44,8 +44,9 @@ class BirthdayRepo {
 
     for (var i = 0; i < birthdays.length; i++) {
       if (birthdays[i].date.day == DateTime.now().day &&
-          birthdays[i].date.month == DateTime.now().month)
+          birthdays[i].date.month == DateTime.now().month) {
         list.add(birthdays[i]);
+      }
     }
 
     return list;
