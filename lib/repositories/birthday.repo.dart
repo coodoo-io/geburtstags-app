@@ -1,5 +1,5 @@
 import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/util/datetime.util.dart';
+import 'package:geburtstags_app/utils/datetime.util.dart';
 
 class BirthdayRepo {
   static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
