@@ -3,28 +3,17 @@ import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class BirthdaysScreen extends StatefulWidget {
+class BirthdaysScreen extends StatelessWidget {
   const BirthdaysScreen({Key? key}) : super(key: key);
 
   @override
-  State<BirthdaysScreen> createState() => _BirthdaysScreenState();
-}
-
-class _BirthdaysScreenState extends State<BirthdaysScreen> {
-  @override
   Widget build(BuildContext context) {
-    final repo = BirthdayRepo();
-    final birthdays = repo.getBirthdays();
+    final birthdays = context.watch<BirthdayRepo>().getBirthdays();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),
-        actions: [
-          IconButton(
-            onPressed: () => setState(() {}),
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
       ),
       body: ListView.builder(
         itemCount: birthdays.length,
@@ -47,9 +36,7 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
               ),
             ),
             onDismissed: (direction) {
-              setState(() {
-                repo.delete(birthday);
-              });
+              context.read<BirthdayRepo>().delete(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('${birthday.name} gelöscht.')),
               );
@@ -63,10 +50,6 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                       birthday: birthday,
                     ),
                   ),
-                ).then(
-                  (value) => setState(
-                    () {},
-                  ),
                 );
               },
               title: Text(birthday.name),
@@ -79,20 +62,14 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (BuildContext context) {
-                    return const BirthdayForm();
-                  },
-                ),
-              )
-              .then(
-                (value) => setState(() {
-                  // refresh birthday list
-                }),
-              );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (BuildContext context) {
+                return const BirthdayForm();
+              },
+            ),
+          );
         },
         child: const Icon(Icons.add),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class BirthdayForm extends StatefulWidget {
   const BirthdayForm({Key? key}) : super(key: key);
@@ -29,17 +30,17 @@ class _BirthdayFormState extends State<BirthdayForm> {
           TextButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                BirthdayRepo().insert(
-                  Birthday(
-                    name: nameController.text,
-                    date: DateTime(
-                      int.parse(dateControllerYear.text),
-                      int.parse(dateControllerMonth.text),
-                      int.parse(dateControllerDay.text),
-                    ),
-                    profileImage: image?.path,
-                  ),
-                );
+                context.read<BirthdayRepo>().insert(
+                      Birthday(
+                        name: nameController.text,
+                        date: DateTime(
+                          int.parse(dateControllerYear.text),
+                          int.parse(dateControllerMonth.text),
+                          int.parse(dateControllerDay.text),
+                        ),
+                        profileImage: image?.path,
+                      ),
+                    );
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       content: Text('${nameController.text} hinzugefügt.')),

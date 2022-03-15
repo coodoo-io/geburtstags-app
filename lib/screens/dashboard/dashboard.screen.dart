@@ -5,30 +5,19 @@ import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  @override
   Widget build(BuildContext context) {
-    final repo = BirthdayRepo();
-    final nextbirthdays = repo.getNextFiveBirthdays();
-    final todaysBirthdays = repo.getTodaysBirthdays();
+    final nextbirthdays = context.watch<BirthdayRepo>().getNextFiveBirthdays();
+    final todaysBirthdays = context.watch<BirthdayRepo>().getTodaysBirthdays();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
-        actions: [
-          IconButton(
-            onPressed: () => setState(() {}),
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
       ),
       body: nextbirthdays.isEmpty && todaysBirthdays.isEmpty
           ? const Center(
@@ -68,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       builder: (context) =>
                                           BirthdayDetailScreen(
                                               birthday: birthday)),
-                                ).then((value) => setState(() {})),
+                                ),
                                 leading: CircleAvatar(
                                   backgroundImage: birthday.profileImage != null
                                       ? FileImage(File(birthday.profileImage!))
@@ -138,7 +127,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       builder: (context) =>
                                           BirthdayDetailScreen(
                                               birthday: birthday)),
-                                ).then((value) => setState(() {})),
+                                ),
                                 leading: CircleAvatar(
                                   backgroundImage: birthday.profileImage != null
                                       ? FileImage(File(birthday.profileImage!))
