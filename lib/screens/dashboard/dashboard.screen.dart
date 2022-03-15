@@ -36,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  "🥳Heutige Geburtstage🎂",
+                  "Heutige Geburtstage🎂",
                   style: TextStyle(fontSize: 24),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -58,7 +58,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: ListTile(
                           onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BirthdayDetailScreen(birthday: birthday)),
                           ).then((value) => setState(() {})),
                           leading: CircleAvatar(
                             child: Image.asset("assets/images/default.png"),
@@ -70,19 +72,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 5),
-                              Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                              Text(
+                                  "Am ${DateFormat('dd.MM').format(birthday.date)}"),
                               const SizedBox(height: 5),
                               const Text(
                                 "Heute Geburtstag",
-                                style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.red),
                               ),
                             ],
                           ),
-                          trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                          trailing: Text("$getAge Jahre",
+                              style: const TextStyle(fontSize: 18)),
                         ),
                       ),
                       elevation: 4,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
                     ),
                   );
                 },
@@ -91,7 +98,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               child: Text(
-                "🎉Anstehende Geburtstage🎉",
+                "Anstehende Geburtstage🎉",
                 style: TextStyle(fontSize: 24),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -103,7 +110,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               itemBuilder: (context, index) {
                 final dateTimeUtil = DateTimeUtil();
                 final birthday = nextbirthdays[index];
-                final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
+                final daysUntilBirthday =
+                    dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                 final getAge = dateTimeUtil.getAge(birthday.date);
 
                 return Padding(
@@ -114,7 +122,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: ListTile(
                         onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  BirthdayDetailScreen(birthday: birthday)),
                         ).then((value) => setState(() {})),
                         leading: CircleAvatar(
                           child: Image.asset("assets/images/default.png"),
@@ -126,19 +136,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 5),
-                            Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                            Text(
+                                "Am ${DateFormat('dd.MM').format(birthday.date)}"),
                             const SizedBox(height: 5),
                             Text(
-                              daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
-                              style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                              daysUntilBirthday == 1
+                                  ? "In einem Tag"
+                                  : "In $daysUntilBirthday Tagen",
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.green.shade700),
                             ),
                           ],
                         ),
-                        trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                        trailing: Text("$getAge Jahre",
+                            style: const TextStyle(fontSize: 18)),
                       ),
                     ),
                     elevation: 4,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
                   ),
                 );
               },
