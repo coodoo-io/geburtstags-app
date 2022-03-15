@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/util/datetime.util.dart';
+import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BirthdayRepo extends ChangeNotifier {
