@@ -19,7 +19,6 @@ class BirthdayRepo extends ChangeNotifier {
 
   final List<Birthday> _birthdays = [];
 
-  /// An unmodifiable view of the items in the cart.
   UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
