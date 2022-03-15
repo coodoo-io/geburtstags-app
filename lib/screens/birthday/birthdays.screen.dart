@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
@@ -12,8 +11,6 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final birthdays = context.watch<BirthdayRepo>().getBirthdays();
-    Birthday birthday;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),
@@ -21,7 +18,7 @@ class BirthdaysScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: birthdays.length,
         itemBuilder: (context, index) {
-          birthday = birthdays[index];
+          final birthday = birthdays[index];
           return Dismissible(
             key: UniqueKey(),
             direction: DismissDirection.endToStart,
@@ -41,7 +38,7 @@ class BirthdaysScreen extends StatelessWidget {
             onDismissed: (direction) {
               context.read<BirthdayRepo>().delete(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${birthday.name} gelöscht.')),
+                SnackBar(content: Text("${birthday.name} gelöscht.")),
               );
             },
             child: ListTile(

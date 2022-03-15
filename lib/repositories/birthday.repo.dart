@@ -3,6 +3,14 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
 
 class BirthdayRepo extends ChangeNotifier {
+  static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
+
+  factory BirthdayRepo() {
+    return _birthdayRepo;
+  }
+
+  BirthdayRepo._internal();
+
   final List<Birthday> _birthdays = [];
 
   List<Birthday> getBirthdays() {
@@ -13,9 +21,8 @@ class BirthdayRepo extends ChangeNotifier {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = _birthdays;
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) =>
+        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -27,8 +34,7 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
