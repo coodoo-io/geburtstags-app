@@ -11,7 +11,7 @@ class BirthdayRepo extends ChangeNotifier {
 
   BirthdayRepo._internal();
 
-  List<Birthday> _birthdays = [];
+  final List<Birthday> _birthdays = [];
 
   List<Birthday> getBirthdays() {
     return _birthdays;
