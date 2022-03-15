@@ -28,10 +28,14 @@ class BirthdayRepo {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = repo;
 
-    nextFiveBirthdays.sort((a, b) =>
-        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) => dateTimeUtil
+        .remainingDaysUntilBirthday(a.date)
+        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
-    return nextFiveBirthdays.sublist(0, 5);
+    if (nextFiveBirthdays.length > 5) {
+      return nextFiveBirthdays.sublist(0, 5);
+    }
+    return nextFiveBirthdays;
   }
 
   Birthday insert(Birthday birthday) {
