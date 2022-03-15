@@ -11,8 +11,9 @@ class BirthdayRepo extends ChangeNotifier {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = birthdays;
 
-    nextFiveBirthdays.sort((a, b) =>
-        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) => dateTimeUtil
+        .remainingDaysUntilBirthday(a.date)
+        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -24,7 +25,10 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < birthdays.length; i++) {
-      if (birthdays[i].date.day == DateTime.now().day && birthdays[i].date.month == DateTime.now().month) list.add(birthdays[i]);
+      if (birthdays[i].date.day == DateTime.now().day &&
+          birthdays[i].date.month == DateTime.now().month) {
+        list.add(birthdays[i]);
+      }
     }
 
     return list;
