@@ -36,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  "🥳Heutige Geburtstage🎂",
+                  "Heutige Geburtstage🎂",
                   style: TextStyle(fontSize: 24),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -91,7 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
               child: Text(
-                "🎉Anstehende Geburtstage🎉",
+                "Anstehende Geburtstage🎉",
                 style: TextStyle(fontSize: 24),
                 overflow: TextOverflow.ellipsis,
               ),
