@@ -3,7 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/util/datetime.util.dart';
 
 class BirthdayRepo extends ChangeNotifier {
-  List<Birthday> _birthdays = [];
+  final List<Birthday> _birthdays = [];
 
   List<Birthday> getBirthdays() {
     return _birthdays;
