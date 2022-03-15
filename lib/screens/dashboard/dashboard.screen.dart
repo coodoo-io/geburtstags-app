@@ -95,71 +95,80 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 },
               ),
             ],
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Text(
-                "Anstehende Geburtstage🎉",
-                style: TextStyle(fontSize: 24),
-                overflow: TextOverflow.ellipsis,
+            if (nextbirthdays.isNotEmpty) ...[
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: Text(
+                  "Anstehende Geburtstage🎉",
+                  style: TextStyle(fontSize: 24),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            ListView.builder(
-              itemCount: nextbirthdays.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final dateTimeUtil = DateTimeUtil();
-                final birthday = nextbirthdays[index];
-                final daysUntilBirthday =
-                    dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
-                final getAge = dateTimeUtil.getAge(birthday.date);
+              ListView.builder(
+                itemCount: nextbirthdays.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final dateTimeUtil = DateTimeUtil();
+                  final birthday = nextbirthdays[index];
+                  final daysUntilBirthday =
+                      dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
+                  final getAge = dateTimeUtil.getAge(birthday.date);
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ListTile(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  BirthdayDetailScreen(birthday: birthday)),
-                        ).then((value) => setState(() {})),
-                        leading: CircleAvatar(
-                          child: Image.asset("assets/images/default.png"),
-                          radius: 25,
-                          backgroundColor: Colors.white,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BirthdayDetailScreen(birthday: birthday)),
+                          ).then((value) => setState(() {})),
+                          leading: CircleAvatar(
+                            child: Image.asset("assets/images/default.png"),
+                            radius: 25,
+                            backgroundColor: Colors.white,
+                          ),
+                          title: Text(birthday.name),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              Text(
+                                  "Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                              const SizedBox(height: 5),
+                              Text(
+                                daysUntilBirthday == 1
+                                    ? "In einem Tag"
+                                    : "In $daysUntilBirthday Tagen",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.green.shade700),
+                              ),
+                            ],
+                          ),
+                          trailing: Text("$getAge Jahre",
+                              style: const TextStyle(fontSize: 18)),
                         ),
-                        title: Text(birthday.name),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 5),
-                            Text(
-                                "Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                            const SizedBox(height: 5),
-                            Text(
-                              daysUntilBirthday == 1
-                                  ? "In einem Tag"
-                                  : "In $daysUntilBirthday Tagen",
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.green.shade700),
-                            ),
-                          ],
-                        ),
-                        trailing: Text("$getAge Jahre",
-                            style: const TextStyle(fontSize: 18)),
                       ),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
                     ),
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              ),
+            ] else ...[
+              const Center(
+                child: Text(
+                  "Es stehen keine Geburtstage an",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ],
         ),
       ),
