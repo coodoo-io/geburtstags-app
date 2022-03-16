@@ -76,9 +76,7 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                 MaterialPageRoute(
                   fullscreenDialog: true,
                   builder: (BuildContext context) {
-                    return const BirthdayForm(
-                      isEdit: false,
-                    );
+                    return const BirthdayForm();
                   },
                 ),
               )
