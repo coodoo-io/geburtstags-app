@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import 'detail/birthday_detail.screen.dart';
 
 class BirthdaysScreen extends StatelessWidget {
   const BirthdaysScreen({Key? key}) : super(key: key);
