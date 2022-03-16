@@ -29,9 +29,8 @@ class BirthdayRepo {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = _birthdays;
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) =>
+        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -43,8 +42,7 @@ class BirthdayRepo {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -57,8 +55,9 @@ class BirthdayRepo {
     return birthday;
   }
 
-  Birthday update(Birthday birthday) {
-    throw UnimplementedError();
+  void update({required Birthday oldBirthday, required Birthday newBirthday}) {
+    _birthdays.remove(oldBirthday);
+    _birthdays.add(newBirthday);
   }
 
   void delete(Birthday birthday) {
