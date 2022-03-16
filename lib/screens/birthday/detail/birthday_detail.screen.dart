@@ -3,14 +3,15 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
 
 import '../../../repositories/birthday.repo.dart';
+import '../widgets/birthday_form.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
-  const BirthdayDetailScreen({
+  BirthdayDetailScreen({
     required this.birthday,
     Key? key,
   }) : super(key: key);
 
-  final Birthday birthday;
+  Birthday birthday;
 
   @override
   State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
@@ -52,12 +53,43 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.birthday.name),
-        actions: [
-          IconButton(
-              onPressed: () {
-                _showAlertDialog();
-              },
-              icon: const Icon(Icons.delete))
+        actions: <Widget>[
+          PopupMenuButton(
+              // add icon, by default "3 dot" icon
+              // icon: Icon(Icons.book)
+              itemBuilder: (context) {
+            return [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Text("${widget.birthday.name} bearbeiten"),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Text("${widget.birthday.name} löschen"),
+              ),
+            ];
+          }, onSelected: (value) async {
+            if (value == 0) {
+              final response = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext context) {
+                    return BirthdayForm(
+                      birthday: widget.birthday,
+                      isEdit: true,
+                    );
+                  },
+                ),
+              );
+
+              setState(() {
+                widget.birthday = response;
+              });
+            }
+            if (value == 1) {
+              _showAlertDialog();
+            }
+          }),
         ],
       ),
       body: Padding(

@@ -3,51 +3,70 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key}) : super(key: key);
-
+  const BirthdayForm({Key? key, this.birthday, required this.isEdit})
+      : super(key: key);
+  final Birthday? birthday;
+  final bool isEdit;
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
-  final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final dateControllerDay = TextEditingController();
-  final dateControllerMonth = TextEditingController();
-  final dateControllerYear = TextEditingController();
-  final monthFocusNode = FocusNode();
-  final yearFocusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    final monthFocusNode = FocusNode();
+    final yearFocusNode = FocusNode();
+    var nameController = TextEditingController();
+    var dateControllerDay = TextEditingController();
+    var dateControllerMonth = TextEditingController();
+    var dateControllerYear = TextEditingController();
+
+    if (widget.isEdit) {
+      nameController = TextEditingController(text: widget.birthday!.name);
+      dateControllerDay =
+          TextEditingController(text: widget.birthday!.date.day.toString());
+      dateControllerMonth =
+          TextEditingController(text: widget.birthday!.date.month.toString());
+      dateControllerYear =
+          TextEditingController(text: widget.birthday!.date.year.toString());
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Geburtstag'),
         actions: [
           TextButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                BirthdayRepo().insert(
-                  Birthday(
-                    name: nameController.text,
-                    date: DateTime(
-                      int.parse(dateControllerYear.text),
-                      int.parse(dateControllerMonth.text),
-                      int.parse(dateControllerDay.text),
-                    ),
-                  ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text('${nameController.text} hinzugefügt.')),
-                );
-                Navigator.pop(context);
-              }
-            },
             child: const Text(
               'Speichern',
               style: TextStyle(color: Colors.white),
             ),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                Birthday birthday = Birthday(
+                  name: nameController.text,
+                  date: DateTime(
+                    int.parse(dateControllerYear.text),
+                    int.parse(dateControllerMonth.text),
+                    int.parse(dateControllerDay.text),
+                  ),
+                );
+
+                if (widget.isEdit) {
+                  BirthdayRepo().update(widget.birthday!, birthday);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Änderung gespeichert')),
+                  );
+                } else {
+                  BirthdayRepo().insert(birthday);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text('${nameController.text} hinzugefügt.')),
+                  );
+                }
+                Navigator.pop(context, birthday);
+              }
+            },
           ),
         ],
       ),

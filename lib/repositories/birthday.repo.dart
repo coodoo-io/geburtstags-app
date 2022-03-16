@@ -28,11 +28,14 @@ class BirthdayRepo {
     return birthday;
   }
 
-  Birthday update(Birthday birthday) {
-    throw UnimplementedError();
+  void update(Birthday oldData, Birthday newData) {
+    _birthdays.remove(oldData);
+    _birthdays.add(newData);
   }
 
   void delete(Birthday birthday) {
     _birthdays.remove(birthday);
   }
+
+  void edit(Birthday birthday) {}
 }
