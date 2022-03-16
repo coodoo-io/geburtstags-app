@@ -25,48 +25,56 @@ class BirthdaysScreen extends StatelessWidget {
               child: Text("Es stehen keine Geburtstage an"),
             )
           : Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: GroupedListView<Birthday, int>(
                 elements: birthdays2,
                 groupBy: (element) => element.date.month,
                 groupSeparatorBuilder: (int groupByValue) {
+                  String month = "";
                   switch (groupByValue) {
                     case 1:
-                      return const Text("Januar",
-                          style: TextStyle(fontSize: 20));
+                      month = "Januar";
+                      break;
                     case 2:
-                      return const Text("Februar",
-                          style: TextStyle(fontSize: 20));
+                      month = "Februar";
+                      break;
                     case 3:
-                      return const Text("März", style: TextStyle(fontSize: 20));
+                      month = "März";
+                      break;
                     case 4:
-                      return const Text("April",
-                          style: TextStyle(fontSize: 20));
+                      month = "April";
+                      break;
                     case 5:
-                      return const Text("Mai", style: TextStyle(fontSize: 20));
+                      month = "Mai";
+                      break;
                     case 6:
-                      return const Text("Juni", style: TextStyle(fontSize: 20));
+                      month = "Juni";
+                      break;
                     case 7:
-                      return const Text("Juli", style: TextStyle(fontSize: 20));
+                      month = "Juli";
+                      break;
                     case 8:
-                      return const Text("August",
-                          style: TextStyle(fontSize: 20));
+                      month = "August";
+                      break;
                     case 9:
-                      return const Text("September",
-                          style: TextStyle(fontSize: 20));
+                      month = "September";
+                      break;
                     case 10:
-                      return const Text("Oktober",
-                          style: TextStyle(fontSize: 20));
+                      month = "Oktober";
+                      break;
                     case 11:
-                      return const Text("November",
-                          style: TextStyle(fontSize: 20));
+                      month = "November";
+                      break;
                     case 12:
-                      return const Text("Dezember",
-                          style: TextStyle(fontSize: 20));
+                      month = "Dezember";
+                      break;
                     default:
-                      return const Text("Was geht ab",
-                          style: TextStyle(fontSize: 20));
+                      month = "";
+                      break;
                   }
+                  return Padding(
+                      padding: const EdgeInsets.only(top: 15, bottom: 5),
+                      child: Text(month, style: const TextStyle(fontSize: 20)));
                 },
                 itemBuilder: (context, Birthday element) {
                   final birthday = element;
@@ -92,20 +100,25 @@ class BirthdaysScreen extends StatelessWidget {
                         SnackBar(content: Text("${birthday.name} gelöscht.")),
                       );
                     },
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BirthdayDetailScreen(
-                              birthday: birthday,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BirthdayDetailScreen(
+                                birthday: birthday,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      title: Text(birthday.name),
-                      trailing: Text(
-                        DateFormat('dd.MM.yyyy').format(birthday.date),
+                          );
+                        },
+                        title: Text(birthday.name),
+                        trailing: Text(
+                          DateFormat('dd.MM.yyyy').format(birthday.date),
+                        ),
                       ),
                     ),
                   );
