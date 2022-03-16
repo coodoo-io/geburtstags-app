@@ -28,9 +28,9 @@ class BirthdayRepo {
     return birthday;
   }
 
-  void update(Birthday oldData, Birthday newData) {
-    _birthdays.remove(oldData);
-    _birthdays.add(newData);
+  void update({required Birthday oldBirthday,required Birthday newBirthday}) {
+    _birthdays.remove(oldBirthday);
+    _birthdays.add(newBirthday);
   }
 
   void delete(Birthday birthday) {

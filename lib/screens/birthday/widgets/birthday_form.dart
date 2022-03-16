@@ -3,8 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
-      : super(key: key);
+  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
   final Birthday? birthday;
   final bool isEdit;
   @override
@@ -24,12 +23,9 @@ class _BirthdayFormState extends State<BirthdayForm> {
 
     if (widget.isEdit) {
       nameController = TextEditingController(text: widget.birthday!.name);
-      dateControllerDay =
-          TextEditingController(text: widget.birthday!.date.day.toString());
-      dateControllerMonth =
-          TextEditingController(text: widget.birthday!.date.month.toString());
-      dateControllerYear =
-          TextEditingController(text: widget.birthday!.date.year.toString());
+      dateControllerDay = TextEditingController(text: widget.birthday!.date.day.toString());
+      dateControllerMonth = TextEditingController(text: widget.birthday!.date.month.toString());
+      dateControllerYear = TextEditingController(text: widget.birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -53,15 +49,14 @@ class _BirthdayFormState extends State<BirthdayForm> {
                 );
 
                 if (widget.isEdit) {
-                  BirthdayRepo().update(widget.birthday!, birthday);
+                  BirthdayRepo().update(oldBirthday: widget.birthday!, newBirthday: birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
                   BirthdayRepo().insert(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('${nameController.text} hinzugefügt.')),
+                    SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
                 Navigator.pop(context, birthday);
