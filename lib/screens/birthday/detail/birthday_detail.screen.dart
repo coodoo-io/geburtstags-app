@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../repositories/birthday.repo.dart';
 
@@ -47,10 +48,17 @@ class BirthdayDetailScreen extends StatelessWidget {
         title: Text(birthday.name),
         actions: [
           IconButton(
-              onPressed: () {
-                _showAlertDialog();
-              },
-              icon: const Icon(Icons.delete))
+            onPressed: () {
+              Share.share('${birthday.name} hat am ${DateFormat("dd.MM.yyyy").format(birthday.date)} Geburtstag🎉');
+            },
+            icon: const Icon(Icons.share),
+          ),
+          IconButton(
+            onPressed: () {
+              _showAlertDialog();
+            },
+            icon: const Icon(Icons.delete),
+          ),
         ],
       ),
       body: Padding(
