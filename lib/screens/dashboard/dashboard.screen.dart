@@ -12,12 +12,13 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final nextbirthdays = context.watch<BirthdayRepo>().getNextFiveBirthdays();
     final todaysBirthdays = context.watch<BirthdayRepo>().getTodaysBirthdays();
+    final celebrityBirthdays = context.watch<BirthdayRepo>().celebrityBirthdays;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
       ),
-      body: nextbirthdays.isEmpty && todaysBirthdays.isEmpty
+      body: nextbirthdays.isEmpty && todaysBirthdays.isEmpty && celebrityBirthdays.isEmpty
           ? const Center(
               child: Text("Es stehen keine Geburtstage an"),
             )
@@ -97,6 +98,63 @@ class DashboardScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final dateTimeUtil = DateTimeUtil();
                         final birthday = nextbirthdays[index];
+                        final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
+                        final getAge = dateTimeUtil.getAge(birthday.date);
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ListTile(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                ),
+                                leading: CircleAvatar(
+                                  child: Image.asset("assets/images/default.png"),
+                                  radius: 25,
+                                  backgroundColor: Colors.white,
+                                ),
+                                title: Text(birthday.name),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
+                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                              ),
+                            ),
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                  if (celebrityBirthdays.isNotEmpty) ...[
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Text(
+                        "Prominente Geburtstage🥂",
+                        style: TextStyle(fontSize: 24),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: celebrityBirthdays.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final dateTimeUtil = DateTimeUtil();
+                        final birthday = celebrityBirthdays[index];
                         final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                         final getAge = dateTimeUtil.getAge(birthday.date);
 
