@@ -89,7 +89,7 @@ class BirthdayRepo extends ChangeNotifier {
         // Ignore if birthday is null
         if (element["birthdy"] == null) {
         }
-        // If only th birth year is given
+        // If only the birth year is given
         else if (element["birthdy"].length == 4) {
           birthday = Birthday(
             name: element["name"].toString().capitalizeFirstofEach,
