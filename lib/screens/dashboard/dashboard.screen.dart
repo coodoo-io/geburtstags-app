@@ -108,7 +108,8 @@ class DashboardScreen extends StatelessWidget {
                         final birthday = nextbirthdays[index];
                         final daysUntilBirthday = dateTimeUtil
                             .remainingDaysUntilBirthday(birthday.date);
-                        final getAge = dateTimeUtil.getAge(birthday.date);
+                        final getNextAge =
+                            dateTimeUtil.getNextAge(birthday.date);
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
@@ -147,7 +148,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre",
+                                trailing: Text("$getNextAge Jahre",
                                     style: const TextStyle(fontSize: 18)),
                               ),
                             ),

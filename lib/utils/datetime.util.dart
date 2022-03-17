@@ -26,4 +26,8 @@ class DateTimeUtil {
     }
     return age;
   }
+
+  int getNextAge(DateTime birthDate) {
+    return getAge(birthDate) + 1;
+  }
 }
