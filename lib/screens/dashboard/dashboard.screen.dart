@@ -25,7 +25,7 @@ class DashboardScreen extends StatelessWidget {
               child: Text("Es stehen keine Geburtstage an"),
             )
           : Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: ListView(
                 children: [
                   if (todaysBirthdays.isNotEmpty) ...[
@@ -204,7 +204,12 @@ class DashboardScreen extends StatelessWidget {
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
-                                title: Text(birthday.name),
+                                title: Text(
+                                  birthday.name,
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -222,7 +227,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre",
+                                trailing: Text("wird $getAge Jahre",
                                     style: const TextStyle(fontSize: 18)),
                               ),
                             ),
