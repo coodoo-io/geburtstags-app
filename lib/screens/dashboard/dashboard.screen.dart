@@ -51,10 +51,14 @@ class DashboardScreen extends StatelessWidget {
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthdayDetailScreen(
+                                              birthday: birthday)),
                                 ),
                                 leading: CircleAvatar(
-                                  child: Image.asset("assets/images/default.png"),
+                                  child:
+                                      Image.asset("assets/images/default.png"),
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
@@ -63,19 +67,24 @@ class DashboardScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                    Text(
+                                        "Am ${DateFormat('dd.MM').format(birthday.date)}"),
                                     const SizedBox(height: 5),
                                     const Text(
                                       "Heute Geburtstag",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.red),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                                trailing: Text("$getAge Jahre",
+                                    style: const TextStyle(fontSize: 18)),
                               ),
                             ),
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
                           ),
                         );
                       },
@@ -97,8 +106,10 @@ class DashboardScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final dateTimeUtil = DateTimeUtil();
                         final birthday = nextbirthdays[index];
-                        final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
-                        final getAge = dateTimeUtil.getAge(birthday.date);
+                        final daysUntilBirthday = dateTimeUtil
+                            .remainingDaysUntilBirthday(birthday.date);
+                        final getNextAge =
+                            dateTimeUtil.getNextAge(birthday.date);
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
@@ -108,10 +119,14 @@ class DashboardScreen extends StatelessWidget {
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthdayDetailScreen(
+                                              birthday: birthday)),
                                 ),
                                 leading: CircleAvatar(
-                                  child: Image.asset("assets/images/default.png"),
+                                  child:
+                                      Image.asset("assets/images/default.png"),
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
@@ -120,19 +135,26 @@ class DashboardScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                    Text(
+                                        "Am ${DateFormat('dd.MM').format(birthday.date)}"),
                                     const SizedBox(height: 5),
                                     Text(
-                                      daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                                      daysUntilBirthday == 1
+                                          ? "In einem Tag"
+                                          : "In $daysUntilBirthday Tagen",
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.green.shade700),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                                trailing: Text("$getNextAge Jahre",
+                                    style: const TextStyle(fontSize: 18)),
                               ),
                             ),
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
                           ),
                         );
                       },
