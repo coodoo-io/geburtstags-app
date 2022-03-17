@@ -15,51 +15,55 @@ class BirthdaysScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Geburtstage"),
       ),
-      body: ListView.builder(
-        itemCount: birthdays.length,
-        itemBuilder: (context, index) {
-          final birthday = birthdays[index];
-          return Dismissible(
-            key: UniqueKey(),
-            direction: DismissDirection.endToStart,
-            background: Container(
-              color: Colors.red,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 10.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
+      body: birthdays.isEmpty
+          ? const Center(
+              child: Text("Es stehen keine Geburtstage an"),
+            )
+          : ListView.builder(
+              itemCount: birthdays.length,
+              itemBuilder: (context, index) {
+                final birthday = birthdays[index];
+                return Dismissible(
+                  key: UniqueKey(),
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    color: Colors.red,
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 10.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            onDismissed: (direction) {
-              context.read<BirthdayRepo>().delete(birthday);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("${birthday.name} gelöscht.")),
-              );
-            },
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BirthdayDetailScreen(
-                      birthday: birthday,
+                  onDismissed: (direction) {
+                    context.read<BirthdayRepo>().delete(birthday);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("${birthday.name} gelöscht.")),
+                    );
+                  },
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BirthdayDetailScreen(
+                            birthday: birthday,
+                          ),
+                        ),
+                      );
+                    },
+                    title: Text(birthday.name),
+                    trailing: Text(
+                      DateFormat('dd.MM.yyyy').format(birthday.date),
                     ),
                   ),
                 );
               },
-              title: Text(birthday.name),
-              trailing: Text(
-                DateFormat('dd.MM.yyyy').format(birthday.date),
-              ),
             ),
-          );
-        },
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
