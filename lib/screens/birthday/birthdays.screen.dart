@@ -3,6 +3,7 @@ import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:geburtstags_app/shared/no_birthdays_placeholder.dart';
+import 'package:geburtstags_app/utils/snack_bar.util.dart';
 import 'package:intl/intl.dart';
 import 'package:ms_undraw/ms_undraw.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,7 @@ class BirthdaysScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final birthdays = context.watch<BirthdayRepo>().birthdays;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Geburtstage"),
-      ),
+      appBar: AppBar(title: const Text("Geburtstage")),
       body: birthdays.isEmpty
           ? const NoBirthdaysPlaceholder(
               label: "Noch keine Geburtstage angelegt.",
@@ -35,17 +34,14 @@ class BirthdaysScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: 10.0),
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
+                        child: Icon(Icons.delete, color: Colors.white),
                       ),
                     ),
                   ),
                   onDismissed: (direction) {
                     context.read<BirthdayRepo>().delete(birthday);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("${birthday.name} gelöscht.")),
+                      SnackBarUtil.info(content: "${birthday.name} gelöscht."),
                     );
                   },
                   child: ListTile(

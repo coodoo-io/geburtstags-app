@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
-import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
+import 'package:geburtstags_app/screens/dashboard/widgets/birthday_card.dart';
 import 'package:geburtstags_app/shared/no_birthdays_placeholder.dart';
-import 'package:geburtstags_app/utils/datetime.util.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -34,51 +32,12 @@ class DashboardScreen extends StatelessWidget {
                         style: theme.textTheme.headline5,
                       ),
                     ),
-                    ListView.builder(
+                    ListView.separated(
                       itemCount: todaysBirthdays.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final dateTimeUtil = DateTimeUtil();
-                        final birthday = todaysBirthdays[index];
-                        final getAge = dateTimeUtil.getAge(birthday.date);
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ListTile(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
-                                ),
-                                leading: CircleAvatar(
-                                  child: Image.asset("assets/images/default.png"),
-                                  radius: 25,
-                                  backgroundColor: Colors.white,
-                                ),
-                                title: Text(birthday.name),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
-                                    const Text(
-                                      "Heute Geburtstag",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Text("wird $getAge Jahre", style: const TextStyle(fontSize: 18)),
-                              ),
-                            ),
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          ),
-                        );
-                      },
+                      itemBuilder: (context, index) => BirthdayCard(birthday: todaysBirthdays[index], isToday: true),
+                      separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 5),
                     ),
                   ],
                   if (nextBirthdays.isNotEmpty) ...[
@@ -90,51 +49,12 @@ class DashboardScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    ListView.builder(
+                    ListView.separated(
                       itemCount: nextBirthdays.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final dateTimeUtil = DateTimeUtil();
-                        final birthday = nextBirthdays[index];
-                        final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
-                        final getNextAge = dateTimeUtil.getNextAge(birthday.date);
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ListTile(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
-                                ),
-                                leading: CircleAvatar(
-                                  child: Image.asset("assets/images/default.png"),
-                                  radius: 25,
-                                  backgroundColor: Colors.white,
-                                ),
-                                title: Text(birthday.name),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Text("wird $getNextAge Jahre", style: const TextStyle(fontSize: 18)),
-                              ),
-                            ),
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                          ),
-                        );
-                      },
+                      itemBuilder: (context, index) => BirthdayCard(birthday: nextBirthdays[index]),
+                      separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 5),
                     ),
                   ]
                 ],

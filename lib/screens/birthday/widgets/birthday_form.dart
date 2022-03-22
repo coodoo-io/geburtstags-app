@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form_field.dart';
+import 'package:geburtstags_app/utils/snack_bar.util.dart';
 import 'package:ms_undraw/ms_undraw.dart';
 
 class BirthdayForm extends StatelessWidget {
@@ -111,23 +112,13 @@ class BirthdayForm extends StatelessWidget {
                       if (isEdit) {
                         BirthdayRepo().update(birthday, birthday);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text('Änderung gespeichert'),
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                          ),
+                          SnackBarUtil.info(content: 'Änderung gespeichert'),
                         );
                       } else {
                         BirthdayRepo().insert(birthday);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text('${nameController.text} hinzugefügt.'),
-                            ),
+                          SnackBarUtil.info(
+                            content: '${nameController.text} hinzugefügt.',
                           ),
                         );
                       }
