@@ -20,6 +20,24 @@ class BirthdayTheme {
       primaryTextTheme: _theme.textTheme.apply(fontFamily: GoogleFonts.openSans().fontFamily),
       bottomNavigationBarTheme: _theme.bottomNavigationBarTheme.copyWith(selectedItemColor: color),
       floatingActionButtonTheme: _theme.floatingActionButtonTheme.copyWith(backgroundColor: color),
+      snackBarTheme: _theme.snackBarTheme.copyWith(
+        backgroundColor: color.shade500,
+        elevation: 0,
+        contentTextStyle: GoogleFonts.openSans(fontSize: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+      ),
+      inputDecorationTheme: _theme.inputDecorationTheme.copyWith(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          textStyle: GoogleFonts.openSans(fontSize: 20),
+        ),
+      ),
     );
   }
 }
