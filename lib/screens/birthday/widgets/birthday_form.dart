@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
-class BirthdayForm extends StatefulWidget {
+class BirthdayForm extends ConsumerWidget {
   const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
       : super(key: key);
+
   final Birthday? birthday;
   final bool isEdit;
-  @override
-  State<BirthdayForm> createState() => _BirthdayFormState();
-}
 
-class _BirthdayFormState extends State<BirthdayForm> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
@@ -22,14 +20,14 @@ class _BirthdayFormState extends State<BirthdayForm> {
     var dateControllerMonth = TextEditingController();
     var dateControllerYear = TextEditingController();
 
-    if (widget.isEdit) {
-      nameController = TextEditingController(text: widget.birthday!.name);
+    if (isEdit) {
+      nameController = TextEditingController(text: birthday!.name);
       dateControllerDay =
-          TextEditingController(text: widget.birthday!.date.day.toString());
+          TextEditingController(text: birthday!.date.day.toString());
       dateControllerMonth =
-          TextEditingController(text: widget.birthday!.date.month.toString());
+          TextEditingController(text: birthday!.date.month.toString());
       dateControllerYear =
-          TextEditingController(text: widget.birthday!.date.year.toString());
+          TextEditingController(text: birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -48,13 +46,13 @@ class _BirthdayFormState extends State<BirthdayForm> {
                   ),
                 );
 
-                if (widget.isEdit) {
-                  BirthdayRepo().update(widget.birthday!, birthday);
+                if (isEdit) {
+                  ref.read(birthdayRepoProvider).update(birthday, birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  BirthdayRepo().insert(birthday);
+                  ref.read(birthdayRepoProvider).insert(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text('${nameController.text} hinzugefügt.')),

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final nextbirthdays = context.watch<BirthdayRepo>().getNextFiveBirthdays();
-    final todaysBirthdays = context.watch<BirthdayRepo>().getTodaysBirthdays();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nextbirthdays = ref.watch(birthdayRepoProvider).getNextFiveBirthdays();
+    final todaysBirthdays = ref.watch(birthdayRepoProvider).getTodaysBirthdays();
 
     return Scaffold(
       appBar: AppBar(

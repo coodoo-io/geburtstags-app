@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import '../../../repositories/birthday.repo.dart';
 import '../widgets/birthday_form.dart';
 
-class BirthdayDetailScreen extends StatefulWidget {
+class BirthdayDetailScreen extends ConsumerStatefulWidget {
   const BirthdayDetailScreen({
     required this.birthday,
     Key? key,
@@ -15,10 +15,10 @@ class BirthdayDetailScreen extends StatefulWidget {
   final Birthday birthday;
 
   @override
-  State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
+  ConsumerState<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
 }
 
-class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
+class _BirthdayDetailScreenState extends ConsumerState<BirthdayDetailScreen> {
   Birthday? birthday;
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               TextButton(
                 child: const Text("Löschen"),
                 onPressed: () {
-                  context.read<BirthdayRepo>().delete(birthday!);
+                  ref.read(birthdayRepoProvider).delete(birthday!);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('${birthday!.name} gelöscht.')),
                   );

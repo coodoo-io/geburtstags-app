@@ -2,34 +2,30 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+final birthdayRepoProvider = ChangeNotifierProvider<BirthdayRepo>((ref) => BirthdayRepo(read: ref.read));
 
 class BirthdayRepo extends ChangeNotifier {
-  static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
-
-  factory BirthdayRepo() {
-    return _birthdayRepo;
+  BirthdayRepo({required this.read}) {
+    loadBirthdays();
   }
 
-  BirthdayRepo._internal() {
-    loadBirthdaysToSP();
-  }
-
+  final Reader read;
   final List<Birthday> _birthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
 
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) =>
+        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -41,8 +37,7 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -71,17 +66,13 @@ class BirthdayRepo extends ChangeNotifier {
   }
 
   Future<void> saveBirthdaysToSP() async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> birthdaysEncoded =
-        _birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
-    prefs.setStringList("birthdays", birthdaysEncoded);
+    List<String> birthdaysEncoded = _birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
+    read(sharedPrefs).setStringList("birthdays", birthdaysEncoded);
   }
 
-  Future<void> loadBirthdaysToSP() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final jsonList = sharedPreferences.getStringList("birthdays");
-    final decodedList =
-        jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
+  Future<void> loadBirthdays() async {
+    final jsonList = read(sharedPrefs).getStringList("birthdays");
+    final decodedList = jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
     _birthdays.addAll(decodedList ?? []);
     notifyListeners();
   }
