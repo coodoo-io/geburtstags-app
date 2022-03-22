@@ -22,14 +22,17 @@ class _TemplateState extends State<Template> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cake_outlined),
+            activeIcon: Icon(Icons.cake),
             label: 'Geburtstage',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
+            activeIcon: Icon(Icons.settings),
             label: 'Einstellungen',
           ),
         ],

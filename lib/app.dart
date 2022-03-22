@@ -11,7 +11,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Geburtstags App',
       debugShowCheckedModeBanner: false,
-      theme: context.watch<ThemeNotifier>().isDarkTheme ? dark : light,
+      theme: light,
+      darkTheme: dark,
+      themeMode: context.watch<ThemeNotifier>().current,
       home: const Template(),
     );
   }
