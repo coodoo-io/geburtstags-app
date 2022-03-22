@@ -20,3 +20,6 @@ App für Geburtstagerinnerungen
 - Migration zu einer eigenen immutable State Klasse
 - Sublisten/Berechnungsmethoden private setzen
 - Sublisten/Berechnungsmethoden in State umwandeln
+- Eigenen Store für die BirthdayListe einführen um die Speicher-Implementierung austauschen zu können
+- Methoden auf async umstellen, damit auf das Speichern im Store gewartet wird
+- State Klasse ausgelagert in eigene Datei

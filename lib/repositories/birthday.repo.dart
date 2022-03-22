@@ -1,34 +1,8 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
+import 'package:geburtstags_app/repositories/birthday.state.dart';
+import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
-
-@immutable
-class BirthdayState {
-  const BirthdayState({
-    required this.birthdays,
-    required this.next5Birthdays,
-    required this.todaysBirthdays,
-  });
-
-  BirthdayState copyWith({
-    List<Birthday>? birthdays,
-    List<Birthday>? next5Birthdays,
-    List<Birthday>? todaysBirthdays,
-  }) {
-    return BirthdayState(
-        birthdays: birthdays ?? this.birthdays,
-        next5Birthdays: next5Birthdays ?? this.next5Birthdays,
-        todaysBirthdays: todaysBirthdays ?? this.todaysBirthdays);
-  }
-
-  final List<Birthday> birthdays;
-  final List<Birthday> next5Birthdays;
-  final List<Birthday> todaysBirthdays;
-}
 
 final birthdayRepoProvider = StateNotifierProvider<BirthdayRepo, BirthdayState>((ref) {
   const initialState = BirthdayState(birthdays: [], next5Birthdays: [], todaysBirthdays: []);
@@ -68,38 +42,42 @@ class BirthdayRepo extends StateNotifier<BirthdayState> {
     return list;
   }
 
-  Birthday insert(Birthday birthday) {
+  Future<Birthday> insert(Birthday birthday) async {
     final newBirthdayList = [...state.birthdays, birthday];
+
+    // Update State
     state = state.copyWith(birthdays: newBirthdayList,next5Birthdays: _calcNextFiveBirthdays(newBirthdayList),
         todaysBirthdays: _calcTodaysBirthdays(newBirthdayList));
-    saveBirthdaysToSP();
+    
+    // Write to Store
+    await read(birthdayStoreProvider).persist(birthdays: state.birthdays);
+    
     return birthday;
   }
 
-  void update(Birthday oldData, Birthday newData) {
+  Future<void> update(Birthday oldData, Birthday newData) async {
     delete(oldData);
     insert(newData);
-    saveBirthdaysToSP();
+    
+    // Write to Store
+    await read(birthdayStoreProvider).persist(birthdays: state.birthdays);
   }
 
-  void delete(Birthday birthday) {
+  Future<void> delete(Birthday birthday) async {
     final newBirthdayList = [
       for (final b in state.birthdays)
         if (b != birthday) b,
     ];
 
     state = state.copyWith(birthdays: newBirthdayList, next5Birthdays: _calcNextFiveBirthdays(newBirthdayList), todaysBirthdays: _calcTodaysBirthdays(newBirthdayList));
-    saveBirthdaysToSP();
+    
+    // Write to Store
+    await read(birthdayStoreProvider).persist(birthdays: state.birthdays);
   }
 
-  Future<void> saveBirthdaysToSP() async {
-    List<String> birthdaysEncoded = state.birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
-    read(sharedPrefs).setStringList("birthdays", birthdaysEncoded);
-  }
 
   Future<void> loadBirthdays() async {
-    final jsonList = read(sharedPrefs).getStringList("birthdays");
-    final birthdayList = jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList() ?? [];
+    final birthdayList = await read(birthdayStoreProvider).fetchAll();
     state = state.copyWith(
         birthdays: birthdayList,
         next5Birthdays: _calcNextFiveBirthdays(birthdayList),
