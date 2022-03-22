@@ -11,20 +11,20 @@ class BirthdayRepo extends ChangeNotifier {
     return _birthdayRepo;
   }
 
-  BirthdayRepo._internal();
+  BirthdayRepo._internal() {
+    _addInitalBirthdays();
+  }
 
   final List<Birthday> _birthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) =>
+        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -36,8 +36,7 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -51,14 +50,29 @@ class BirthdayRepo extends ChangeNotifier {
     return birthday;
   }
 
-  void update(Birthday oldData, Birthday newData) {
-    _birthdays.remove(oldData);
-    _birthdays.add(newData);
+  void update({required Birthday oldBirthday, required Birthday newBirthday}) {
+    _birthdays.remove(oldBirthday);
+    _birthdays.add(newBirthday);
     notifyListeners();
   }
 
   void delete(Birthday birthday) {
     _birthdays.remove(birthday);
     notifyListeners();
+  }
+
+  void _addInitalBirthdays() {
+    _birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
+    _birthdays.add(Birthday(date: DateTime(1999, 3, 15), name: "Flo"));
+    _birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
+    _birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: "Julia"));
+    _birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: "Markus"));
+    _birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: "Rüdiger"));
+    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));
+  }
+
+  void reset() {
+    _birthdays.clear();
+    _addInitalBirthdays();
   }
 }
