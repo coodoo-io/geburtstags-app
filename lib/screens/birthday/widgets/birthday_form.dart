@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends ConsumerWidget {
   const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
@@ -47,12 +47,12 @@ class BirthdayForm extends ConsumerWidget {
                 );
 
                 if (isEdit) {
-                  ref.read(birthdayRepoProvider.notifier).update(birthday, birthday);
+                  ref.read(birthdayControllerProvider.notifier).updateBirthday(birthday, birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  ref.read(birthdayRepoProvider.notifier).insert(birthday);
+                  ref.read(birthdayControllerProvider.notifier).addBirthday(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text('${nameController.text} hinzugefügt.')),

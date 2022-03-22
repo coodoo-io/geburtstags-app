@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +10,7 @@ class BirthdaysScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final birthdays = ref.watch(birthdayRepoProvider).birthdays;
+    final birthdays = ref.watch(birthdayControllerProvider).birthdays;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),
@@ -36,7 +36,7 @@ class BirthdaysScreen extends ConsumerWidget {
               ),
             ),
             onDismissed: (direction) {
-              ref.read(birthdayRepoProvider.notifier).delete(birthday);
+              ref.read(birthdayControllerProvider.notifier).removeBirthday(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("${birthday.name} gelöscht.")),
               );
