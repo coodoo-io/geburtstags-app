@@ -13,6 +13,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final nextBirthdays = context.watch<BirthdayRepo>().getNextFiveBirthdays();
     final todaysBirthdays = context.watch<BirthdayRepo>().getTodaysBirthdays();
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -25,12 +26,12 @@ class DashboardScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   if (todaysBirthdays.isNotEmpty) ...[
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
                       child: Text(
-                        "Heutige Geburtstage🎂",
-                        style: TextStyle(fontSize: 24),
+                        "Heutige Geburtstage",
                         overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.headline5,
                       ),
                     ),
                     ListView.builder(
@@ -81,11 +82,11 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ],
                   if (nextBirthdays.isNotEmpty) ...[
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        "Anstehende Geburtstage🎉",
-                        style: TextStyle(fontSize: 24),
+                        "Anstehende Geburtstage",
+                        style: theme.textTheme.headline5,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -98,7 +99,6 @@ class DashboardScreen extends StatelessWidget {
                         final birthday = nextBirthdays[index];
                         final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                         final getNextAge = dateTimeUtil.getNextAge(birthday.date);
-
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(
