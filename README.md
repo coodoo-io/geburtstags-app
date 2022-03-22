@@ -23,3 +23,10 @@ App für Geburtstagerinnerungen
 - Eigenen Store für die BirthdayListe einführen um die Speicher-Implementierung austauschen zu können
 - Methoden auf async umstellen, damit auf das Speichern im Store gewartet wird
 - State Klasse ausgelagert in eigene Datei
+- Statische Util-Klasse für Berechnung von Birthday-Listen eingeführt
+- Interface eingeführt um Testen mit FakeRepository zu ermöglichen
+- Repo constructor private gesetzt, damit dieser nicht von aussen aufgerufen werden kann
+
+## Zukunft
+
+Nächste Verbesserungsschritte wäre Unittest des Repo's, sowie Einführen von Freezed (immutable data-classes) und multiple_result (besseres try/catch).
