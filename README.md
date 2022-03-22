@@ -26,6 +26,7 @@ App für Geburtstagerinnerungen
 - Statische Util-Klasse für Berechnung von Birthday-Listen eingeführt
 - Interface eingeführt um Testen mit FakeRepository zu ermöglichen
 - Repo constructor private gesetzt, damit dieser nicht von aussen aufgerufen werden kann
+- Separation of concerns. StateNotifier vom eigentlichen Repository getrennt (Einführung eines Controller)
 
 ## Zukunft
 

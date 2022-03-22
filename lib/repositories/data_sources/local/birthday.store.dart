@@ -13,13 +13,14 @@ class BirthdayStore {
 
   final Reader read;
 
-  Future<void> persist({required List<Birthday> birthdays}) async {
+  void persist({required List<Birthday> birthdays}) {
     List<String> birthdaysEncoded = birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
     read(sharedPrefs).setStringList("birthdays", birthdaysEncoded);
   }
 
-  Future<List<Birthday>> fetchAll() async {
+  List<Birthday> fetchAll() {
     final jsonList = read(sharedPrefs).getStringList("birthdays");
-    return jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList() ?? [];
+    final decodedList = jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
+    return decodedList ?? [];
   }
 }

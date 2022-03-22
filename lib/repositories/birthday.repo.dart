@@ -8,17 +8,10 @@ final birthdayRepoProvider = Provider<BirthdayRepo>((ref) {
 });
 
 class SharedPrefsBirthdayRepo implements BirthdayRepo {
-  SharedPrefsBirthdayRepo({required this.read}) : super() {
-    _init();
-  }
+  SharedPrefsBirthdayRepo({required this.read});
 
   final Reader read;
-  List<Birthday> _inMemoryBirthdayList = []; // Quick access without shared_preferences
-
-  // actual constructor
-  Future<void> _init() async {
-    _inMemoryBirthdayList = await read(birthdayStoreProvider).fetchAll();
-  }
+  late List<Birthday> _inMemoryBirthdayList = read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
 
   @override
   Future<List<Birthday>> getAll() async {
@@ -30,7 +23,7 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     final newBirthdayList = [..._inMemoryBirthdayList, birthday];
 
     // Write to Store
-    await read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
     return birthday;
   }
@@ -41,18 +34,18 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     insert(newData);
 
     // Write to Store
-    await read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
+    read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
   }
 
   @override
   Future<void> delete(Birthday birthday) async {
     final newBirthdayList = [
       for (final b in _inMemoryBirthdayList)
-        if (b != birthday) b,
+        if (b.name != birthday.name && b.date != birthday.date) b,
     ];
 
     // Write to Store
-    await read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList=newBirthdayList;
   }
 }
