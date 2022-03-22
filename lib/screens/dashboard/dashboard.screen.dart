@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
@@ -10,8 +11,9 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nextbirthdays = ref.watch(birthdayRepoProvider).getNextFiveBirthdays();
-    final todaysBirthdays = ref.watch(birthdayRepoProvider).getTodaysBirthdays();
+    final List<Birthday> birthdays = ref.watch(birthdayRepoProvider);
+    final nextbirthdays = ref.read(birthdayRepoProvider.notifier).getNextFiveBirthdays(birthdays);
+    final todaysBirthdays = ref.read(birthdayRepoProvider.notifier).getTodaysBirthdays(birthdays);
 
     return Scaffold(
       appBar: AppBar(

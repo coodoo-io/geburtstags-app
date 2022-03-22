@@ -42,7 +42,7 @@ class _BirthdayDetailScreenState extends ConsumerState<BirthdayDetailScreen> {
               TextButton(
                 child: const Text("Löschen"),
                 onPressed: () {
-                  ref.read(birthdayRepoProvider).delete(birthday!);
+                  ref.read(birthdayRepoProvider.notifier).delete(birthday!);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('${birthday!.name} gelöscht.')),
                   );

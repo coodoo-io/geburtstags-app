@@ -47,12 +47,12 @@ class BirthdayForm extends ConsumerWidget {
                 );
 
                 if (isEdit) {
-                  ref.read(birthdayRepoProvider).update(birthday, birthday);
+                  ref.read(birthdayRepoProvider.notifier).update(birthday, birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  ref.read(birthdayRepoProvider).insert(birthday);
+                  ref.read(birthdayRepoProvider.notifier).insert(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text('${nameController.text} hinzugefügt.')),

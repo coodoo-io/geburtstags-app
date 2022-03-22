@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "geburtstags-app-1",
+            "name": "geburtstags-app",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "geburtstags-app-1 (profile mode)",
+            "name": "geburtstags-app (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "geburtstags-app-1 (release mode)",
+            "name": "geburtstags-app (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
