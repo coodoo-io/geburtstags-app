@@ -10,7 +10,7 @@ class BirthdaysScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final birthdays = ref.watch(birthdayRepoProvider);
+    final birthdays = ref.watch(birthdayRepoProvider).birthdays;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
@@ -11,15 +10,14 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Birthday> birthdays = ref.watch(birthdayRepoProvider);
-    final nextbirthdays = ref.read(birthdayRepoProvider.notifier).getNextFiveBirthdays(birthdays);
-    final todaysBirthdays = ref.read(birthdayRepoProvider.notifier).getTodaysBirthdays(birthdays);
+    final next5birthdays = ref.watch(birthdayRepoProvider).next5Birthdays;
+    final todaysBirthdays = ref.watch(birthdayRepoProvider).todaysBirthdays;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
       ),
-      body: nextbirthdays.isEmpty && todaysBirthdays.isEmpty
+      body: next5birthdays.isEmpty && todaysBirthdays.isEmpty
           ? const Center(
               child: Text("Es stehen keine Geburtstage an"),
             )
@@ -101,12 +99,12 @@ class DashboardScreen extends ConsumerWidget {
                     ),
                   ),
                   ListView.builder(
-                    itemCount: nextbirthdays.length,
+                    itemCount: next5birthdays.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final dateTimeUtil = DateTimeUtil();
-                      final birthday = nextbirthdays[index];
+                      final birthday = next5birthdays[index];
                       final daysUntilBirthday = dateTimeUtil
                           .remainingDaysUntilBirthday(birthday.date);
                       final getNextAge = dateTimeUtil.getNextAge(birthday.date);
