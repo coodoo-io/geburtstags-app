@@ -50,15 +50,14 @@ void main() {
           repo.delete(birthday);
         }
 
-        repo.insert(Birthday(name: "Bar", date: DateTime(2000, 24, 12)));
+        repo.insert(Birthday(name: "Bar", date: DateTime(2000, 12, 24)));
         repo.insert(Birthday(name: "Foo", date: DateTime(2000, 2, 2)));
 
         List<Birthday> result = repo.getNextFiveBirthdays();
         expect(result.length, 2);
 
-        List<Birthday> current = repo.birthdays;
-        expect(current.elementAt(0).name, "Foo");
-        expect(current.elementAt(1).name, "Bar");
+        expect(result.elementAt(0).name, "Foo");
+        expect(result.elementAt(1).name, "Bar");
       });
     });
 
