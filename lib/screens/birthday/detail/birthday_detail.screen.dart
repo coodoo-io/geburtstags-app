@@ -30,80 +30,11 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
     // Wenn die Detail Seite aufgerufen wid, ist birthday null. Dann wollen wir die übergebenen Daten verwenden.
     // Wenn wir updaten wollen, z.B. den Namen ändern wollen wir nicht nochmal die übergebenen Daten verwenden sondern die aktualisierten Daten.
     birthday ??= widget.birthday;
+    final isTodaysBirthdays = context.read<BirthdayRepo>().isBirthdayToday(birthday!);
     final daysUntilBirthday = DateTimeUtil().remainingDaysUntilBirthday(birthday!.date);
 
-    void _showAlertDialog() {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("${birthday!.name} wirklich löschen?"),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("Abbrechen"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text("Löschen"),
-                onPressed: () {
-                  context.read<BirthdayRepo>().delete(birthday!);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBarUtil.info(content: '${birthday!.name} gelöscht.'),
-                  );
-                  Navigator.of(context).pop();
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(birthday!.name),
-        actions: <Widget>[
-          PopupMenuButton(
-              // add icon, by default "3 dot" icon
-              // icon: Icon(Icons.book)
-              itemBuilder: (context) {
-            return [
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text("Bearbeiten"),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text("Löschen"),
-              ),
-            ];
-          }, onSelected: (value) async {
-            if (value == 0) {
-              final response = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (BuildContext context) {
-                    return BirthdayForm(
-                      birthday: birthday,
-                      isEdit: true,
-                    );
-                  },
-                ),
-              );
-
-              setState(() {
-                birthday = response;
-              });
-            }
-            if (value == 1) {
-              _showAlertDialog();
-            }
-          }),
-        ],
-      ),
+      appBar: AppBar(title: Text(birthday!.name)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -136,8 +67,10 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                     Text('Geburtsdatum', style: theme.textTheme.headline6),
                     Text(
                       DateFormat.yMMMMd('de').format(birthday!.date),
-                      style:
-                          theme.textTheme.headline6?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
+                      style: theme.textTheme.headline6?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.primaryColor,
+                      ),
                     ),
                   ],
                 ),
@@ -154,15 +87,94 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                 ),
               ),
               const Divider(height: 50),
-              Text('Nächster Geburtstag', style: theme.textTheme.subtitle1),
-              Text(
-                daysUntilBirthday == 1 ? "in einem Tag" : "in $daysUntilBirthday Tagen",
-                style: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Nächster Geburtstag', style: theme.textTheme.subtitle1),
+                    Text(
+                      isTodaysBirthdays
+                          ? "Heute"
+                          : daysUntilBirthday == 1
+                              ? "in einem Tag"
+                              : "in $daysUntilBirthday Tagen",
+                      style: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                trailing: Text(
+                  isTodaysBirthdays ? "🎉" : "",
+                  style: theme.textTheme.headline4?.copyWith(color: Colors.black),
+                ),
+              ),
+              const SizedBox(height: 60),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FloatingActionButton(
+                      child: const Icon(Icons.edit_outlined),
+                      elevation: 0,
+                      onPressed: () => _editBirthday(context),
+                      heroTag: null,
+                    ),
+                    FloatingActionButton(
+                      child: const Icon(Icons.delete_outlined),
+                      backgroundColor: Colors.pinkAccent,
+                      elevation: 0,
+                      onPressed: () => _deleteBirthday(context),
+                      heroTag: null,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _editBirthday(BuildContext context) async {
+    final response = await Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (BuildContext context) => BirthdayForm(birthday: birthday!, isEdit: true),
+      ),
+    );
+    setState(() => birthday = response);
+  }
+
+  void _deleteBirthday(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("${birthday!.name} wirklich löschen?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Abbrechen"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text("Löschen"),
+              onPressed: () {
+                context.read<BirthdayRepo>().delete(birthday!);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBarUtil.info(content: '${birthday!.name} gelöscht.'),
+                );
+                Navigator.of(context).pop();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

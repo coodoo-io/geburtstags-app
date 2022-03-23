@@ -101,7 +101,7 @@ class BirthdayForm extends StatelessWidget {
                   label: Text(isEdit ? 'Speichern' : 'Hizufügen'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Birthday birthday = Birthday(
+                      Birthday newBirthday = Birthday(
                         name: nameController.text,
                         date: DateTime(
                           int.parse(dateControllerYear.text),
@@ -110,19 +110,19 @@ class BirthdayForm extends StatelessWidget {
                         ),
                       );
                       if (isEdit) {
-                        BirthdayRepo().update(birthday, birthday);
+                        BirthdayRepo().update(birthday!, newBirthday);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarUtil.info(content: 'Änderung gespeichert'),
                         );
                       } else {
-                        BirthdayRepo().insert(birthday);
+                        BirthdayRepo().insert(newBirthday);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarUtil.info(
                             content: '${nameController.text} hinzugefügt.',
                           ),
                         );
                       }
-                      Navigator.pop(context, birthday);
+                      Navigator.pop(context, newBirthday);
                     }
                   },
                 ),

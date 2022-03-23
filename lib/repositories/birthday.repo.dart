@@ -15,16 +15,14 @@ class BirthdayRepo extends ChangeNotifier {
 
   final List<Birthday> _birthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort((a, b) =>
+        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -33,16 +31,11 @@ class BirthdayRepo extends ChangeNotifier {
   }
 
   List<Birthday> getTodaysBirthdays() {
-    List<Birthday> list = [];
+    return birthdays.where((birthday) => isBirthdayToday(birthday)).toList();
+  }
 
-    for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
-        list.add(_birthdays[i]);
-      }
-    }
-
-    return list;
+  bool isBirthdayToday(Birthday birthday) {
+    return birthday.date.day == DateTime.now().day && birthday.date.month == DateTime.now().month;
   }
 
   Birthday insert(Birthday birthday) {
