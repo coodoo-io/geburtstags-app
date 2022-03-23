@@ -14,8 +14,10 @@ class BirthdayCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final daysUntilBirthday = DateTimeUtil().remainingDaysUntilBirthday(birthday.date);
-    final nextAge = DateTimeUtil().getNextAge(birthday.date);
+    final nextAge = isToday ? DateTimeUtil().getAge(birthday.date) : DateTimeUtil().getNextAge(birthday.date);
     return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
@@ -24,7 +26,7 @@ class BirthdayCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
           ),
           leading: Container(
-            constraints: const BoxConstraints(maxWidth: 150),
+            constraints: const BoxConstraints(minWidth: 160, maxWidth: 160),
             child: Text(
               birthday.name,
               overflow: TextOverflow.ellipsis,
@@ -62,8 +64,6 @@ class BirthdayCard extends StatelessWidget {
           ),
         ),
       ),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     );
   }
 }

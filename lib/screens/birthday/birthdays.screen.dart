@@ -14,6 +14,7 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final birthdays = context.watch<BirthdayRepo>().birthdays;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: const Text("Geburtstage")),
       body: birthdays.isEmpty
@@ -21,20 +22,21 @@ class BirthdaysScreen extends StatelessWidget {
               label: "Noch keine Geburtstage angelegt.",
               illustration: UnDrawIllustration.gifts,
             )
-          : ListView.builder(
+          : ListView.separated(
               itemCount: birthdays.length,
+              separatorBuilder: (BuildContext context, int index) => const Divider(height: 0),
               itemBuilder: (context, index) {
                 final birthday = birthdays[index];
                 return Dismissible(
                   key: UniqueKey(),
                   direction: DismissDirection.endToStart,
                   background: Container(
-                    color: Colors.red,
+                    color: Colors.pinkAccent,
                     child: const Padding(
                       padding: EdgeInsets.only(right: 10.0),
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Icon(Icons.delete, color: Colors.white),
+                        child: Icon(Icons.delete_outlined, color: Colors.white),
                       ),
                     ),
                   ),
@@ -44,20 +46,30 @@ class BirthdaysScreen extends StatelessWidget {
                       SnackBarUtil.info(content: "${birthday.name} gelöscht."),
                     );
                   },
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BirthdayDetailScreen(
-                            birthday: birthday,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BirthdayDetailScreen(
+                              birthday: birthday,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    title: Text(birthday.name),
-                    trailing: Text(
-                      DateFormat('dd.MM.yyyy').format(birthday.date),
+                        );
+                      },
+                      title: Text(
+                        birthday.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style:
+                            theme.textTheme.headline6?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
+                      ),
+                      trailing: Text(
+                        DateFormat('dd.MM.yyyy').format(birthday.date),
+                        style: theme.textTheme.subtitle1,
+                      ),
                     ),
                   ),
                 );
