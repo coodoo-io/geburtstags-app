@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
@@ -48,7 +49,8 @@ class _BirthdayFormState extends State<BirthdayForm> {
                 );
 
                 if (widget.isEdit) {
-                  BirthdayRepo().update(widget.birthday!, birthday);
+                  BirthdayRepo().update(
+                      oldBirthday: widget.birthday!, newBirthday: birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
@@ -174,7 +176,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                           return 'Bitte Jahr eintragen';
                         } else if (value.length > 4) {
                           return 'Zu lang';
-                        } else if (int.parse(value) > DateTime.now().year) {
+                        } else if (int.parse(value) > clock.now().year) {
                           return 'ungültig';
                         }
                         return null;
