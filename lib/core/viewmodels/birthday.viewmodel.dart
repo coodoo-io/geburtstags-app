@@ -7,27 +7,29 @@ import 'package:geburtstags_app/locator.dart';
 class BirthdayViewModel extends BaseViewModel {
   final BirthdayRepo _repo = locator<BirthdayRepo>();
 
-  List<List<Birthday>> birthdays get birthdays => _repo.fetchAll();
-// birthdays: repoBirthdayList,
-//         next5Birthdays: BirthdayUtil.calcNextFiveBirthdays(repoBirthdayList),
-//         todaysBirthdays: BirthdayUtil.calcTodaysBirthdays(repoBirthdayList));
+  Future<Birthday> getBirthdayList(Birthday birthday) async {
+      setState(ViewState.busy);
+    await _repo.getAll();
+      setState(ViewState.idle);
+    return birthday;
+  }
 
   Future<Birthday> addBirthday(Birthday birthday) async {
-      setState(ViewState.Busy);
+      setState(ViewState.busy);
     await _repo.insert(birthday);
-      setState(ViewState.Idle);
+      setState(ViewState.idle);
     return birthday;
   }
 
   Future<void> updateBirthday(Birthday oldData, Birthday newData) async {
-    setState(ViewState.Busy);
+    setState(ViewState.busy);
     await _repo.update(oldData, newData);
-    setState(ViewState.Idle);
+    setState(ViewState.idle);
   }
 
   Future<void> removeBirthday(Birthday birthday) async {
-    setState(ViewState.Busy);
+    setState(ViewState.busy);
     await _repo.delete(birthday);
-    setState(ViewState.Idle);
+    setState(ViewState.idle);
   }
 }
