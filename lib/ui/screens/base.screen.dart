@@ -18,9 +18,9 @@ class _BaseScreenState<T extends BaseViewModel> extends State<BaseScreen<T>> {
 
   @override
   void initState() {
-    widget.onModelReady(model);
     if (!mounted) return;
     super.initState();
+    widget.onModelReady(model);
   }
 
   @override
