@@ -18,14 +18,15 @@ class _BaseScreenState<T extends BaseViewModel> extends State<BaseScreen<T>> {
 
   @override
   void initState() {
+    if (!mounted) return;
     widget.onModelReady(model);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<T>(
-      create: (BuildContext context) => model,
+    return ChangeNotifierProvider<T>.value(
+      value: model,
       child: Consumer<T>(builder: widget.builder),
     );
   }
