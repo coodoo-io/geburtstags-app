@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
+import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
+import 'package:geburtstags_app/locator.dart';
 
-class BirthdayForm extends Widget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
-      : super(key: key);
+class BirthdayForm extends StatelessWidget {
+  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
 
   final Birthday? birthday;
   final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
+    final BirthdayViewModel model = locator<BirthdayViewModel>();
+
     final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
@@ -19,12 +23,9 @@ class BirthdayForm extends Widget {
 
     if (isEdit) {
       nameController = TextEditingController(text: birthday!.name);
-      dateControllerDay =
-          TextEditingController(text: birthday!.date.day.toString());
-      dateControllerMonth =
-          TextEditingController(text: birthday!.date.month.toString());
-      dateControllerYear =
-          TextEditingController(text: birthday!.date.year.toString());
+      dateControllerDay = TextEditingController(text: birthday!.date.day.toString());
+      dateControllerMonth = TextEditingController(text: birthday!.date.month.toString());
+      dateControllerYear = TextEditingController(text: birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -34,7 +35,7 @@ class BirthdayForm extends Widget {
           TextButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                Birthday birthday = Birthday(
+                Birthday newBirthday = Birthday(
                   name: nameController.text,
                   date: DateTime(
                     int.parse(dateControllerYear.text),
@@ -44,18 +45,17 @@ class BirthdayForm extends Widget {
                 );
 
                 if (isEdit) {
-                  ref.read(birthdayControllerProvider.notifier).updateBirthday(birthday, birthday);
+                  model.updateBirthday(birthday!, newBirthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  ref.read(birthdayControllerProvider.notifier).addBirthday(birthday);
+                  model.addBirthday(newBirthday);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('${nameController.text} hinzugefügt.')),
+                    SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
-                Navigator.pop(context, birthday);
+                Navigator.pop(context, newBirthday);
               }
             },
             child: const Text(
