@@ -4,10 +4,10 @@ import 'package:geburtstags_app/locator.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen<T extends BaseViewModel> extends StatefulWidget {
-  final Widget Function(BuildContext context, T model, Widget child) builder;
-  final Function(T) onModelReady;
+  const BaseScreen(this.builder, this.onModelReady);
 
-  BaseScreen(this.builder, this.onModelReady);
+  final Widget Function(BuildContext context, T model, Widget? child) builder;
+  final Function(T) onModelReady;
 
   @override
   _BaseScreenState<T> createState() => _BaseScreenState<T>();
@@ -18,9 +18,7 @@ class _BaseScreenState<T extends BaseViewModel> extends State<BaseScreen<T>> {
 
   @override
   void initState() {
-    if (widget.onModelReady != null) {
-      widget.onModelReady(model);
-    }
+    widget.onModelReady(model);
     super.initState();
   }
 
