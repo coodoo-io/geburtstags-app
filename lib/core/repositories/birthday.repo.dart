@@ -1,16 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/repositories/birthday_repo.interface.dart';
-import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
+import 'package:geburtstags_app/core/repositories/birthday_repo.interface.dart';
 
-final birthdayRepoProvider = Provider<BirthdayRepo>((ref) {
-  return SharedPrefsBirthdayRepo(read: ref.read);
-});
+class BirthdayRepo implements IBirthdayRepo {
+  BirthdayRepo();
 
-class SharedPrefsBirthdayRepo implements BirthdayRepo {
-  SharedPrefsBirthdayRepo({required this.read});
-
-  final Reader read;
   late List<Birthday> _inMemoryBirthdayList = read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
 
   @override

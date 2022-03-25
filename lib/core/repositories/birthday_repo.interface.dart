@@ -1,8 +1,6 @@
-import 'package:geburtstags_app/models/birthday.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
 
-abstract class BirthdayRepo {
-  const BirthdayRepo();
-
+abstract class IBirthdayRepo {
   Future<List<Birthday>> getAll();
   Future<Birthday> insert(Birthday birthday);
   Future<void> update(Birthday oldData, Birthday newData);

@@ -1,5 +1,5 @@
-import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/utils/datetime.util.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
+import 'package:geburtstags_app/core/utils/datetime.util.dart';
 
 class BirthdayUtil {
   static List<Birthday> calcNextFiveBirthdays(List<Birthday> birthdays) {

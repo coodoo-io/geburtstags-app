@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/controllers/birthday.controller.dart';
-import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/birthday_form.dart';
 
-class BirthdayDetailScreen extends ConsumerStatefulWidget {
+class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
     required this.birthday,
     Key? key,
@@ -15,10 +12,10 @@ class BirthdayDetailScreen extends ConsumerStatefulWidget {
   final Birthday birthday;
 
   @override
-  ConsumerState<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
+  State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
 }
 
-class _BirthdayDetailScreenState extends ConsumerState<BirthdayDetailScreen> {
+class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
   Birthday? birthday;
   @override
   Widget build(BuildContext context) {

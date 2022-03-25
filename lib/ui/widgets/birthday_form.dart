@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/controllers/birthday.controller.dart';
-import 'package:geburtstags_app/models/birthday.dart';
 
-class BirthdayForm extends ConsumerWidget {
+class BirthdayForm extends Widget {
   const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
       : super(key: key);
 
@@ -11,7 +8,7 @@ class BirthdayForm extends ConsumerWidget {
   final bool isEdit;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
