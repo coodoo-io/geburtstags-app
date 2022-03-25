@@ -3,6 +3,7 @@ import 'dart:core';
 import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
+import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:intl/intl.dart';
@@ -26,6 +27,7 @@ class FileUtil {
 
   Future<File> _localFile({required String name}) async {
     final path = await _localPath;
+    logger.d('Local Path: $path/$name');
     return File('$path/$name');
   }
 
@@ -35,7 +37,7 @@ class FileUtil {
 
       // Read the file
       final contents = await file.readAsString();
-      //print(contents);
+      logger.d('JSON Contents: $contents');
       List<dynamic> map;
 
       map = jsonDecode(contents);
@@ -46,7 +48,6 @@ class FileUtil {
 
       return;
     } catch (e) {
-      // If encountering an error, return 0
       print(e);
       return;
     }

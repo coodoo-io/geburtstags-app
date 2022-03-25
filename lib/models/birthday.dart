@@ -12,7 +12,7 @@ class Birthday {
 
   Birthday.fromJson(Map<String, dynamic> json)
       : name = json['name'],
-        date = DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+        date = DateTime.fromMillisecondsSinceEpoch(int.parse(json['date'])),
         profileImage = json['profileImage'] ?? '',
         notes = json['notes'] ?? '';
 

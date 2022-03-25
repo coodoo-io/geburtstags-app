@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
+import 'package:geburtstags_app/utils/file.util.dart';
 
 class BirthdayRepo extends ChangeNotifier {
   static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
@@ -52,15 +53,18 @@ class BirthdayRepo extends ChangeNotifier {
     return list;
   }
 
-  Birthday insert(Birthday birthday) {
+  Future<Birthday> insert(Birthday birthday) async {
     _birthdays.add(birthday);
+    await FileUtil().writeData();
     notifyListeners();
     return birthday;
   }
 
-  void update({required Birthday oldBirthday, required Birthday newBirthday}) {
+  void update(
+      {required Birthday oldBirthday, required Birthday newBirthday}) async {
     _birthdays.remove(oldBirthday);
     _birthdays.add(newBirthday);
+    await FileUtil().writeData();
     notifyListeners();
   }
 
@@ -69,14 +73,15 @@ class BirthdayRepo extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _addInitalBirthdays() {
-    _birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
+  void _addInitalBirthdays() async {
+    await FileUtil().readBirthdays();
+    /*_birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
     _birthdays.add(Birthday(date: DateTime(1999, 3, 15), name: "Flo"));
     _birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
     _birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: "Julia"));
     _birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: "Markus"));
     _birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: "Rüdiger"));
-    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));
+    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));*/
   }
 
   void reset() {
