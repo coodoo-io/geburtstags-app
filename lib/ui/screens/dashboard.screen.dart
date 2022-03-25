@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/utils/datetime.util.dart';
-import 'package:geburtstags_app/ui/screens/birthday_detail.screen.dart';
 import 'package:intl/intl.dart';
 
 class DashboardScreen extends StatelessWidget {
