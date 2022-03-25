@@ -1,10 +1,12 @@
 import 'package:geburtstags_app/core/models/birthday.model.dart';
 import 'package:geburtstags_app/core/repositories/birthday_repo.interface.dart';
+import 'package:geburtstags_app/core/stores/birthday.store.dart';
+import 'package:geburtstags_app/locator.dart';
 
 class BirthdayRepo implements IBirthdayRepo {
-  BirthdayRepo();
+  final BirthdayStore store = locator<BirthdayStore>();
 
-  late List<Birthday> _inMemoryBirthdayList = read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
+  late List<Birthday> _inMemoryBirthdayList = store.fetchAll(); // Quick access without shared_preferences
 
   @override
   Future<List<Birthday>> getAll() async {
@@ -16,7 +18,7 @@ class BirthdayRepo implements IBirthdayRepo {
     final newBirthdayList = [..._inMemoryBirthdayList, birthday];
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    store.persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
     return birthday;
   }
@@ -27,7 +29,7 @@ class BirthdayRepo implements IBirthdayRepo {
     insert(newData);
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
+    store.persist(birthdays: _inMemoryBirthdayList);
   }
 
   @override
@@ -38,7 +40,7 @@ class BirthdayRepo implements IBirthdayRepo {
     ];
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    store.persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList=newBirthdayList;
   }
 }
