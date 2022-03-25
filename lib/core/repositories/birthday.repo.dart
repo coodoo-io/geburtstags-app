@@ -1,9 +1,11 @@
+import 'package:geburtstags_app/core/api/birthday.api.dart';
 import 'package:geburtstags_app/core/models/birthday.model.dart';
 import 'package:geburtstags_app/core/repositories/birthday_repo.interface.dart';
 import 'package:geburtstags_app/core/stores/birthday.store.dart';
 import 'package:geburtstags_app/locator.dart';
 
 class BirthdayRepo implements IBirthdayRepo {
+  final BirthdayApi api = locator<BirthdayApi>();// Future Implementation with API...
   final BirthdayStore store = locator<BirthdayStore>();
 
   late List<Birthday> _inMemoryBirthdayList = store.fetchAll(); // Quick access without shared_preferences
