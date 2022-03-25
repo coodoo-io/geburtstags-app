@@ -1,10 +1,15 @@
 import 'package:geburtstags_app/core/enum/view_state.dart';
 import 'package:geburtstags_app/core/models/birthday.model.dart';
 import 'package:geburtstags_app/core/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/core/utils/birthday.util.dart';
 import 'package:geburtstags_app/core/viewmodels/base.viewmodel.dart';
 import 'package:geburtstags_app/locator.dart';
 
 class BirthdayViewModel extends BaseViewModel {
+  BirthdayViewModel() {
+    getBirthdayList();
+  }
+
   final BirthdayRepo _repo = locator<BirthdayRepo>();
   List<Birthday> birthdays = [];
 
@@ -12,6 +17,14 @@ class BirthdayViewModel extends BaseViewModel {
     setState(ViewState.busy);
     birthdays = await _repo.getAll();
     setState(ViewState.idle);
+  }
+
+  List<Birthday> getNext5birthdays() {
+    return BirthdayUtil.calcNextFiveBirthdays(birthdays);
+  }
+
+  List<Birthday> todaysBirthdays() {
+    return BirthdayUtil.calcTodaysBirthdays(birthdays);
   }
 
   Future<void> addBirthday(Birthday birthday) async {

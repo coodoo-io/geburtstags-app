@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/utils/datetime.util.dart';
+import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
+import 'package:geburtstags_app/locator.dart';
 import 'package:intl/intl.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -7,9 +9,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: get birthdays
-    final next5birthdays = [];
-    final todaysBirthdays = [];
+    final BirthdayViewModel model = locator<BirthdayViewModel>();
+    final next5birthdays = model.getNext5birthdays();
+    final todaysBirthdays = model.getNext5birthdays();
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +42,6 @@ class DashboardScreen extends StatelessWidget {
                         final dateTimeUtil = DateTimeUtil();
                         final birthday = todaysBirthdays[index];
                         final getAge = dateTimeUtil.getAge(birthday.date);
-
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(

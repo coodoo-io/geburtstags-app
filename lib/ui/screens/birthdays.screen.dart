@@ -10,7 +10,6 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BirthdayViewModel model = locator<BirthdayViewModel>();
-    model.getBirthdayList();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),
