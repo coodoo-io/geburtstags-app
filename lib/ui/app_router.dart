@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/models/birthday.model.dart';
-import 'package:geburtstags_app/templates/template.dart';
+import 'package:geburtstags_app/ui/widgets/template.dart';
 import 'package:geburtstags_app/ui/views/birthday_detail.view.dart';
 
 /// Example for Routing

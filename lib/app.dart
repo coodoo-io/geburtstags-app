@@ -13,7 +13,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/',
-        onGenerateRoute: AppRouter.generateRoute,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
