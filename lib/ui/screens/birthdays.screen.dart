@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
 import 'package:geburtstags_app/locator.dart';
-import 'package:geburtstags_app/ui/screens/birthday_detail.screen.dart';
 import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
