@@ -8,8 +8,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final next5birthdays = ref.watch(birthdayControllerProvider).next5Birthdays;
-    // final todaysBirthdays = ref.watch(birthdayControllerProvider).todaysBirthdays;
+    // TODO: get birthdays
+    final next5birthdays = [];
+    final todaysBirthdays = [];
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +28,7 @@ class DashboardScreen extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Text(
-                        "Heutige Geburtstage🎂",
+                        "Heutige Geburtstage 🎂",
                         style: TextStyle(fontSize: 24),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -84,7 +85,7 @@ class DashboardScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: Text(
-                      "Anstehende Geburtstage🎉",
+                      "Anstehende Geburtstage 🎉",
                       style: TextStyle(fontSize: 24),
                       overflow: TextOverflow.ellipsis,
                     ),
