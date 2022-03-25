@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:geburtstags_app/ui/screens/birthdays.screen.dart';
-import 'package:geburtstags_app/ui/screens/dashboard.screen.dart';
-import 'package:geburtstags_app/ui/screens/settings.screen.dart';
+import 'package:geburtstags_app/ui/views/birthdays.view.dart';
+import 'package:geburtstags_app/ui/views/dashboard.view.dart';
+import 'package:geburtstags_app/ui/views/settings.view.dart';
 
 class Template extends StatefulWidget {
   const Template({Key? key}) : super(key: key);
@@ -37,9 +37,9 @@ class _TemplateState extends State<Template> {
       body: IndexedStack(
         index: _index,
         children: const [
-          DashboardScreen(),
-          BirthdaysScreen(),
-          SettingsScreen(),
+          DashboardView(),
+          BirthdaysView(),
+          SettingsView(),
         ],
       ),
     );

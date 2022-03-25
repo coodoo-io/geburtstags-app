@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/enum/view_state.dart';
 import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
-import 'package:geburtstags_app/ui/screens/base.screen.dart';
+import 'package:geburtstags_app/ui/views/base.view.dart';
 import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
-class BirthdaysScreen extends StatelessWidget {
-  const BirthdaysScreen({Key? key}) : super(key: key);
+class BirthdaysView extends StatelessWidget {
+  const BirthdaysView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen<BirthdayViewModel>(
+    return BaseView<BirthdayViewModel>(
       onModelReady: (model) => model.getBirthdayList(),
       builder: (BuildContext context, BirthdayViewModel model, Widget? child) {
         return Scaffold(
