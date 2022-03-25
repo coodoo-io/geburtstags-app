@@ -7,7 +7,7 @@ class BaseScreen<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget? child) builder;
   final Function(T) onModelReady;
 
-  const BaseScreen(this.builder, this.onModelReady, {Key? key}) : super(key: key);
+  const BaseScreen({required this.builder, required this.onModelReady, Key? key}) : super(key: key);
 
   @override
   _BaseScreenState<T> createState() => _BaseScreenState<T>();
