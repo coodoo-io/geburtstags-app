@@ -31,7 +31,6 @@ class BirthdayRepo implements IBirthdayRepo {
     return Future.delayed(const Duration(milliseconds: 200), () {
       delete(oldData);
       insert(newData);
-
       // Write to Store
       store.persist(birthdays: _inMemoryBirthdayList);
     });
@@ -44,7 +43,6 @@ class BirthdayRepo implements IBirthdayRepo {
         for (final b in _inMemoryBirthdayList)
           if (b.name != birthday.name && b.date != birthday.date) b,
       ];
-
       // Write to Store
       store.persist(birthdays: newBirthdayList);
       _inMemoryBirthdayList = newBirthdayList;
