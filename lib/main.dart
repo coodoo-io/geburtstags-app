@@ -4,7 +4,7 @@ import 'package:geburtstags_app/locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  await setupLocator();
 
   runApp(const App());
 }

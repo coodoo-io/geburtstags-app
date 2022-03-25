@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/core/enum/view_state.dart';
 import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
 import 'package:geburtstags_app/ui/screens/base.screen.dart';
 import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
@@ -16,44 +17,46 @@ class BirthdaysScreen extends StatelessWidget {
           appBar: AppBar(
             title: const Text("Geburtstage"),
           ),
-          body: ListView.builder(
-            itemCount: model.birthdays.length,
-            itemBuilder: (context, index) {
-              final birthday = model.birthdays[index];
-              return Dismissible(
-                key: UniqueKey(),
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  color: Colors.red,
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 10.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
+          body: model.state == ViewState.busy
+              ? const Center(child: CircularProgressIndicator())
+              : ListView.builder(
+                  itemCount: model.birthdays.length,
+                  itemBuilder: (context, index) {
+                    final birthday = model.birthdays[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                onDismissed: (direction) {
-                  model.removeBirthday(birthday);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("${birthday.name} gelöscht.")),
-                  );
-                },
-                child: ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday);
+                      onDismissed: (direction) {
+                        model.removeBirthday(birthday);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("${birthday.name} gelöscht.")),
+                        );
+                      },
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday);
+                        },
+                        title: Text(birthday.name),
+                        trailing: Text(
+                          DateFormat('dd.MM.yyyy').format(birthday.date),
+                        ),
+                      ),
+                    );
                   },
-                  title: Text(birthday.name),
-                  trailing: Text(
-                    DateFormat('dd.MM.yyyy').format(birthday.date),
-                  ),
                 ),
-              );
-            },
-          ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.of(context).push(
