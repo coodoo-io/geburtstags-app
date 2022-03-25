@@ -15,13 +15,13 @@ void main() {
       repo.reset();
     });
 
-    test("Testing Repo has elements", () {
-      expect(repo.birthdays.length, 7);
+    test("Testing Repo has elements", () async {
+      expect((await repo.birthdays).length, 7);
     });
 
-    test("Testing Repo has more elemnts after adding", () {
+    test("Testing Repo has more elemnts after adding", () async {
       repo.insert(Birthday(name: "Test", date: DateTime(2000, 1, 1)));
-      expect(repo.birthdays.length, 8);
+      expect((await repo.birthdays).length, 8);
     });
 
     test("getNextFiveBirthdays with filles list", () {
@@ -31,9 +31,9 @@ void main() {
       });
     });
 
-    test("getNextFiveBirthdays with empty list", () {
-      withClock(Clock.fixed(DateTime(2022, 1, 1)), () {
-        List<Birthday> birthdays = [...repo.birthdays];
+    test("getNextFiveBirthdays with empty list", () async {
+      withClock(Clock.fixed(DateTime(2022, 1, 1)), () async {
+        List<Birthday> birthdays = [...(await repo.birthdays)];
         for (Birthday birthday in birthdays) {
           repo.delete(birthday);
         }
@@ -44,8 +44,8 @@ void main() {
     });
 
     test("getNextFiveBirthdays with two entries in list", () {
-      withClock(Clock.fixed(DateTime(2022, 1, 1)), () {
-        List<Birthday> birthdays = [...repo.birthdays];
+      withClock(Clock.fixed(DateTime(2022, 1, 1)), () async {
+        List<Birthday> birthdays = [...(await repo.birthdays)];
         for (Birthday birthday in birthdays) {
           repo.delete(birthday);
         }
@@ -61,15 +61,15 @@ void main() {
       });
     });
 
-    test("update birthday, remove from index and push to end", () {
-      List<Birthday> list = repo.birthdays;
+    test("update birthday, remove from index and push to end", () async {
+      List<Birthday> list = (await repo.birthdays);
       Birthday old = list.elementAt(1);
 
       Birthday current = Birthday(name: "New Name", date: old.date);
 
       repo.update(oldBirthday: old, newBirthday: current);
 
-      list = repo.birthdays;
+      list = (await repo.birthdays);
 
       expect(list.elementAt(6).name, current.name);
     });

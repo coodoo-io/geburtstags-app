@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
@@ -15,51 +16,62 @@ class BirthdaysScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Geburtstage"),
       ),
-      body: ListView.builder(
-        itemCount: birthdays.length,
-        itemBuilder: (context, index) {
-          final birthday = birthdays[index];
-          return Dismissible(
-            key: UniqueKey(),
-            direction: DismissDirection.endToStart,
-            background: Container(
-              color: Colors.red,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 10.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            onDismissed: (direction) {
-              context.read<BirthdayRepo>().delete(birthday);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("${birthday.name} gelöscht.")),
-              );
-            },
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BirthdayDetailScreen(
-                      birthday: birthday,
+      body: FutureBuilder(
+          future: birthdays,
+          builder: (context, AsyncSnapshot<List<Birthday>> snapshot) {
+            if (snapshot.hasData) {
+              List<Birthday> birthdays = snapshot.data ?? [];
+              return ListView.builder(
+                itemCount: birthdays.length,
+                itemBuilder: (context, index) {
+                  final birthday = birthdays[index];
+                  return Dismissible(
+                    key: UniqueKey(),
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      color: Colors.red,
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 10.0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
-              title: Text(birthday.name),
-              trailing: Text(
-                DateFormat('dd.MM.yyyy').format(birthday.date),
-              ),
-            ),
-          );
-        },
-      ),
+                    onDismissed: (direction) {
+                      context.read<BirthdayRepo>().delete(birthday);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("${birthday.name} gelöscht.")),
+                      );
+                    },
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BirthdayDetailScreen(
+                              birthday: birthday,
+                            ),
+                          ),
+                        );
+                      },
+                      title: Text(birthday.name),
+                      trailing: Text(
+                        DateFormat('dd.MM.yyyy').format(birthday.date),
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(

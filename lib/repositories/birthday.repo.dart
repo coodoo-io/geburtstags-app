@@ -18,8 +18,11 @@ class BirthdayRepo extends ChangeNotifier {
 
   final List<Birthday> _birthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
+  Future<UnmodifiableListView<Birthday>> get birthdays async {
+    return Future.delayed(const Duration(seconds: 4), () {
+      return UnmodifiableListView(_birthdays);
+    });
+  }
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();

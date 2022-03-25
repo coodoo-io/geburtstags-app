@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/utils/file.util.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -7,7 +8,14 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Einstellungen")),
-      body: const Center(child: Text("...")),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            FileUtil().exportCSV();
+          },
+          child: const Text("Export to CSV"),
+        ),
+      ),
     );
   }
 }
