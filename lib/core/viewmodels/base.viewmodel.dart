@@ -8,6 +8,6 @@ class BaseViewModel extends ChangeNotifier {
 
   void setState(ViewState viewState) {
     _state = viewState;
-    // notifyListeners();
+    Future.microtask(()=>{notifyListeners()});
   }
 }
