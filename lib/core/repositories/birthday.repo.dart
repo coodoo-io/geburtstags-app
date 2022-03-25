@@ -5,44 +5,49 @@ import 'package:geburtstags_app/core/stores/birthday.store.dart';
 import 'package:geburtstags_app/locator.dart';
 
 class BirthdayRepo implements IBirthdayRepo {
-  final BirthdayApi api = locator<BirthdayApi>();// Future Implementation with API...
+  final BirthdayApi api = locator<BirthdayApi>(); // Future Implementation with API...
   final BirthdayStore store = locator<BirthdayStore>();
 
   late List<Birthday> _inMemoryBirthdayList = store.fetchAll(); // Quick access without shared_preferences
 
   @override
   Future<List<Birthday>> getAll() async {
-    return _inMemoryBirthdayList;
+    return Future.delayed(const Duration(seconds: 2), () => _inMemoryBirthdayList);
   }
 
   @override
   Future<Birthday> insert(Birthday birthday) async {
-    final newBirthdayList = [..._inMemoryBirthdayList, birthday];
-
-    // Write to Store
-    store.persist(birthdays: newBirthdayList);
-    _inMemoryBirthdayList = newBirthdayList;
-    return birthday;
+    return Future.delayed(const Duration(seconds: 2), () {
+      final newBirthdayList = [..._inMemoryBirthdayList, birthday];
+      // Write to Store
+      store.persist(birthdays: newBirthdayList);
+      _inMemoryBirthdayList = newBirthdayList;
+      return birthday;
+    });
   }
 
   @override
   Future<void> update(Birthday oldData, Birthday newData) async {
-    delete(oldData);
-    insert(newData);
+    return Future.delayed(const Duration(seconds: 2), () {
+      delete(oldData);
+      insert(newData);
 
-    // Write to Store
-    store.persist(birthdays: _inMemoryBirthdayList);
+      // Write to Store
+      store.persist(birthdays: _inMemoryBirthdayList);
+    });
   }
 
   @override
   Future<void> delete(Birthday birthday) async {
-    final newBirthdayList = [
-      for (final b in _inMemoryBirthdayList)
-        if (b.name != birthday.name && b.date != birthday.date) b,
-    ];
+    return Future.delayed(const Duration(seconds: 2), () {
+      final newBirthdayList = [
+        for (final b in _inMemoryBirthdayList)
+          if (b.name != birthday.name && b.date != birthday.date) b,
+      ];
 
-    // Write to Store
-    store.persist(birthdays: newBirthdayList);
-    _inMemoryBirthdayList=newBirthdayList;
+      // Write to Store
+      store.persist(birthdays: newBirthdayList);
+      _inMemoryBirthdayList = newBirthdayList;
+    });
   }
 }
