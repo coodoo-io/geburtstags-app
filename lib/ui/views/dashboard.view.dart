@@ -45,7 +45,7 @@ class DashboardView extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final dateTimeUtil = DateTimeUtil();
                                   final birthday = todaysBirthdays[index];
-                                  final getAge = dateTimeUtil.getNextAge(birthday.date);
+                                  final getAge = dateTimeUtil.getAge(birthday.date);
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Card(
@@ -99,7 +99,6 @@ class DashboardView extends StatelessWidget {
                                 final birthday = next5birthdays[index];
                                 final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                                 final getNextAge = dateTimeUtil.getNextAge(birthday.date);
-
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
                                   child: Card(
