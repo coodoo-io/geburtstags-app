@@ -45,7 +45,7 @@ class DashboardView extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final dateTimeUtil = DateTimeUtil();
                                   final birthday = todaysBirthdays[index];
-                                  final getAge = dateTimeUtil.getAge(birthday.date);
+                                  final getAge = dateTimeUtil.getNextAge(birthday.date);
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Card(

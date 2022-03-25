@@ -17,14 +17,8 @@ class BirthdayUtil {
   }
 
   static List<Birthday> calcTodaysBirthdays(List<Birthday> birthdays) {
-    List<Birthday> list = [];
-
-    birthdays.map((birthday) {
-      if (birthday.date.day == DateTime.now().day && birthday.date.month == DateTime.now().month) {
-        list.add(birthday);
-      }
-    });
-
-    return list;
+    return birthdays
+        .where((birthday) => birthday.date.day == DateTime.now().day && birthday.date.month == DateTime.now().month)
+        .toList();
   }
 }
