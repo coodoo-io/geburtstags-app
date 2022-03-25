@@ -26,18 +26,21 @@ class BirthdayViewModel extends BaseViewModel {
   Future<void> addBirthday(Birthday birthday) async {
     setState(ViewState.busy);
     await _repo.insert(birthday);
+    await getBirthdayList();
     setState(ViewState.idle);
   }
 
   Future<void> updateBirthday(Birthday oldData, Birthday newData) async {
     setState(ViewState.busy);
     await _repo.update(oldData, newData);
+    await getBirthdayList();
     setState(ViewState.idle);
   }
 
   Future<void> removeBirthday(Birthday birthday) async {
     setState(ViewState.busy);
     await _repo.delete(birthday);
+    await getBirthdayList();
     setState(ViewState.idle);
   }
 }

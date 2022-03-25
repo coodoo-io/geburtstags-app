@@ -12,12 +12,12 @@ class BirthdayRepo implements IBirthdayRepo {
 
   @override
   Future<List<Birthday>> getAll() async {
-    return Future.delayed(const Duration(seconds: 2), () => _inMemoryBirthdayList);
+    return Future.delayed(const Duration(seconds: 1), () => _inMemoryBirthdayList);
   }
 
   @override
   Future<Birthday> insert(Birthday birthday) async {
-    return Future.delayed(const Duration(seconds: 2), () {
+    return Future.delayed(const Duration(milliseconds: 200), () {
       final newBirthdayList = [..._inMemoryBirthdayList, birthday];
       // Write to Store
       store.persist(birthdays: newBirthdayList);
@@ -28,7 +28,7 @@ class BirthdayRepo implements IBirthdayRepo {
 
   @override
   Future<void> update(Birthday oldData, Birthday newData) async {
-    return Future.delayed(const Duration(seconds: 2), () {
+    return Future.delayed(const Duration(milliseconds: 200), () {
       delete(oldData);
       insert(newData);
 
@@ -39,7 +39,7 @@ class BirthdayRepo implements IBirthdayRepo {
 
   @override
   Future<void> delete(Birthday birthday) async {
-    return Future.delayed(const Duration(seconds: 2), () {
+    return Future.delayed(const Duration(milliseconds: 200), () {
       final newBirthdayList = [
         for (final b in _inMemoryBirthdayList)
           if (b.name != birthday.name && b.date != birthday.date) b,
