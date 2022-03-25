@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/enum/view_state.dart';
 import 'package:geburtstags_app/core/utils/datetime.util.dart';
 import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
-import 'package:geburtstags_app/ui/screens/base.screen.dart';
+import 'package:geburtstags_app/ui/views/base.view.dart';
 import 'package:intl/intl.dart';
 
-class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+class DashboardView extends StatelessWidget {
+  const DashboardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen<BirthdayViewModel>(
+    return BaseView<BirthdayViewModel>(
       onModelReady: (model) => model.getBirthdayList(),
       builder: (BuildContext context, BirthdayViewModel model, Widget? child) {
         final next5birthdays = model.getNext5birthdays();
-        final todaysBirthdays = model.getNext5birthdays();
+        final todaysBirthdays = model.todaysBirthdays();
         return model.state == ViewState.busy
             ? const Center(child: CircularProgressIndicator())
             : Scaffold(

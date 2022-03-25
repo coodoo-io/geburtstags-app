@@ -5,8 +5,8 @@ import 'package:geburtstags_app/locator.dart';
 import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
-class BirthdayDetailScreen extends StatefulWidget {
-  const BirthdayDetailScreen({
+class BirthdayDetailView extends StatefulWidget {
+  const BirthdayDetailView({
     required this.birthday,
     Key? key,
   }) : super(key: key);
@@ -14,10 +14,10 @@ class BirthdayDetailScreen extends StatefulWidget {
   final Birthday birthday;
 
   @override
-  State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
+  State<BirthdayDetailView> createState() => _BirthdayDetailViewState();
 }
 
-class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
+class _BirthdayDetailViewState extends State<BirthdayDetailView> {
   Birthday? birthday;
 
   @override
