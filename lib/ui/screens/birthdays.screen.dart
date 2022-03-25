@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/controllers/birthday.controller.dart';
-import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
-import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
+import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
+import 'package:geburtstags_app/locator.dart';
+import 'package:geburtstags_app/ui/screens/birthday_detail.screen.dart';
+import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
-class BirthdaysScreen extends ConsumerWidget {
+class BirthdaysScreen extends StatelessWidget {
   const BirthdaysScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final birthdays = ref.watch(birthdayControllerProvider).birthdays;
+  Widget build(BuildContext context) {
+    final BirthdayViewModel model = locator<BirthdayViewModel>();
+    model.getBirthdayList();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Geburtstage"),
       ),
       body: ListView.builder(
-        itemCount: birthdays.length,
+        itemCount: model.birthdays.length,
         itemBuilder: (context, index) {
-          final birthday = birthdays[index];
+          final birthday = model.birthdays[index];
           return Dismissible(
             key: UniqueKey(),
             direction: DismissDirection.endToStart,
@@ -36,7 +37,7 @@ class BirthdaysScreen extends ConsumerWidget {
               ),
             ),
             onDismissed: (direction) {
-              ref.read(birthdayControllerProvider.notifier).removeBirthday(birthday);
+              model.removeBirthday(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("${birthday.name} gelöscht.")),
               );

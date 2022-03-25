@@ -6,19 +6,18 @@ import 'package:geburtstags_app/locator.dart';
 
 class BirthdayViewModel extends BaseViewModel {
   final BirthdayRepo _repo = locator<BirthdayRepo>();
+  List<Birthday> birthdays = [];
 
-  Future<Birthday> getBirthdayList(Birthday birthday) async {
-      setState(ViewState.busy);
-    await _repo.getAll();
-      setState(ViewState.idle);
-    return birthday;
+  Future<void> getBirthdayList() async {
+    setState(ViewState.busy);
+    birthdays = await _repo.getAll();
+    setState(ViewState.idle);
   }
 
-  Future<Birthday> addBirthday(Birthday birthday) async {
-      setState(ViewState.busy);
+  Future<void> addBirthday(Birthday birthday) async {
+    setState(ViewState.busy);
     await _repo.insert(birthday);
-      setState(ViewState.idle);
-    return birthday;
+    setState(ViewState.idle);
   }
 
   Future<void> updateBirthday(Birthday oldData, Birthday newData) async {

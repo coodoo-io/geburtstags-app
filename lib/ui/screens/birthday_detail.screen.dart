@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
+import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
+import 'package:geburtstags_app/locator.dart';
+import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
-
-import '../widgets/birthday_form.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
@@ -17,6 +19,7 @@ class BirthdayDetailScreen extends StatefulWidget {
 
 class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
   Birthday? birthday;
+
   @override
   Widget build(BuildContext context) {
     // Wenn die Detail Seite aufgerufen wid, ist birthday null. Dann wollen wir die übergebenen Daten verwenden.
@@ -39,7 +42,8 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               TextButton(
                 child: const Text("Löschen"),
                 onPressed: () {
-                  ref.read(birthdayControllerProvider.notifier).removeBirthday(birthday!);
+                  final BirthdayViewModel model = locator<BirthdayViewModel>();
+                  model.removeBirthday(birthday!);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('${birthday!.name} gelöscht.')),
                   );
