@@ -12,7 +12,7 @@ class BirthdayRepo implements IBirthdayRepo {
 
   @override
   Future<List<Birthday>> getAll() async {
-    return Future.delayed(const Duration(seconds: 1), () => _inMemoryBirthdayList);
+    return Future.delayed(const Duration(milliseconds: 500), () => _inMemoryBirthdayList);
   }
 
   @override

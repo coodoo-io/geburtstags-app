@@ -18,9 +18,9 @@ class _BaseScreenState<T extends BaseViewModel> extends State<BaseScreen<T>> {
 
   @override
   void initState() {
-    if (!mounted) return;
     super.initState();
-    widget.onModelReady(model);
+    Future.microtask(() => widget.onModelReady(model));
+    
   }
 
   @override

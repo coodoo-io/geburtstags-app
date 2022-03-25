@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geburtstags_app/templates/template.dart';
+import 'package:geburtstags_app/ui/app_router.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -12,7 +12,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Template(),
+      initialRoute: '/',
+        onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
