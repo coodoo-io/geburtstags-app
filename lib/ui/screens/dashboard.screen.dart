@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/core/utils/datetime.util.dart';
+import 'package:geburtstags_app/ui/screens/birthday_detail.screen.dart';
 import 'package:intl/intl.dart';
 
-class DashboardScreen extends Widget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
@@ -49,13 +50,11 @@ class DashboardScreen extends Widget {
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          BirthdayDetailScreen(
-                                              birthday: birthday)),
+                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
+                                  ),
                                 ),
                                 leading: CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/default.png"),
+                                  child: Image.asset("assets/images/default.png"),
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
@@ -64,24 +63,19 @@ class DashboardScreen extends Widget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 5),
-                                    Text(
-                                        "Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
                                     const SizedBox(height: 5),
                                     const Text(
                                       "Heute Geburtstag",
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.red),
+                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("wird $getAge Jahre",
-                                    style: const TextStyle(fontSize: 18)),
+                                trailing: Text("wird $getAge Jahre", style: const TextStyle(fontSize: 18)),
                               ),
                             ),
                             elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                           ),
                         );
                       },
@@ -102,8 +96,7 @@ class DashboardScreen extends Widget {
                     itemBuilder: (context, index) {
                       final dateTimeUtil = DateTimeUtil();
                       final birthday = next5birthdays[index];
-                      final daysUntilBirthday = dateTimeUtil
-                          .remainingDaysUntilBirthday(birthday.date);
+                      final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                       final getNextAge = dateTimeUtil.getNextAge(birthday.date);
 
                       return Padding(
@@ -114,9 +107,7 @@ class DashboardScreen extends Widget {
                             child: ListTile(
                               onTap: () => Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => BirthdayDetailScreen(
-                                        birthday: birthday)),
+                                MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
                               ),
                               leading: CircleAvatar(
                                 child: Image.asset("assets/images/default.png"),
@@ -128,26 +119,19 @@ class DashboardScreen extends Widget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 5),
-                                  Text(
-                                      "Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                  Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
                                   const SizedBox(height: 5),
                                   Text(
-                                    daysUntilBirthday == 1
-                                        ? "In einem Tag"
-                                        : "In $daysUntilBirthday Tagen",
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.green.shade700),
+                                    daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
+                                    style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
                                   ),
                                 ],
                               ),
-                              trailing: Text("wird $getNextAge Jahre",
-                                  style: const TextStyle(fontSize: 18)),
+                              trailing: Text("wird $getNextAge Jahre", style: const TextStyle(fontSize: 18)),
                             ),
                           ),
                           elevation: 4,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                         ),
                       );
                     },
