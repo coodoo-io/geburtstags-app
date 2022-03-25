@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/core/models/birthday.model.dart';
+import 'package:geburtstags_app/ui/screens/birthday_detail.screen.dart';
 import 'package:geburtstags_app/ui/screens/birthdays.screen.dart';
 import 'package:geburtstags_app/ui/screens/dashboard.screen.dart';
 import 'package:geburtstags_app/ui/screens/settings.screen.dart';
@@ -10,8 +12,10 @@ class Router {
       case '/':
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
       case '/birthdays':
-        // var birthday = settings.arguments as Birthday; // Example Parameter
         return MaterialPageRoute(builder: (_) => const BirthdaysScreen());
+      case '/birthdays/detail':
+        final birthday = settings.arguments as Birthday;
+        return MaterialPageRoute(builder: (_) => BirthdayDetailScreen(birthday: birthday));
       case '/settings':
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
       default:
