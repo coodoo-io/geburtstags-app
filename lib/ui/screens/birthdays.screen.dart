@@ -44,14 +44,7 @@ class BirthdaysScreen extends StatelessWidget {
             },
             child: ListTile(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BirthdayDetailScreen(
-                      birthday: birthday,
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday);
               },
               title: Text(birthday.name),
               trailing: Text(

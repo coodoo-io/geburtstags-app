@@ -48,12 +48,7 @@ class DashboardScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: ListTile(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
-                                  ),
-                                ),
+                                onTap: () => Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday),
                                 leading: CircleAvatar(
                                   child: Image.asset("assets/images/default.png"),
                                   radius: 25,
@@ -106,10 +101,7 @@ class DashboardScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ListTile(
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
-                              ),
+                              onTap: () => Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday),
                               leading: CircleAvatar(
                                 child: Image.asset("assets/images/default.png"),
                                 radius: 25,
