@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatefulWidget {
   const BirthdaysScreen({Key? key}) : super(key: key);
-
+  static final routeName = (BirthdaysScreen).toString();
   @override
   State<BirthdaysScreen> createState() => _BirthdaysScreenState();
 }
@@ -48,13 +48,10 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
             },
             child: ListTile(
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => BirthdayDetailScreen(
-                      birthday: birthday,
-                    ),
-                  ),
+                  BirthdayDetailScreen.routeName,
+                  arguments: birthday,
                 ).then(
                   (value) => setState(
                     () {},

@@ -6,11 +6,9 @@ import 'package:intl/intl.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
-    required this.birthday,
     Key? key,
   }) : super(key: key);
-
-  final Birthday birthday;
+  static final routeName = (BirthdayDetailScreen).toString();
 
   @override
   State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
@@ -21,9 +19,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Wenn die Detail Seite aufgerufen wid, ist birthday null. Dann wollen wir die übergebenen Daten verwenden.
-    // Wenn wir updaten wollen, z.B. den Namen ändern wollen wir nicht nochmal die übergebenen Daten verwenden sondern die aktualisierten Daten.
-    birthday ??= widget.birthday;
+    birthday = ModalRoute.of(context)!.settings.arguments as Birthday;
 
     void _showAlertDialog() {
       showDialog(
