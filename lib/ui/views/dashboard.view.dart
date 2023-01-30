@@ -49,15 +49,17 @@ class DashboardView extends StatelessWidget {
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Card(
+                                      elevation: 4,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: ListTile(
                                           onTap: () =>
                                               Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday),
                                           leading: CircleAvatar(
-                                            child: Image.asset("assets/images/default.png"),
                                             radius: 25,
                                             backgroundColor: Colors.white,
+                                            child: Image.asset("assets/images/default.png"),
                                           ),
                                           title: Text(birthday.name),
                                           subtitle: Column(
@@ -75,8 +77,6 @@ class DashboardView extends StatelessWidget {
                                           trailing: Text("wird $getAge Jahre", style: const TextStyle(fontSize: 18)),
                                         ),
                                       ),
-                                      elevation: 4,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                     ),
                                   );
                                 },
@@ -102,15 +102,17 @@ class DashboardView extends StatelessWidget {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
                                   child: Card(
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: ListTile(
                                         onTap: () =>
                                             Navigator.pushNamed(context, '/birthdays/detail', arguments: birthday),
                                         leading: CircleAvatar(
-                                          child: Image.asset("assets/images/default.png"),
                                           radius: 25,
                                           backgroundColor: Colors.white,
+                                          child: Image.asset("assets/images/default.png"),
                                         ),
                                         title: Text(birthday.name),
                                         subtitle: Column(
@@ -129,8 +131,6 @@ class DashboardView extends StatelessWidget {
                                         trailing: Text("wird $getNextAge Jahre", style: const TextStyle(fontSize: 18)),
                                       ),
                                     ),
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                   ),
                                 );
                               },

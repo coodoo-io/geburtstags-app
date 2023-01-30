@@ -11,9 +11,9 @@ class BirthdayForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     final BirthdayViewModel model = locator<BirthdayViewModel>();
 
-    final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
     var nameController = TextEditingController();
@@ -34,7 +34,7 @@ class BirthdayForm extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 Birthday newBirthday = Birthday(
                   name: nameController.text,
                   date: DateTime(
@@ -66,7 +66,7 @@ class BirthdayForm extends StatelessWidget {
         ],
       ),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(

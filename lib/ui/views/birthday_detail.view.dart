@@ -26,7 +26,7 @@ class _BirthdayDetailViewState extends State<BirthdayDetailView> {
     // Wenn wir updaten wollen, z.B. den Namen ändern wollen wir nicht nochmal die übergebenen Daten verwenden sondern die aktualisierten Daten.
     birthday ??= widget.birthday;
 
-    void _showAlertDialog() {
+    void showAlertDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -94,7 +94,7 @@ class _BirthdayDetailViewState extends State<BirthdayDetailView> {
               });
             }
             if (value == 1) {
-              _showAlertDialog();
+              showAlertDialog();
             }
           }),
         ],

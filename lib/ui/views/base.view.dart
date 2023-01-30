@@ -10,7 +10,7 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
   const BaseView({required this.builder, required this.onModelReady, Key? key}) : super(key: key);
 
   @override
-  _BaseViewState<T> createState() => _BaseViewState<T>();
+  State<BaseView<T>> createState() => _BaseViewState<T>();
 }
 
 class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
@@ -20,7 +20,6 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   void initState() {
     super.initState();
     Future.microtask(() => widget.onModelReady(model));
-    
   }
 
   @override
