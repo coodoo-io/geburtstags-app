@@ -42,8 +42,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                       ),
                     );
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text('${nameController.text} hinzugefügt.')),
+                  SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                 );
                 Navigator.pop(context);
               }
@@ -172,16 +171,16 @@ class _BirthdayFormState extends State<BirthdayForm> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
-                  final ImagePicker _picker = ImagePicker();
-                  image = await _picker.pickImage(source: ImageSource.gallery);
+                  final ImagePicker picker = ImagePicker();
+                  image = await picker.pickImage(source: ImageSource.gallery);
                 },
                 child: const Text("Bild auswählen"),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final ImagePicker _picker = ImagePicker();
+                  final ImagePicker picker = ImagePicker();
                   try {
-                    image = await _picker.pickImage(source: ImageSource.camera);
+                    image = await picker.pickImage(source: ImageSource.camera);
                   } catch (e) {
                     // camera permission denied
                     debugPrint("Error: $e");
