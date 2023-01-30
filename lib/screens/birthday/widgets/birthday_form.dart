@@ -12,9 +12,9 @@ class BirthdayForm extends StatefulWidget {
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
     var nameController = TextEditingController();
