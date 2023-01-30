@@ -27,7 +27,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
     // Wenn wir updaten wollen, z.B. den Namen ändern wollen wir nicht nochmal die übergebenen Daten verwenden sondern die aktualisierten Daten.
     birthday ??= widget.birthday;
 
-    void _showAlertDialog() {
+    void showAlertDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -81,8 +81,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
             ];
           }, onSelected: (value) async {
             if (value == 0) {
-              Share.share(
-                  '${birthday!.name} hat am ${DateFormat("dd.MM.yyyy").format(birthday!.date)} Geburtstag🎉');
+              Share.share('${birthday!.name} hat am ${DateFormat("dd.MM.yyyy").format(birthday!.date)} Geburtstag🎉');
             }
             if (value == 1) {
               final response = await Navigator.of(context).push(
@@ -102,7 +101,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               });
             }
             if (value == 2) {
-              _showAlertDialog();
+              showAlertDialog();
             }
           }),
         ],
