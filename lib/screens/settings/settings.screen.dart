@@ -30,6 +30,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               errorWidget: Container(),
             ),
             Card(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SwitchListTile.adaptive(
@@ -38,9 +41,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onChanged: (value) => context.read<ThemeNotifier>().toggleTheme(),
                   title: const Text("Dark Theme"),
                 ),
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
               ),
             ),
           ],

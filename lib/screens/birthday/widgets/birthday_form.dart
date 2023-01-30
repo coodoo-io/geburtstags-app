@@ -13,7 +13,7 @@ class BirthdayForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
     var nameController = TextEditingController();
@@ -30,7 +30,7 @@ class BirthdayForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Geburtstag')),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
@@ -100,7 +100,7 @@ class BirthdayForm extends StatelessWidget {
                   icon: Icon(isEdit ? Icons.save_outlined : Icons.add_outlined),
                   label: Text(isEdit ? 'Speichern' : 'Hizufügen'),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       Birthday newBirthday = Birthday(
                         name: nameController.text,
                         date: DateTime(
