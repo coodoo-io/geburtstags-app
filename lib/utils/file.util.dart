@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
+
+import 'package:android_external_storage/android_external_storage.dart';
 import 'package:csv/csv.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
@@ -9,7 +12,6 @@ import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:android_external_storage/android_external_storage.dart';
 
 class FileUtil {
   static final FileUtil _instance = FileUtil._internal();
@@ -48,7 +50,7 @@ class FileUtil {
 
       return;
     } catch (e) {
-      print(e);
+      debugPrint('$e');
       return;
     }
   }
@@ -62,14 +64,12 @@ class FileUtil {
     return;
   }
 
-  /**
-   * Export my local data to a csv file
-   */
+  /// Export my local data to a csv file
+
   void exportCSV() async {
     String? path;
     try {
-      path = await AndroidExternalStorage.getExternalStoragePublicDirectory(
-          DirType.downloadDirectory);
+      path = await AndroidExternalStorage.getExternalStoragePublicDirectory(DirType.downloadDirectory);
     } on PlatformException {
       path = 'Failed to get Storage Path.';
     }
@@ -92,7 +92,7 @@ class FileUtil {
 
       String csv = const ListToCsvConverter().convert(rows);
 
-      File f = File(path! + "/birthdays.txt");
+      File f = File("${path!}/birthdays.txt");
 
       f.writeAsString(csv);
     }
