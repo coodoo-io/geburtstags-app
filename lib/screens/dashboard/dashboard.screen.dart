@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
-import 'package:geburtstags_app/screens/dashboard/widgets/todays_birthdays.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
 
@@ -46,8 +45,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    const Expanded(
-                      child: TodaysBirthdays(),
+                    ListView.builder(
+                      itemCount: todaysBirthdays.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final dateTimeUtil = DateTimeUtil();
+                        final birthday = todaysBirthdays[index];
+                        final getAge = dateTimeUtil.getAge(birthday.date);
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ListTile(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                ),
+                                leading: const CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: Colors.white,
+                                  child: CircleAvatar(radius: 25, child: Icon(Icons.person)),
+                                ),
+                                title: Text(birthday.name),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 5),
+                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
+                                    const SizedBox(height: 5),
+                                    const Text(
+                                      "Heute Geburtstag",
+                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Text("wird $getAge Jahre", style: const TextStyle(fontSize: 18)),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                   const Text(
