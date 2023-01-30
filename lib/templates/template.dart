@@ -7,7 +7,7 @@ class Template extends StatefulWidget {
   const Template({Key? key}) : super(key: key);
   static final routeName = (Template).toString();
   @override
-  _TemplateState createState() => _TemplateState();
+  State<Template> createState() => _TemplateState();
 }
 
 class _TemplateState extends State<Template> {

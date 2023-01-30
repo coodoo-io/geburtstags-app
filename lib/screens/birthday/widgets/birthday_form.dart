@@ -3,8 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
-      : super(key: key);
+  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
   static final routeName = (BirthdayForm).toString();
   final Birthday? birthday;
   final bool isEdit;
@@ -13,9 +12,9 @@ class BirthdayForm extends StatefulWidget {
 }
 
 class _BirthdayFormState extends State<BirthdayForm> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
     var nameController = TextEditingController();
@@ -25,12 +24,9 @@ class _BirthdayFormState extends State<BirthdayForm> {
 
     if (widget.isEdit) {
       nameController = TextEditingController(text: widget.birthday!.name);
-      dateControllerDay =
-          TextEditingController(text: widget.birthday!.date.day.toString());
-      dateControllerMonth =
-          TextEditingController(text: widget.birthday!.date.month.toString());
-      dateControllerYear =
-          TextEditingController(text: widget.birthday!.date.year.toString());
+      dateControllerDay = TextEditingController(text: widget.birthday!.date.day.toString());
+      dateControllerMonth = TextEditingController(text: widget.birthday!.date.month.toString());
+      dateControllerYear = TextEditingController(text: widget.birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -54,8 +50,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                 );
 
                 if (widget.isEdit) {
-                  BirthdayRepo().update(
-                      oldBirthday: widget.birthday!, newBirthday: birthday);
+                  BirthdayRepo().update(oldBirthday: widget.birthday!, newBirthday: birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );

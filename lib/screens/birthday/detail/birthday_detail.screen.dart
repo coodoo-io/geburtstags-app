@@ -21,7 +21,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
   Widget build(BuildContext context) {
     birthday = ModalRoute.of(context)!.settings.arguments as Birthday;
 
-    void _showAlertDialog() {
+    void showAlertDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -85,7 +85,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               });
             }
             if (value == 1) {
-              _showAlertDialog();
+              showAlertDialog();
             }
           }),
         ],
