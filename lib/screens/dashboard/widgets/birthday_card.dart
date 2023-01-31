@@ -5,8 +5,7 @@ import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
 
 class BirthdayCard extends StatelessWidget {
-  const BirthdayCard({Key? key, required this.birthday, this.isToday = false})
-      : super(key: key);
+  const BirthdayCard({Key? key, required this.birthday, this.isToday = false}) : super(key: key);
 
   final Birthday birthday;
   final bool isToday;
@@ -14,11 +13,8 @@ class BirthdayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final daysUntilBirthday =
-        DateTimeUtil().remainingDaysUntilBirthday(birthday.date);
-    final nextAge = isToday
-        ? DateTimeUtil().getAge(birthday.date)
-        : DateTimeUtil().getNextAge(birthday.date);
+    final daysUntilBirthday = DateTimeUtil().remainingDaysUntilBirthday(birthday.date);
+    final nextAge = isToday ? DateTimeUtil().getAge(birthday.date) : DateTimeUtil().getNextAge(birthday.date);
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -27,8 +23,7 @@ class BirthdayCard extends StatelessWidget {
         child: ListTile(
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+            MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
           ),
           leading: Container(
             constraints: const BoxConstraints(minWidth: 130, maxWidth: 130),
@@ -36,8 +31,7 @@ class BirthdayCard extends StatelessWidget {
               birthday.name,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: theme.textTheme.headline6?.copyWith(
-                  fontWeight: FontWeight.bold, color: theme.primaryColor),
+              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
             ),
           ),
           title: Container(
@@ -47,7 +41,7 @@ class BirthdayCard extends StatelessWidget {
               overflow: TextOverflow.fade,
               softWrap: false,
               maxLines: 2,
-              style: theme.textTheme.caption,
+              style: theme.textTheme.bodySmall,
             ),
           ),
           trailing: Column(
@@ -56,25 +50,21 @@ class BirthdayCard extends StatelessWidget {
               if (isToday)
                 Text(
                   "🎉",
-                  style: theme.textTheme.headline5,
+                  style: theme.textTheme.headlineSmall,
                 ),
               RichText(
                 text: TextSpan(
-                  style: theme.textTheme.subtitle1?.copyWith(fontSize: 16),
+                  style: theme.textTheme.titleMedium?.copyWith(fontSize: 16),
                   children: [
-                    TextSpan(
-                        text: nextAge.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: nextAge.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(text: nextAge > 1 ? ' Jahre ' : ' Jahr '),
                   ],
                 ),
               ),
               if (!isToday)
                 Text(
-                  daysUntilBirthday == 1
-                      ? "in einem Tag"
-                      : "in $daysUntilBirthday Tagen",
-                  style: theme.textTheme.caption,
+                  daysUntilBirthday == 1 ? "in einem Tag" : "in $daysUntilBirthday Tagen",
+                  style: theme.textTheme.bodySmall,
                 ),
             ],
           ),

@@ -63,12 +63,12 @@ class BirthdaysScreen extends StatelessWidget {
                         birthday.name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style:
-                            theme.textTheme.headline6?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
+                        style: theme.textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
                       ),
                       trailing: Text(
                         DateFormat('dd.MM.yyyy').format(birthday.date),
-                        style: theme.textTheme.subtitle1,
+                        style: theme.textTheme.titleMedium,
                       ),
                     ),
                   ),

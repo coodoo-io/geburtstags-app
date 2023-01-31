@@ -52,10 +52,10 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               ),
               const SizedBox(height: 30),
               // Name
-              Text('Name', style: theme.textTheme.headline6),
+              Text('Name', style: theme.textTheme.titleLarge),
               Text(
                 birthday!.name,
-                style: theme.textTheme.headline5?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
+                style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
               ),
               const SizedBox(height: 20),
               ListTile(
@@ -64,10 +64,10 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Geburtsdatum', style: theme.textTheme.headline6),
+                    Text('Geburtsdatum', style: theme.textTheme.titleLarge),
                     Text(
                       DateFormat.yMMMMd('de').format(birthday!.date),
-                      style: theme.textTheme.headline6?.copyWith(
+                      style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.primaryColor,
                       ),
@@ -78,10 +78,10 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Alter', style: theme.textTheme.subtitle1),
+                    Text('Alter', style: theme.textTheme.titleMedium),
                     Text(
                       DateTimeUtil().getAge(birthday!.date).toString(),
-                      style: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -93,20 +93,20 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Nächster Geburtstag', style: theme.textTheme.subtitle1),
+                    Text('Nächster Geburtstag', style: theme.textTheme.titleMedium),
                     Text(
                       isTodaysBirthdays
                           ? "Heute"
                           : daysUntilBirthday == 1
                               ? "in einem Tag"
                               : "in $daysUntilBirthday Tagen",
-                      style: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 trailing: Text(
                   isTodaysBirthdays ? "🎉" : "",
-                  style: theme.textTheme.headline4?.copyWith(color: Colors.black),
+                  style: theme.textTheme.headlineMedium?.copyWith(color: Colors.black),
                 ),
               ),
               const SizedBox(height: 60),
@@ -116,17 +116,17 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FloatingActionButton(
-                      child: const Icon(Icons.edit_outlined),
                       elevation: 0,
                       onPressed: () => _editBirthday(context),
                       heroTag: null,
+                      child: const Icon(Icons.edit_outlined),
                     ),
                     FloatingActionButton(
-                      child: const Icon(Icons.delete_outlined),
                       backgroundColor: Colors.pinkAccent,
                       elevation: 0,
                       onPressed: () => _deleteBirthday(context),
                       heroTag: null,
+                      child: const Icon(Icons.delete_outlined),
                     ),
                   ],
                 ),

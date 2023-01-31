@@ -29,7 +29,7 @@ class DashboardScreen extends StatelessWidget {
                       child: Text(
                         "Heutige Geburtstage",
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.headline5,
+                        style: theme.textTheme.headlineSmall,
                       ),
                     ),
                     ListView.separated(
@@ -45,7 +45,7 @@ class DashboardScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
                         "Anstehende Geburtstage",
-                        style: theme.textTheme.headline5,
+                        style: theme.textTheme.headlineSmall,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
