@@ -16,8 +16,7 @@ class App extends StatelessWidget {
       routes: {
         Template.routeName: (context) => const Template(),
         BirthdaysScreen.routeName: (context) => const BirthdaysScreen(),
-        BirthdayDetailScreen.routeName: (context) =>
-            const BirthdayDetailScreen(),
+        BirthdayDetailScreen.routeName: (context) => const BirthdayDetailScreen(),
         BirthdayForm.routeName: (context) => const BirthdayForm(),
       },
       //onGenerateRoute: (_) => Template.routeName,

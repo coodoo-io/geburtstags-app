@@ -21,15 +21,21 @@ class _TemplateState extends State<Template> {
         onTap: (index) => setState(() => _index = index),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(
+              Icons.home_outlined,
+            ),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.cake_outlined),
+            icon: Icon(
+              Icons.cake_outlined,
+            ),
             label: 'Geburtstage',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
+            icon: Icon(
+              Icons.settings_outlined,
+            ),
             label: 'Einstellungen',
           ),
         ],
