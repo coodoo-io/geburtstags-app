@@ -13,11 +13,15 @@ class BirthdaysScreen extends StatelessWidget {
     final birthdays = context.watch<BirthdayRepo>().birthdays;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Geburtstage"),
+        title: const Text(
+          "Geburtstage",
+        ),
       ),
       body: birthdays.isEmpty
           ? const Center(
-              child: Text("Es stehen keine Geburtstage an"),
+              child: Text(
+                "Es stehen keine Geburtstage an",
+              ),
             )
           : ListView.builder(
               itemCount: birthdays.length,
@@ -42,7 +46,11 @@ class BirthdaysScreen extends StatelessWidget {
                   onDismissed: (direction) {
                     context.read<BirthdayRepo>().delete(birthday);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("${birthday.name} gelöscht.")),
+                      SnackBar(
+                        content: Text(
+                          "${birthday.name} gelöscht.",
+                        ),
+                      ),
                     );
                   },
                   child: ListTile(
@@ -56,7 +64,9 @@ class BirthdaysScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    title: Text(birthday.name),
+                    title: Text(
+                      birthday.name,
+                    ),
                     trailing: Text(
                       DateFormat('dd.MM.yyyy').format(birthday.date),
                     ),
@@ -75,7 +85,9 @@ class BirthdaysScreen extends StatelessWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
