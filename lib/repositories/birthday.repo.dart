@@ -2,13 +2,13 @@ import 'package:geburtstags_app/models/birthday.dart';
 
 class BirthdayRepo {
   BirthdayRepo() {
-    _birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: "Max"));
-    _birthdays.add(Birthday(date: DateTime(1999, 1, 11), name: "Flo"));
-    _birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: "Lena"));
-    _birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: "Julia"));
-    _birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: "Markus"));
-    _birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: "Rüdiger"));
-    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: "Marcel"));
+    _birthdays.add(Birthday(date: DateTime(2020, 6, 12), name: 'Max'));
+    _birthdays.add(Birthday(date: DateTime(1999, 1, 11), name: 'Flo'));
+    _birthdays.add(Birthday(date: DateTime(1898, 7, 5), name: 'Lena'));
+    _birthdays.add(Birthday(date: DateTime(2021, 9, 12), name: 'Julia'));
+    _birthdays.add(Birthday(date: DateTime(2022, 10, 12), name: 'Markus'));
+    _birthdays.add(Birthday(date: DateTime(2000, 11, 12), name: 'Rüdiger'));
+    _birthdays.add(Birthday(date: DateTime(1989, 12, 12), name: 'Marcel'));
   }
 
   final List<Birthday> _birthdays = [];
