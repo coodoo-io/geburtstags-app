@@ -8,12 +8,10 @@ import 'package:http/http.dart' as http;
 
 extension StringCapitalizeExtension on String {
   /// Makes the first letter of a string uppercase.
-  String get toCapitalized =>
-      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String get toCapitalized => length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 
   /// Makes every word's first letter uppercase.
-  String get capitalizeFirstofEach =>
-      split(" ").map((str) => str.toCapitalized).join(" ");
+  String get capitalizeFirstofEach => split(" ").map((str) => str.toCapitalized).join(" ");
 }
 
 class BirthdayRepo extends ChangeNotifier {
@@ -30,18 +28,18 @@ class BirthdayRepo extends ChangeNotifier {
   final List<Birthday> _birthdays = [];
   List<Birthday> _celebrityBirthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
-  UnmodifiableListView<Birthday> get celebrityBirthdays =>
-      UnmodifiableListView(_celebrityBirthdays);
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
+  UnmodifiableListView<Birthday> get celebrityBirthdays => UnmodifiableListView(_celebrityBirthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort(
+      (a, b) => dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(
+            dateTimeUtil.remainingDaysUntilBirthday(b.date),
+          ),
+    );
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -53,8 +51,7 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -114,9 +111,11 @@ class BirthdayRepo extends ChangeNotifier {
         }
       }
 
-      celebrityList.sort((a, b) => dateTimeUtil
-          .remainingDaysUntilBirthday(a.date)
-          .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+      celebrityList.sort(
+        (a, b) => dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(
+              dateTimeUtil.remainingDaysUntilBirthday(b.date),
+            ),
+      );
     }
 
     _celebrityBirthdays = celebrityList.sublist(0, 5);
