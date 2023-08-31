@@ -7,13 +7,19 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Einstellungen")),
+      appBar: AppBar(
+        title: const Text(
+          "Einstellungen",
+        ),
+      ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             FileUtil().exportCSV();
           },
-          child: const Text("Export to CSV"),
+          child: const Text(
+            "Export to CSV",
+          ),
         ),
       ),
     );

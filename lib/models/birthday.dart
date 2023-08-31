@@ -7,8 +7,7 @@ class Birthday {
   final String? profileImage;
   final String? notes;
 
-  const Birthday(
-      {required this.name, required this.date, this.profileImage, this.notes});
+  const Birthday({required this.name, required this.date, this.profileImage, this.notes});
 
   Birthday.fromJson(Map<String, dynamic> json)
       : name = json['name'],
