@@ -9,7 +9,7 @@ class BirthdaysScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Geburtstage",
+          'Geburtstage',
         ),
       ),
       body: ListView(
