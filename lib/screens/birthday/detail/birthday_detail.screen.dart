@@ -14,7 +14,9 @@ class BirthdayDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(birthday.name),
+        title: Text(
+          birthday.name,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -25,23 +27,43 @@ class BirthdayDetailScreen extends StatelessWidget {
             // Name
             const Text(
               'Name:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 5),
-            Text(birthday.name),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              birthday.name,
+            ),
             // Datum
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
             const Text(
               'Geburtsdatum:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 5),
-            Text(DateFormat('dd.MM.yyyy').format(birthday.date)),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              DateFormat('dd.MM.yyyy').format(
+                birthday.date,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             // Zurück
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Zurück"),
+              child: const Text(
+                "Zurück",
+              ),
             )
           ],
         ),

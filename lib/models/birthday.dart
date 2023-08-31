@@ -4,6 +4,5 @@ class Birthday {
   String? profileImage;
   String? notes;
 
-  Birthday(
-      {required this.name, required this.date, this.profileImage, this.notes});
+  Birthday({required this.name, required this.date, this.profileImage, this.notes});
 }
