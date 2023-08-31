@@ -6,8 +6,16 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
-      body: const Center(child: Text("...")),
+      appBar: AppBar(
+        title: const Text(
+          "Geburtstage",
+        ),
+      ),
+      body: const Center(
+        child: Text(
+          "...",
+        ),
+      ),
     );
   }
 }
