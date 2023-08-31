@@ -7,11 +7,17 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
+      appBar: AppBar(
+        title: const Text(
+          "Geburtstage",
+        ),
+      ),
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Julia'),
+            title: const Text(
+              'Julia',
+            ),
             trailing: Text(
               DateFormat('dd.MM.yyyy').format(
                 DateTime(1993, 4, 16),
@@ -19,7 +25,9 @@ class BirthdaysScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Flo'),
+            title: const Text(
+              'Flo',
+            ),
             trailing: Text(
               DateFormat('dd.MM.yyyy').format(
                 DateTime(2003, 5, 7),
@@ -27,7 +35,9 @@ class BirthdaysScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Marcel'),
+            title: const Text(
+              'Marcel',
+            ),
             trailing: Text(
               DateFormat('dd.MM.yyyy').format(
                 DateTime(1984, 3, 9),
