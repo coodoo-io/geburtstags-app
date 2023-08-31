@@ -16,7 +16,7 @@ class BirthdayController extends StateNotifier<BirthdayState> {
     _init();
   }
 
-  final AutoDisposeStateNotifierProviderRef ref;
+  final StateNotifierProviderRef ref;
 
   // actual constructor
   Future<void> _init() async {
