@@ -17,11 +17,15 @@ class BirthdaysScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Geburtstage"),
+        title: const Text(
+          "Geburtstage",
+        ),
       ),
       body: birthdays.isEmpty
           ? const Center(
-              child: Text("Es stehen keine Geburtstage an"),
+              child: Text(
+                "Es stehen keine Geburtstage an",
+              ),
             )
           : Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -72,8 +76,14 @@ class BirthdaysScreen extends StatelessWidget {
                       break;
                   }
                   return Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 5),
-                      child: Text(month, style: const TextStyle(fontSize: 20)));
+                    padding: const EdgeInsets.only(top: 15, bottom: 5),
+                    child: Text(
+                      month,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  );
                 },
                 itemBuilder: (context, Birthday element) {
                   final birthday = element;
@@ -96,7 +106,11 @@ class BirthdaysScreen extends StatelessWidget {
                     onDismissed: (direction) {
                       context.read<BirthdayRepo>().delete(birthday);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("${birthday.name} gelöscht.")),
+                        SnackBar(
+                          content: Text(
+                            "${birthday.name} gelöscht.",
+                          ),
+                        ),
                       );
                     },
                     child: Card(
@@ -114,7 +128,9 @@ class BirthdaysScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        title: Text(birthday.name),
+                        title: Text(
+                          birthday.name,
+                        ),
                         trailing: Text(
                           DateFormat('dd.MM.yyyy').format(birthday.date),
                         ),
@@ -135,7 +151,9 @@ class BirthdaysScreen extends StatelessWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
