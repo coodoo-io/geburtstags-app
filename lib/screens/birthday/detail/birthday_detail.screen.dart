@@ -61,7 +61,7 @@ class BirthdayDetailScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
-                "Zurück",
+                'Zurück',
               ),
             )
           ],

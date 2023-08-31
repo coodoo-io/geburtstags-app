@@ -18,7 +18,7 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Geburtstage",
+          'Geburtstage',
         ),
       ),
       body: ListView.builder(
