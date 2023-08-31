@@ -27,12 +27,12 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              "${birthday!.name} wirklich löschen?",
+              '${birthday!.name} wirklich löschen?',
             ),
             actions: <Widget>[
               TextButton(
                 child: const Text(
-                  "Abbrechen",
+                  'Abbrechen',
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -40,7 +40,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               ),
               TextButton(
                 child: const Text(
-                  "Löschen",
+                  'Löschen',
                 ),
                 onPressed: () {
                   BirthdayRepo().delete(birthday!);
@@ -72,13 +72,13 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               const PopupMenuItem<int>(
                 value: 0,
                 child: Text(
-                  "Bearbeiten",
+                  'Bearbeiten',
                 ),
               ),
               const PopupMenuItem<int>(
                 value: 1,
                 child: Text(
-                  "Löschen",
+                  'Löschen',
                 ),
               ),
             ];
@@ -149,7 +149,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
-                "Zurück",
+                'Zurück',
               ),
             )
           ],
