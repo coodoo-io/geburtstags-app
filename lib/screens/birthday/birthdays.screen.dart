@@ -13,7 +13,9 @@ class BirthdaysScreen extends ConsumerWidget {
     final birthdays = ref.watch(birthdayControllerProvider).birthdays;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Geburtstage"),
+        title: const Text(
+          "Geburtstage",
+        ),
       ),
       body: ListView.builder(
         itemCount: birthdays.length,
@@ -38,7 +40,11 @@ class BirthdaysScreen extends ConsumerWidget {
             onDismissed: (direction) {
               ref.read(birthdayControllerProvider.notifier).removeBirthday(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("${birthday.name} gelöscht.")),
+                SnackBar(
+                  content: Text(
+                    "${birthday.name} gelöscht.",
+                  ),
+                ),
               );
             },
             child: ListTile(
@@ -52,7 +58,9 @@ class BirthdaysScreen extends ConsumerWidget {
                   ),
                 );
               },
-              title: Text(birthday.name),
+              title: Text(
+                birthday.name,
+              ),
               trailing: Text(
                 DateFormat('dd.MM.yyyy').format(birthday.date),
               ),
@@ -71,7 +79,9 @@ class BirthdaysScreen extends ConsumerWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

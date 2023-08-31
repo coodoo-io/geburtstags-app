@@ -4,8 +4,7 @@ import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 
 class BirthdayForm extends ConsumerWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
-      : super(key: key);
+  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
 
   final Birthday? birthday;
   final bool isEdit;
@@ -22,12 +21,9 @@ class BirthdayForm extends ConsumerWidget {
 
     if (isEdit) {
       nameController = TextEditingController(text: birthday!.name);
-      dateControllerDay =
-          TextEditingController(text: birthday!.date.day.toString());
-      dateControllerMonth =
-          TextEditingController(text: birthday!.date.month.toString());
-      dateControllerYear =
-          TextEditingController(text: birthday!.date.year.toString());
+      dateControllerDay = TextEditingController(text: birthday!.date.day.toString());
+      dateControllerMonth = TextEditingController(text: birthday!.date.month.toString());
+      dateControllerYear = TextEditingController(text: birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -54,8 +50,7 @@ class BirthdayForm extends ConsumerWidget {
                 } else {
                   ref.read(birthdayControllerProvider.notifier).addBirthday(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content: Text('${nameController.text} hinzugefügt.')),
+                    SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
                 Navigator.pop(context, birthday);

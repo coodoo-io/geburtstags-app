@@ -15,11 +15,15 @@ class DashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text(
+          "Dashboard",
+        ),
       ),
       body: next5birthdays.isEmpty && todaysBirthdays.isEmpty
           ? const Center(
-              child: Text("Es stehen keine Geburtstage an"),
+              child: Text(
+                "Es stehen keine Geburtstage an",
+              ),
             )
           : Padding(
               padding: const EdgeInsets.all(20.0),
@@ -30,7 +34,9 @@ class DashboardScreen extends ConsumerWidget {
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Text(
                         "Heutige Geburtstage🎂",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -46,45 +52,58 @@ class DashboardScreen extends ConsumerWidget {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          BirthdayDetailScreen(
-                                              birthday: birthday)),
+                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
+                                  ),
                                 ),
                                 leading: CircleAvatar(
-                                  child:
-                                      Image.asset("assets/images/default.png"),
                                   radius: 25,
                                   backgroundColor: Colors.white,
+                                  child: Image.asset(
+                                    "assets/images/default.png",
+                                  ),
                                 ),
-                                title: Text(birthday.name),
+                                title: Text(
+                                  birthday.name,
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 5),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     Text(
-                                        "Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
+                                      "Am ${DateFormat('dd.MM').format(birthday.date)}",
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     const Text(
                                       "Heute Geburtstag",
                                       style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.red),
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("wird $getAge Jahre",
-                                    style: const TextStyle(fontSize: 18)),
+                                trailing: Text(
+                                  "wird $getAge Jahre",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
                           ),
                         );
                       },
@@ -94,7 +113,9 @@ class DashboardScreen extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 20.0),
                     child: Text(
                       "Anstehende Geburtstage🎉",
-                      style: TextStyle(fontSize: 24),
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -105,52 +126,62 @@ class DashboardScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final dateTimeUtil = DateTimeUtil();
                       final birthday = next5birthdays[index];
-                      final daysUntilBirthday = dateTimeUtil
-                          .remainingDaysUntilBirthday(birthday.date);
+                      final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
                       final getNextAge = dateTimeUtil.getNextAge(birthday.date);
 
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
                         child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ListTile(
                               onTap: () => Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => BirthdayDetailScreen(
-                                        birthday: birthday)),
+                                MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
                               ),
                               leading: CircleAvatar(
-                                child: Image.asset("assets/images/default.png"),
                                 radius: 25,
                                 backgroundColor: Colors.white,
+                                child: Image.asset(
+                                  "assets/images/default.png",
+                                ),
                               ),
-                              title: Text(birthday.name),
+                              title: Text(
+                                birthday.name,
+                              ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 5),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Text(
-                                      "Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                  const SizedBox(height: 5),
+                                    "Am ${DateFormat('dd.MM').format(birthday.date)}",
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Text(
-                                    daysUntilBirthday == 1
-                                        ? "In einem Tag"
-                                        : "In $daysUntilBirthday Tagen",
+                                    daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
                                     style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.green.shade700),
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.green.shade700,
+                                    ),
                                   ),
                                 ],
                               ),
-                              trailing: Text("wird $getNextAge Jahre",
-                                  style: const TextStyle(fontSize: 18)),
+                              trailing: Text(
+                                "wird $getNextAge Jahre",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
                             ),
                           ),
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
                         ),
                       );
                     },

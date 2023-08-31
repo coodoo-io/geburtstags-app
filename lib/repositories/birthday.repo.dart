@@ -11,7 +11,8 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
   SharedPrefsBirthdayRepo({required this.ref});
 
   final ProviderRef ref;
-  late List<Birthday> _inMemoryBirthdayList = ref.read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
+  late List<Birthday> _inMemoryBirthdayList =
+      ref.read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
 
   @override
   Future<List<Birthday>> getAll() async {
@@ -46,6 +47,6 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
 
     // Write to Store
     ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
-    _inMemoryBirthdayList=newBirthdayList;
+    _inMemoryBirthdayList = newBirthdayList;
   }
 }
