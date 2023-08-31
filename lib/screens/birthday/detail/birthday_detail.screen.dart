@@ -34,7 +34,11 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
     final daysUntilBirthday = DateTimeUtil().remainingDaysUntilBirthday(birthday!.date);
 
     return Scaffold(
-      appBar: AppBar(title: Text(birthday!.name)),
+      appBar: AppBar(
+        title: Text(
+          birthday!.name,
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -50,21 +54,34 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   errorWidget: Container(),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(
+                height: 30,
+              ),
               // Name
-              Text('Name', style: theme.textTheme.titleLarge),
+              Text(
+                'Name',
+                style: theme.textTheme.titleLarge,
+              ),
               Text(
                 birthday!.name,
-                style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: theme.primaryColor),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.primaryColor,
+                ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(
+                height: 20,
+              ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Geburtsdatum', style: theme.textTheme.titleLarge),
+                    Text(
+                      'Geburtsdatum',
+                      style: theme.textTheme.titleLarge,
+                    ),
                     Text(
                       DateFormat.yMMMMd('de').format(birthday!.date),
                       style: theme.textTheme.titleLarge?.copyWith(
@@ -78,29 +95,41 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Alter', style: theme.textTheme.titleMedium),
+                    Text(
+                      'Alter',
+                      style: theme.textTheme.titleMedium,
+                    ),
                     Text(
                       DateTimeUtil().getAge(birthday!.date).toString(),
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
               ),
-              const Divider(height: 50),
+              const Divider(
+                height: 50,
+              ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Nächster Geburtstag', style: theme.textTheme.titleMedium),
+                    Text(
+                      'Nächster Geburtstag',
+                      style: theme.textTheme.titleMedium,
+                    ),
                     Text(
                       isTodaysBirthdays
                           ? "Heute"
                           : daysUntilBirthday == 1
                               ? "in einem Tag"
                               : "in $daysUntilBirthday Tagen",
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -109,7 +138,9 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   style: theme.textTheme.headlineMedium?.copyWith(color: Colors.black),
                 ),
               ),
-              const SizedBox(height: 60),
+              const SizedBox(
+                height: 60,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
@@ -153,20 +184,28 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("${birthday!.name} wirklich löschen?"),
+          title: Text(
+            "${birthday!.name} wirklich löschen?",
+          ),
           actions: <Widget>[
             TextButton(
-              child: const Text("Abbrechen"),
+              child: const Text(
+                "Abbrechen",
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text("Löschen"),
+              child: const Text(
+                "Löschen",
+              ),
               onPressed: () {
                 context.read<BirthdayRepo>().delete(birthday!);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBarUtil.info(content: '${birthday!.name} gelöscht.'),
+                  SnackBarUtil.info(
+                    content: '${birthday!.name} gelöscht.',
+                  ),
                 );
                 Navigator.of(context).pop();
                 Navigator.pop(context);

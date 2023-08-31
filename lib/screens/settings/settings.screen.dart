@@ -17,7 +17,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Einstellungen")),
+      appBar: AppBar(
+        title: const Text(
+          "Einstellungen",
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -31,7 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Card(
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20.0),
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -39,7 +45,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: darkTheme,
                   activeColor: theme.primaryColor,
                   onChanged: (value) => context.read<ThemeNotifier>().toggleTheme(),
-                  title: const Text("Dark Theme"),
+                  title: const Text(
+                    "Dark Theme",
+                  ),
                 ),
               ),
             ),

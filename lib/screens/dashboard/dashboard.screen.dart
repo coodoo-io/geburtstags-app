@@ -15,10 +15,14 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text(
+          "Dashboard",
+        ),
       ),
       body: nextBirthdays.isEmpty && todaysBirthdays.isEmpty
-          ? const NoBirthdaysPlaceholder(label: "Es stehen keine Geburtstage an.")
+          ? const NoBirthdaysPlaceholder(
+              label: "Es stehen keine Geburtstage an.",
+            )
           : Padding(
               padding: const EdgeInsets.all(20.0),
               child: ListView(

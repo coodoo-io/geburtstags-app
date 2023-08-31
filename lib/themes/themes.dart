@@ -23,7 +23,9 @@ class BirthdayTheme {
       snackBarTheme: theme.snackBarTheme.copyWith(
         backgroundColor: color.shade500,
         elevation: 0,
-        contentTextStyle: GoogleFonts.openSans(fontSize: 15),
+        contentTextStyle: GoogleFonts.openSans(
+          fontSize: 15,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
@@ -35,7 +37,9 @@ class BirthdayTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          textStyle: GoogleFonts.openSans(fontSize: 20),
+          textStyle: GoogleFonts.openSans(
+            fontSize: 20,
+          ),
         ),
       ),
     );

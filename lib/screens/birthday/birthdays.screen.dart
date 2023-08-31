@@ -16,7 +16,11 @@ class BirthdaysScreen extends StatelessWidget {
     final birthdays = context.watch<BirthdayRepo>().birthdays;
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
+      appBar: AppBar(
+        title: const Text(
+          "Geburtstage",
+        ),
+      ),
       body: birthdays.isEmpty
           ? const NoBirthdaysPlaceholder(
               label: "Noch keine Geburtstage angelegt.",
@@ -36,14 +40,19 @@ class BirthdaysScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: 10.0),
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Icon(Icons.delete_outlined, color: Colors.white),
+                        child: Icon(
+                          Icons.delete_outlined,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                   onDismissed: (direction) {
                     context.read<BirthdayRepo>().delete(birthday);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBarUtil.info(content: "${birthday.name} gelöscht."),
+                      SnackBarUtil.info(
+                        content: "${birthday.name} gelöscht.",
+                      ),
                     );
                   },
                   child: Padding(
@@ -86,7 +95,9 @@ class BirthdaysScreen extends StatelessWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

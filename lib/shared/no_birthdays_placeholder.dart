@@ -26,7 +26,10 @@ class NoBirthdaysPlaceholder extends StatelessWidget {
             errorWidget: Container(),
           ),
           const SizedBox(height: 20),
-          Text(label, style: theme.textTheme.titleMedium),
+          Text(
+            label,
+            style: theme.textTheme.titleMedium,
+          ),
         ],
       ),
     );
