@@ -17,11 +17,9 @@ void main() {
       });
     });
 
-    test('remainingDaysUntilBirthday should return the correct time to elapse',
-        () {
+    test('remainingDaysUntilBirthday should return the correct time to elapse', () {
       withClock(Clock.fixed(DateTime(2022, 3, 17)), () {
-        int result =
-            classUnderTest.remainingDaysUntilBirthday(DateTime(2011, 2, 24));
+        int result = classUnderTest.remainingDaysUntilBirthday(DateTime(2011, 2, 24));
         expect(result, 345);
       });
     });
