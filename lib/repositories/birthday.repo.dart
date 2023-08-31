@@ -19,17 +19,17 @@ class BirthdayRepo extends ChangeNotifier {
 
   final List<Birthday> _birthdays = [];
 
-  UnmodifiableListView<Birthday> get birthdays =>
-      UnmodifiableListView(_birthdays);
+  UnmodifiableListView<Birthday> get birthdays => UnmodifiableListView(_birthdays);
 
   List<Birthday> getNextFiveBirthdays() {
     final dateTimeUtil = DateTimeUtil();
 
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) => dateTimeUtil
-        .remainingDaysUntilBirthday(a.date)
-        .compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort(
+      (a, b) =>
+          dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)),
+    );
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
@@ -41,8 +41,7 @@ class BirthdayRepo extends ChangeNotifier {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day &&
-          _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -72,16 +71,14 @@ class BirthdayRepo extends ChangeNotifier {
 
   Future<void> saveBirthdaysToSP() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String> birthdaysEncoded =
-        _birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
+    List<String> birthdaysEncoded = _birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
     prefs.setStringList("birthdays", birthdaysEncoded);
   }
 
   Future<void> loadBirthdaysToSP() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final jsonList = sharedPreferences.getStringList("birthdays");
-    final decodedList =
-        jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
+    final decodedList = jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
     _birthdays.addAll(decodedList ?? []);
     notifyListeners();
   }

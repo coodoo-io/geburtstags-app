@@ -31,20 +31,30 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("${birthday!.name} wirklich löschen?"),
+            title: Text(
+              "${birthday!.name} wirklich löschen?",
+            ),
             actions: <Widget>[
               TextButton(
-                child: const Text("Abbrechen"),
+                child: const Text(
+                  "Abbrechen",
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: const Text("Löschen"),
+                child: const Text(
+                  "Löschen",
+                ),
                 onPressed: () {
                   context.read<BirthdayRepo>().delete(birthday!);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${birthday!.name} gelöscht.')),
+                    SnackBar(
+                      content: Text(
+                        '${birthday!.name} gelöscht.',
+                      ),
+                    ),
                   );
                   Navigator.of(context).pop();
                   Navigator.pop(context);
@@ -58,7 +68,9 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(birthday!.name),
+        title: Text(
+          birthday!.name,
+        ),
         actions: <Widget>[
           PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -67,11 +79,15 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
             return [
               const PopupMenuItem<int>(
                 value: 0,
-                child: Text("Bearbeiten"),
+                child: Text(
+                  "Bearbeiten",
+                ),
               ),
               const PopupMenuItem<int>(
                 value: 1,
-                child: Text("Löschen"),
+                child: Text(
+                  "Löschen",
+                ),
               ),
             ];
           }, onSelected: (value) async {
@@ -106,23 +122,41 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
             // Name
             const Text(
               'Name:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 5),
-            Text(birthday!.name),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              birthday!.name,
+            ),
             // Datum
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
             const Text(
               'Geburtsdatum:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 5),
-            Text(DateFormat('dd.MM.yyyy').format(birthday!.date)),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              DateFormat('dd.MM.yyyy').format(birthday!.date),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             // Zurück
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Zurück"),
+              child: const Text(
+                "Zurück",
+              ),
             )
           ],
         ),
