@@ -17,11 +17,15 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text(
+          "Dashboard",
+        ),
       ),
       body: nextbirthdays.isEmpty && todaysBirthdays.isEmpty
           ? const Center(
-              child: Text("Es stehen keine Geburtstage an"),
+              child: Text(
+                "Es stehen keine Geburtstage an",
+              ),
             )
           : Padding(
               padding: const EdgeInsets.all(20.0),
@@ -32,7 +36,9 @@ class DashboardScreen extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 20.0),
                       child: Text(
                         "Heutige Geburtstage🎂",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -55,7 +61,9 @@ class DashboardScreen extends StatelessWidget {
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                  MaterialPageRoute(
+                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
+                                  ),
                                 ),
                                 leading: CircleAvatar(
                                   backgroundImage: birthday.profileImage != null
@@ -64,20 +72,36 @@ class DashboardScreen extends StatelessWidget {
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
-                                title: Text(birthday.name),
+                                title: Text(
+                                  birthday.name,
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Am ${DateFormat('dd.MM').format(birthday.date)}",
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     const Text(
                                       "Heute Geburtstag",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                                trailing: Text(
+                                  "$getAge Jahre",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -90,7 +114,9 @@ class DashboardScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
                         "Anstehende Geburtstage🎉",
-                        style: TextStyle(fontSize: 24),
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -108,13 +134,17 @@ class DashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                  MaterialPageRoute(
+                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
+                                  ),
                                 ),
                                 leading: CircleAvatar(
                                   backgroundImage: birthday.profileImage != null
@@ -123,20 +153,36 @@ class DashboardScreen extends StatelessWidget {
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                 ),
-                                title: Text(birthday.name),
+                                title: Text(
+                                  birthday.name,
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Am ${DateFormat('dd.MM').format(birthday.date)}",
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     Text(
                                       daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.green.shade700,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("$getAge Jahre", style: const TextStyle(fontSize: 18)),
+                                trailing: Text(
+                                  "$getAge Jahre",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

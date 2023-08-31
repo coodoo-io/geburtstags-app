@@ -21,8 +21,10 @@ class BirthdayRepo extends ChangeNotifier {
     final dateTimeUtil = DateTimeUtil();
     List<Birthday> nextFiveBirthdays = List.from(_birthdays);
 
-    nextFiveBirthdays.sort((a, b) =>
-        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort(
+      (a, b) =>
+          dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)),
+    );
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
