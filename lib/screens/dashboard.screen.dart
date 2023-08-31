@@ -8,12 +8,12 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Dashboard",
+          'Dashboard',
         ),
       ),
       body: const Center(
         child: Text(
-          "...",
+          '...',
         ),
       ),
     );
