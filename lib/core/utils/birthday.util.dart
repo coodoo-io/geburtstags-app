@@ -7,8 +7,10 @@ class BirthdayUtil {
 
     List<Birthday> nextFiveBirthdays = List.from(birthdays);
 
-    nextFiveBirthdays.sort((a, b) =>
-        dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)));
+    nextFiveBirthdays.sort(
+      (a, b) =>
+          dateTimeUtil.remainingDaysUntilBirthday(a.date).compareTo(dateTimeUtil.remainingDaysUntilBirthday(b.date)),
+    );
 
     if (nextFiveBirthdays.length > 5) {
       return nextFiveBirthdays.sublist(0, 5);
