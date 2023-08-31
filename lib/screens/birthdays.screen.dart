@@ -6,20 +6,36 @@ class BirthdaysScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
+      appBar: AppBar(
+        title: const Text(
+          "Geburtstage",
+        ),
+      ),
       body: ListView(
         children: const [
           ListTile(
-            title: Text('Julia'),
-            trailing: Text("16.04.1993"),
+            title: Text(
+              'Julia',
+            ),
+            trailing: Text(
+              "16.04.1993",
+            ),
           ),
           ListTile(
-            title: Text('Flo'),
-            trailing: Text("07.05.2003"),
+            title: Text(
+              'Flo',
+            ),
+            trailing: Text(
+              "07.05.2003",
+            ),
           ),
           ListTile(
-            title: Text('Marcel'),
-            trailing: Text("09.03.1984"),
+            title: Text(
+              'Marcel',
+            ),
+            trailing: Text(
+              "09.03.1984",
+            ),
           ),
         ],
       ),
