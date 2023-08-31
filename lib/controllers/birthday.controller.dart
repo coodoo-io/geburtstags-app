@@ -8,19 +8,19 @@ import 'package:geburtstags_app/utils/birthday.util.dart';
 
 final birthdayControllerProvider = StateNotifierProvider.autoDispose<BirthdayController, BirthdayState>((ref) {
   const initialState = BirthdayState(birthdays: [], next5Birthdays: [], todaysBirthdays: []);
-  return BirthdayController(read: ref.read, initialState: initialState);
+  return BirthdayController(ref: ref, initialState: initialState);
 });
 
 class BirthdayController extends StateNotifier<BirthdayState> {
-  BirthdayController({required this.read, required BirthdayState initialState}) : super(initialState) {
+  BirthdayController({required this.ref, required BirthdayState initialState}) : super(initialState) {
     _init();
   }
 
-  final Reader read;
+  final AutoDisposeStateNotifierProviderRef ref;
 
   // actual constructor
   Future<void> _init() async {
-    final repoBirthdayList = await read(birthdayStoreProvider).fetchAll();
+    final repoBirthdayList = ref.read(birthdayStoreProvider).fetchAll();
     state = state.copyWith(
         birthdays: repoBirthdayList,
         next5Birthdays: BirthdayUtil.calcNextFiveBirthdays(repoBirthdayList),
@@ -28,21 +28,21 @@ class BirthdayController extends StateNotifier<BirthdayState> {
   }
 
   Future<Birthday> addBirthday(Birthday birthday) async {
-    await read(birthdayRepoProvider).insert(birthday);
-    final repoBirthdayList = await read(birthdayRepoProvider).getAll();
+    await ref.read(birthdayRepoProvider).insert(birthday);
+    final repoBirthdayList = await ref.read(birthdayRepoProvider).getAll();
     _updateState(repoBirthdayList);
     return birthday;
   }
 
   Future<void> updateBirthday(Birthday oldData, Birthday newData) async {
-    await read(birthdayRepoProvider).update(oldData, newData);
-    final newBirthdayList = await read(birthdayRepoProvider).getAll();
+    await ref.read(birthdayRepoProvider).update(oldData, newData);
+    final newBirthdayList = await ref.read(birthdayRepoProvider).getAll();
     _updateState(newBirthdayList);
   }
 
   Future<void> removeBirthday(Birthday birthday) async {
-    await read(birthdayRepoProvider).delete(birthday);
-    final repoBirthdayList = await read(birthdayRepoProvider).getAll();
+    await ref.read(birthdayRepoProvider).delete(birthday);
+    final repoBirthdayList = await ref.read(birthdayRepoProvider).getAll();
     _updateState(repoBirthdayList);
   }
 

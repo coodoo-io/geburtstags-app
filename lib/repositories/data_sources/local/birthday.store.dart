@@ -5,21 +5,21 @@ import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 
 final birthdayStoreProvider = Provider<BirthdayStore>((ref) {
-  return BirthdayStore(read: ref.read);
+  return BirthdayStore(ref: ref);
 });
 
 class BirthdayStore {
-  const BirthdayStore({required this.read});
+  const BirthdayStore({required this.ref});
 
-  final Reader read;
+  final ProviderRef ref;
 
   void persist({required List<Birthday> birthdays}) {
     List<String> birthdaysEncoded = birthdays.map((birthday) => jsonEncode(birthday.toJson())).toList();
-    read(sharedPrefs).setStringList("birthdays", birthdaysEncoded);
+    ref.read(sharedPrefs).setStringList("birthdays", birthdaysEncoded);
   }
 
   List<Birthday> fetchAll() {
-    final jsonList = read(sharedPrefs).getStringList("birthdays");
+    final jsonList = ref.read(sharedPrefs).getStringList("birthdays");
     final decodedList = jsonList?.map((json) => Birthday.fromJson(jsonDecode(json))).toList();
     return decodedList ?? [];
   }

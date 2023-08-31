@@ -4,14 +4,14 @@ import 'package:geburtstags_app/repositories/birthday_repo.interface.dart';
 import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
 
 final birthdayRepoProvider = Provider<BirthdayRepo>((ref) {
-  return SharedPrefsBirthdayRepo(read: ref.read);
+  return SharedPrefsBirthdayRepo(ref: ref);
 });
 
 class SharedPrefsBirthdayRepo implements BirthdayRepo {
-  SharedPrefsBirthdayRepo({required this.read});
+  SharedPrefsBirthdayRepo({required this.ref});
 
-  final Reader read;
-  late List<Birthday> _inMemoryBirthdayList = read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
+  final ProviderRef ref;
+  late List<Birthday> _inMemoryBirthdayList = ref.read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
 
   @override
   Future<List<Birthday>> getAll() async {
@@ -23,7 +23,7 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     final newBirthdayList = [..._inMemoryBirthdayList, birthday];
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
     return birthday;
   }
@@ -34,7 +34,7 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     insert(newData);
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
+    ref.read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
   }
 
   @override
@@ -45,7 +45,7 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     ];
 
     // Write to Store
-    read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList=newBirthdayList;
   }
 }
