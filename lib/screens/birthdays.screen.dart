@@ -10,7 +10,11 @@ class BirthdaysScreen extends StatelessWidget {
     final birthdays = BirthdayRepo().getBirthdays();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Geburtstage")),
+      appBar: AppBar(
+        title: const Text(
+          "Geburtstage",
+        ),
+      ),
       body: ListView.builder(
         itemCount: birthdays.length,
         itemBuilder: (context, index) {
@@ -18,7 +22,9 @@ class BirthdaysScreen extends StatelessWidget {
           return ListTile(
             title: Text(birthday.name),
             trailing: Text(
-              DateFormat('dd.MM.yyyy').format(birthday.date),
+              DateFormat('dd.MM.yyyy').format(
+                birthday.date,
+              ),
             ),
           );
         },
