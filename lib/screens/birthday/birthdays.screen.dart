@@ -18,11 +18,15 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
     final birthdays = repo.getBirthdays();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Geburtstage"),
+        title: const Text(
+          "Geburtstage",
+        ),
         actions: [
           IconButton(
             onPressed: () => setState(() {}),
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(
+              Icons.refresh,
+            ),
           ),
         ],
       ),
@@ -51,7 +55,11 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                 repo.delete(birthday);
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${birthday.name} gelöscht.')),
+                SnackBar(
+                  content: Text(
+                    '${birthday.name} gelöscht.',
+                  ),
+                ),
               );
             },
             child: ListTile(
@@ -69,7 +77,9 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                   ),
                 );
               },
-              title: Text(birthday.name),
+              title: Text(
+                birthday.name,
+              ),
               trailing: Text(
                 DateFormat('dd.MM.yyyy').format(birthday.date),
               ),
@@ -94,7 +104,9 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
                 }),
               );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

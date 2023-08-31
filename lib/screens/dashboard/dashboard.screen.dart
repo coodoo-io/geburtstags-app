@@ -19,17 +19,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text(
+          "Dashboard",
+        ),
         actions: [
           IconButton(
             onPressed: () => setState(() {}),
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(
+              Icons.refresh,
+            ),
           ),
         ],
       ),
       body: nextbirthdays.isEmpty
           ? const Center(
-              child: Text("Es stehen keine Geburtstage an"),
+              child: Text(
+                "Es stehen keine Geburtstage an",
+              ),
             )
           : Padding(
               padding: const EdgeInsets.all(20.0),
@@ -37,10 +43,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   const Text(
                     "Anstehende Geburtstage🎉",
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: nextbirthdays.length,
@@ -62,23 +72,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               child: ListTile(
                                 onTap: () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => BirthdayDetailScreen(birthday: birthday)),
+                                  MaterialPageRoute(
+                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
+                                  ),
                                 ).then((value) => setState(() {})),
-                                leading: const CircleAvatar(radius: 25, child: Icon(Icons.person)),
-                                title: Text(birthday.name),
+                                leading: const CircleAvatar(
+                                  radius: 25,
+                                  child: Icon(
+                                    Icons.person,
+                                  ),
+                                ),
+                                title: Text(
+                                  birthday.name,
+                                ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 5),
-                                    Text("Am ${DateFormat('dd.MM').format(birthday.date)}"),
-                                    const SizedBox(height: 5),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Am ${DateFormat('dd.MM').format(birthday.date)}",
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
                                     Text(
                                       daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
-                                      style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade700),
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.green.shade700,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                trailing: Text("wird $getNextAge Jahre", style: const TextStyle(fontSize: 18)),
+                                trailing: Text(
+                                  "wird $getNextAge Jahre",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
