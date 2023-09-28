@@ -15,11 +15,14 @@ class BirthdayDetailScreen extends StatefulWidget {
 }
 
 class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
-  Birthday? birthday;
+  late Birthday birthday;
+  bool isEdited = false;
 
   @override
   Widget build(BuildContext context) {
-    birthday = ModalRoute.of(context)!.settings.arguments as Birthday;
+    if (!isEdited) {
+      birthday = ModalRoute.of(context)!.settings.arguments as Birthday;
+    }
 
     void showAlertDialog() {
       showDialog(
@@ -27,7 +30,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              '${birthday!.name} wirklich löschen?',
+              '${birthday.name} wirklich löschen?',
             ),
             actions: <Widget>[
               TextButton(
@@ -43,11 +46,11 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   'Löschen',
                 ),
                 onPressed: () {
-                  BirthdayRepo().delete(birthday!);
+                  BirthdayRepo().delete(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        '${birthday!.name} gelöscht.',
+                        '${birthday.name} gelöscht.',
                       ),
                     ),
                   );
@@ -64,7 +67,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          birthday!.name,
+          birthday.name,
         ),
         actions: <Widget>[
           PopupMenuButton(itemBuilder: (context) {
@@ -97,6 +100,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               );
 
               setState(() {
+                isEdited = true;
                 birthday = response;
               });
             }
@@ -122,7 +126,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
               height: 5,
             ),
             Text(
-              birthday!.name,
+              birthday.name,
             ),
             // Datum
             const SizedBox(
@@ -139,7 +143,7 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
             ),
             Text(
               DateFormat('dd.MM.yyyy').format(
-                birthday!.date,
+                birthday.date,
               ),
             ),
             const SizedBox(
