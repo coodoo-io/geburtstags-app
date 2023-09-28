@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geburtstags_app/main.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,12 +7,10 @@ part 'birthday.repository.g.dart';
 
 /// Repository ist eine normale Dart-Klasse auf die über ein Provider zugegriffen wird.
 class BirthdayRepository {
-  BirthdayRepository({required this.ref});
+  BirthdayRepository({required this.birthdayStore});
 
-  final ProviderRef ref;
-  late List<Birthday> _inMemoryBirthdayList = ref
-      .read(birthdayStoreProvider)
-      .fetchAll(); // Quick access without shared_preferences
+  final BirthdayStore birthdayStore;
+  late List<Birthday> _inMemoryBirthdayList = birthdayStore.fetchAll();
 
   Future<List<Birthday>> getAll() async {
     return _inMemoryBirthdayList;
@@ -21,8 +19,8 @@ class BirthdayRepository {
   Future<Birthday> insert(Birthday birthday) async {
     final newBirthdayList = [..._inMemoryBirthdayList, birthday];
 
-    // Write to Store
-    ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    // Write to local store
+    birthdayStore.persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
     return birthday;
   }
@@ -32,7 +30,7 @@ class BirthdayRepository {
     insert(newData);
 
     // Write to Store
-    ref.read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
+    birthdayStore.persist(birthdays: _inMemoryBirthdayList);
   }
 
   Future<void> delete(Birthday birthday) async {
@@ -42,17 +40,16 @@ class BirthdayRepository {
     ];
 
     // Write to Store
-    ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
+    birthdayStore.persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
   }
 }
 
-@riverpod
-FutureOr<BirthdayRepository> birthdayRepository(BirthdayRepositoryRef ref) {
-  return BirthdayRepository(ref: ref);
+/// Es soll durchgängig nur eine Repository Instanz gehalten werden um die Zugriffe
+/// auf die Shared Preferences zu minimieren.
+@Riverpod(keepAlive: true)
+BirthdayRepository birthdayRepository(BirthdayRepositoryRef ref) {
+  final sharedPreferences = ref.read(sharedPrefsProvider);
+  final birthdayStore = BirthdayStore(sharedPreferences: sharedPreferences);
+  return BirthdayRepository(birthdayStore: birthdayStore);
 }
-
-/// Provider für Dependency Injection
-final birthdayRepoProvider = Provider<BirthdayRepository>((ref) {
-  return BirthdayRepository(ref: ref);
-});
