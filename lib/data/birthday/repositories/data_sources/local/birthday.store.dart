@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:geburtstags_app/models/birthday.dart';
+import 'package:geburtstags_app/domain/birthday/model/birthday.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Managed die Birthdays in den Shared Preferences

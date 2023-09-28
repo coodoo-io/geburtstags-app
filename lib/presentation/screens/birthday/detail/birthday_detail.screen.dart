@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/controllers/birthday.controller.dart';
-import 'package:geburtstags_app/models/birthday.dart';
+import 'package:geburtstags_app/domain/birthday/model/birthday.dart';
+import 'package:geburtstags_app/domain/birthday/service/birthday.service.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/birthday_form.dart';
@@ -47,8 +47,8 @@ class _BirthdayDetailScreenState extends ConsumerState<BirthdayDetailScreen> {
                 child: const Text(
                   "Löschen",
                 ),
-                onPressed: () {
-                  ref.read(birthdayControllerProvider.notifier).removeBirthday(birthday!);
+                onPressed: () async {
+                  await ref.read(removeBirthdayServiceProvider(birthday: birthday!).future);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

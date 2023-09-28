@@ -1,6 +1,6 @@
-import 'package:geburtstags_app/main.dart';
-import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
+import 'package:geburtstags_app/common/shared_preferences/shared_preferences.dart';
+import 'package:geburtstags_app/data/birthday/repositories/data_sources/local/birthday.store.dart';
+import 'package:geburtstags_app/domain/birthday/model/birthday.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'birthday.repository.g.dart';
@@ -13,7 +13,7 @@ class BirthdayRepository {
   late List<Birthday> _inMemoryBirthdayList = birthdayStore.fetchAll();
 
   Future<List<Birthday>> getAll() async {
-    return _inMemoryBirthdayList;
+    return Future.value(_inMemoryBirthdayList);
   }
 
   Future<Birthday> insert(Birthday birthday) async {
@@ -25,9 +25,14 @@ class BirthdayRepository {
     return birthday;
   }
 
-  Future<void> update(Birthday oldData, Birthday newData) async {
-    delete(oldData);
-    insert(newData);
+  Future<void> update(Birthday birthday) async {
+    for (var i = 0; i < _inMemoryBirthdayList.length; i++) {
+      var bday = _inMemoryBirthdayList[i];
+      if (bday.id == birthday.id) {
+        _inMemoryBirthdayList[i] = birthday;
+        break;
+      }
+    }
 
     // Write to Store
     birthdayStore.persist(birthdays: _inMemoryBirthdayList);

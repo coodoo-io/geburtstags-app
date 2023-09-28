@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geburtstags_app/controllers/birthday.controller.dart';
-import 'package:geburtstags_app/models/birthday.dart';
+import 'package:geburtstags_app/domain/birthday/model/birthday.dart';
+import 'package:geburtstags_app/domain/birthday/service/birthday.service.dart';
+import 'package:uuid/uuid.dart';
 
-class BirthdayForm extends ConsumerWidget {
+class BirthdayForm extends ConsumerStatefulWidget {
   const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
 
   final Birthday? birthday;
   final bool isEdit;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _BirthdayFormState();
+}
+
+class _BirthdayFormState extends ConsumerState<BirthdayForm> {
+  @override
+  Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
@@ -19,11 +25,11 @@ class BirthdayForm extends ConsumerWidget {
     var dateControllerMonth = TextEditingController();
     var dateControllerYear = TextEditingController();
 
-    if (isEdit) {
-      nameController = TextEditingController(text: birthday!.name);
-      dateControllerDay = TextEditingController(text: birthday!.date.day.toString());
-      dateControllerMonth = TextEditingController(text: birthday!.date.month.toString());
-      dateControllerYear = TextEditingController(text: birthday!.date.year.toString());
+    if (widget.isEdit) {
+      nameController = TextEditingController(text: widget.birthday!.name);
+      dateControllerDay = TextEditingController(text: widget.birthday!.date.day.toString());
+      dateControllerMonth = TextEditingController(text: widget.birthday!.date.month.toString());
+      dateControllerYear = TextEditingController(text: widget.birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -31,9 +37,11 @@ class BirthdayForm extends ConsumerWidget {
         title: const Text('Geburtstag'),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (formKey.currentState!.validate()) {
-                Birthday birthday = Birthday(
+                var id = widget.isEdit ? widget.birthday!.id : const Uuid().v1();
+                Birthday newBirthday = Birthday(
+                  id: id,
                   name: nameController.text,
                   date: DateTime(
                     int.parse(dateControllerYear.text),
@@ -42,18 +50,20 @@ class BirthdayForm extends ConsumerWidget {
                   ),
                 );
 
-                if (isEdit) {
-                  ref.read(birthdayControllerProvider.notifier).updateBirthday(birthday, birthday);
+                if (widget.isEdit) {
+                  await ref.read(updateBirthdayServiceProvider(
+                    birthday: newBirthday,
+                  ).future);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  ref.read(birthdayControllerProvider.notifier).addBirthday(birthday);
+                  await ref.read(addBirthdayServiceProvider(birthday: newBirthday).future);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
-                Navigator.pop(context, birthday);
+                Navigator.pop(context, newBirthday);
               }
             },
             child: const Text(
