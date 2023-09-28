@@ -13,6 +13,8 @@ dependencies:
   flutter_riverpod: ^2.4.1
   intl: ^0.18.1
   shared_preferences: ^2.2.1
+  riverpod_annotation: ^2.1.6
+  build_runner: ^2.4.6
 
 dev_dependencies:
   flutter_lints: ^2.0.3

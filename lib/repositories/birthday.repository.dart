@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'birthday.repository.g.dart';
 
 /// Repository ist eine normale Dart-Klasse auf die über ein Provider zugegriffen wird.
 class BirthdayRepository {
@@ -41,6 +44,11 @@ class BirthdayRepository {
     ref.read(birthdayStoreProvider).persist(birthdays: newBirthdayList);
     _inMemoryBirthdayList = newBirthdayList;
   }
+}
+
+@riverpod
+FutureOr<BirthdayRepository> birthdayRepository(BirthdayRepositoryRef ref) {
+  return BirthdayRepository(ref: ref);
 }
 
 /// Provider für Dependency Injection
