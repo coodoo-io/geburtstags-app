@@ -6,13 +6,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 
 class BirthdayRepo extends ChangeNotifier {
-  static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
-
-  factory BirthdayRepo() {
-    return _birthdayRepo;
-  }
-
-  BirthdayRepo._internal() {
+  BirthdayRepo() {
     _addInitalBirthdays();
   }
 
