@@ -5,12 +5,12 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: ^3.13.1
+  flutter: ^3.13.5
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.3.10
+  flutter_riverpod: ^2.4.1
   intl: ^0.18.1
   shared_preferences: ^2.2.1
 

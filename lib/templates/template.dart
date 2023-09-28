@@ -7,10 +7,10 @@ class Template extends StatefulWidget {
   const Template({Key? key}) : super(key: key);
 
   @override
-  _TemplateState createState() => _TemplateState();
+  TemplateState createState() => TemplateState();
 }
 
-class _TemplateState extends State<Template> {
+class TemplateState extends State<Template> {
   int _index = 1;
 
   @override

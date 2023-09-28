@@ -1,25 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/repositories/birthday_repo.interface.dart';
 import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
 
-final birthdayRepoProvider = Provider<BirthdayRepo>((ref) {
-  return SharedPrefsBirthdayRepo(ref: ref);
-});
-
-class SharedPrefsBirthdayRepo implements BirthdayRepo {
-  SharedPrefsBirthdayRepo({required this.ref});
+/// Repository ist eine normale Dart-Klasse auf die über ein Provider zugegriffen wird.
+class BirthdayRepository {
+  BirthdayRepository({required this.ref});
 
   final ProviderRef ref;
   late List<Birthday> _inMemoryBirthdayList =
       ref.read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
 
-  @override
   Future<List<Birthday>> getAll() async {
     return _inMemoryBirthdayList;
   }
 
-  @override
   Future<Birthday> insert(Birthday birthday) async {
     final newBirthdayList = [..._inMemoryBirthdayList, birthday];
 
@@ -29,7 +23,6 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     return birthday;
   }
 
-  @override
   Future<void> update(Birthday oldData, Birthday newData) async {
     delete(oldData);
     insert(newData);
@@ -38,7 +31,6 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     ref.read(birthdayStoreProvider).persist(birthdays: _inMemoryBirthdayList);
   }
 
-  @override
   Future<void> delete(Birthday birthday) async {
     final newBirthdayList = [
       for (final b in _inMemoryBirthdayList)
@@ -50,3 +42,8 @@ class SharedPrefsBirthdayRepo implements BirthdayRepo {
     _inMemoryBirthdayList = newBirthdayList;
   }
 }
+
+/// Provider für Dependency Injection
+final birthdayRepoProvider = Provider<BirthdayRepository>((ref) {
+  return BirthdayRepository(ref: ref);
+});

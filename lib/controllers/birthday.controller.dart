@@ -1,15 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geburtstags_app/controllers/birthday.state.dart';
 import 'package:geburtstags_app/models/birthday.dart';
-import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:geburtstags_app/repositories/data_sources/local/birthday.store.dart';
 import 'package:geburtstags_app/utils/birthday.util.dart';
 
-final birthdayControllerProvider = StateNotifierProvider.autoDispose<BirthdayController, BirthdayState>((ref) {
-  const initialState = BirthdayState(birthdays: [], next5Birthdays: [], todaysBirthdays: []);
-  return BirthdayController(ref: ref, initialState: initialState);
-});
-
+/// Hält den View-State des birthday screen
 class BirthdayController extends StateNotifier<BirthdayState> {
   BirthdayController({required this.ref, required BirthdayState initialState}) : super(initialState) {
     _init();
@@ -52,3 +48,8 @@ class BirthdayController extends StateNotifier<BirthdayState> {
         todaysBirthdays: BirthdayUtil.calcTodaysBirthdays(repoBirthdayList));
   }
 }
+
+final birthdayControllerProvider = StateNotifierProvider.autoDispose<BirthdayController, BirthdayState>((ref) {
+  const initialState = BirthdayState(birthdays: [], next5Birthdays: [], todaysBirthdays: []);
+  return BirthdayController(ref: ref, initialState: initialState);
+});

@@ -11,7 +11,7 @@ class BirthdayForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     final monthFocusNode = FocusNode();
     final yearFocusNode = FocusNode();
     var nameController = TextEditingController();
@@ -32,7 +32,7 @@ class BirthdayForm extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 Birthday birthday = Birthday(
                   name: nameController.text,
                   date: DateTime(
@@ -64,7 +64,7 @@ class BirthdayForm extends ConsumerWidget {
         ],
       ),
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
