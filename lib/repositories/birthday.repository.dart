@@ -10,8 +10,9 @@ class BirthdayRepository {
   BirthdayRepository({required this.ref});
 
   final ProviderRef ref;
-  late List<Birthday> _inMemoryBirthdayList =
-      ref.read(birthdayStoreProvider).fetchAll(); // Quick access without shared_preferences
+  late List<Birthday> _inMemoryBirthdayList = ref
+      .read(birthdayStoreProvider)
+      .fetchAll(); // Quick access without shared_preferences
 
   Future<List<Birthday>> getAll() async {
     return _inMemoryBirthdayList;
