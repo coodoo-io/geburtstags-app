@@ -48,7 +48,7 @@ class GetNextBirthdaysService extends _$GetNextBirthdaysService {
 }
 
 @riverpod
-FutureOr<List<Birthday>> getTodaysBirthdaysService(
+Future<List<Birthday>> getTodaysBirthdaysService(
   GetTodaysBirthdaysServiceRef ref,
 ) async {
   List<Birthday> birthdays = await ref.read(getAllBirthdaysServiceProvider.future);
