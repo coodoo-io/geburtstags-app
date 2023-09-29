@@ -4,7 +4,8 @@ import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 
 class BirthdayForm extends ConsumerWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({Key? key, this.birthday, this.isEdit = false})
+      : super(key: key);
 
   final Birthday? birthday;
   final bool isEdit;
@@ -21,9 +22,12 @@ class BirthdayForm extends ConsumerWidget {
 
     if (isEdit) {
       nameController = TextEditingController(text: birthday!.name);
-      dateControllerDay = TextEditingController(text: birthday!.date.day.toString());
-      dateControllerMonth = TextEditingController(text: birthday!.date.month.toString());
-      dateControllerYear = TextEditingController(text: birthday!.date.year.toString());
+      dateControllerDay =
+          TextEditingController(text: birthday!.date.day.toString());
+      dateControllerMonth =
+          TextEditingController(text: birthday!.date.month.toString());
+      dateControllerYear =
+          TextEditingController(text: birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -43,14 +47,19 @@ class BirthdayForm extends ConsumerWidget {
                 );
 
                 if (isEdit) {
-                  ref.read(birthdayControllerProvider.notifier).updateBirthday(birthday, birthday);
+                  ref
+                      .read(birthdayControllerProvider.notifier)
+                      .updateBirthday(birthday, birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  ref.read(birthdayControllerProvider.notifier).addBirthday(birthday);
+                  ref
+                      .read(birthdayControllerProvider.notifier)
+                      .addBirthday(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${nameController.text} hinzugefügt.')),
+                    SnackBar(
+                        content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
                 Navigator.pop(context, birthday);
@@ -94,11 +103,6 @@ class BirthdayForm extends ConsumerWidget {
                       controller: dateControllerDay,
                       keyboardType: TextInputType.number,
                       maxLength: 2,
-                      onChanged: (value) {
-                        if (dateControllerDay.text.length == 2) {
-                          FocusScope.of(context).requestFocus(monthFocusNode);
-                        }
-                      },
                       decoration: InputDecoration(
                         counterText: '',
                         labelText: 'Tag',
@@ -125,11 +129,6 @@ class BirthdayForm extends ConsumerWidget {
                       keyboardType: TextInputType.number,
                       maxLength: 2,
                       focusNode: monthFocusNode,
-                      onChanged: (value) {
-                        if (dateControllerMonth.text.length == 2) {
-                          FocusScope.of(context).requestFocus(yearFocusNode);
-                        }
-                      },
                       decoration: InputDecoration(
                         counterText: '',
                         labelText: 'Monat',
