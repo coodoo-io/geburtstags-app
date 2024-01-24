@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatelessWidget {
-  const BirthdaysScreen({Key? key}) : super(key: key);
+  const BirthdaysScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
