@@ -6,7 +6,7 @@ import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
 
 class DashboardScreen extends ConsumerWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -4,13 +4,13 @@ import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
 
-import '../widgets/birthday_form.dart';
+import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 
 class BirthdayDetailScreen extends ConsumerStatefulWidget {
   const BirthdayDetailScreen({
     required this.birthday,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Birthday birthday;
 

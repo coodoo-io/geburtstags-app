@@ -4,7 +4,7 @@ import 'package:geburtstags_app/controllers/birthday.controller.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 
 class BirthdayForm extends ConsumerWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({super.key, this.birthday, this.isEdit = false});
 
   final Birthday? birthday;
   final bool isEdit;

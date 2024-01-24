@@ -6,7 +6,7 @@ import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends ConsumerWidget {
-  const BirthdaysScreen({Key? key}) : super(key: key);
+  const BirthdaysScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
