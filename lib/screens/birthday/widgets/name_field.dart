@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class NameField extends StatefulWidget {
   const NameField({
     required this.controller,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TextEditingController controller;
 

@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 class DatePicker extends StatefulWidget {
   const DatePicker({
     required this.controller,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TextEditingController controller;
 

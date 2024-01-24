@@ -6,7 +6,7 @@ import 'package:geburtstags_app/screens/birthday/widgets/name_field.dart';
 import 'package:intl/intl.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key}) : super(key: key);
+  const BirthdayForm({super.key});
 
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
