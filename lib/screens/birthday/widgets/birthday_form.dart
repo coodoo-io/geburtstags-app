@@ -3,7 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key}) : super(key: key);
+  const BirthdayForm({super.key});
 
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
