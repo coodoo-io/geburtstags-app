@@ -49,7 +49,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
             },
             child: const Text(
               'Speichern',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
           ),
         ],
