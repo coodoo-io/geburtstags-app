@@ -3,7 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key}) : super(key: key);
+  const BirthdayForm({super.key});
 
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
@@ -33,10 +33,10 @@ class _BirthdayFormState extends State<BirthdayForm> {
           ),
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text("Max Mustermann"),
             Text("09.06.1996"),
           ],
