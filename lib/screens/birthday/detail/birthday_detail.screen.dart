@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 class BirthdayDetailScreen extends StatelessWidget {
   const BirthdayDetailScreen({
     required this.birthday,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Birthday birthday;
 
