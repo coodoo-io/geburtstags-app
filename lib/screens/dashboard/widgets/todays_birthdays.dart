@@ -3,7 +3,7 @@ import 'package:geburtstags_app/repositories/birthday.repo.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 
 class TodaysBirthdays extends StatelessWidget {
-  const TodaysBirthdays({Key? key}) : super(key: key);
+  const TodaysBirthdays({super.key});
 
   @override
   Widget build(BuildContext context) {
