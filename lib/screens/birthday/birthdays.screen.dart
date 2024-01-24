@@ -5,7 +5,7 @@ import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysScreen extends StatefulWidget {
-  const BirthdaysScreen({Key? key}) : super(key: key);
+  const BirthdaysScreen({super.key});
   static final routeName = (BirthdaysScreen).toString();
   @override
   State<BirthdaysScreen> createState() => _BirthdaysScreenState();

@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   static final routeName = (BirthdayDetailScreen).toString();
 
   @override

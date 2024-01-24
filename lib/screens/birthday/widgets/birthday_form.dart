@@ -3,7 +3,7 @@ import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({super.key, this.birthday, this.isEdit = false});
   static final routeName = (BirthdayForm).toString();
   final Birthday? birthday;
   final bool isEdit;
