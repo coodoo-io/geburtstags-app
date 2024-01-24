@@ -4,7 +4,7 @@ import 'package:geburtstags_app/ui/views/dashboard.view.dart';
 import 'package:geburtstags_app/ui/views/settings.view.dart';
 
 class Template extends StatefulWidget {
-  const Template({Key? key}) : super(key: key);
+  const Template({super.key});
 
   @override
   State<Template> createState() => _TemplateState();

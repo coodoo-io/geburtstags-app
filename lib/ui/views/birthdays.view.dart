@@ -6,7 +6,7 @@ import 'package:geburtstags_app/ui/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
 
 class BirthdaysView extends StatelessWidget {
-  const BirthdaysView({Key? key}) : super(key: key);
+  const BirthdaysView({super.key});
 
   @override
   Widget build(BuildContext context) {

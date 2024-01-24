@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 class BirthdayDetailView extends StatefulWidget {
   const BirthdayDetailView({
     required this.birthday,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Birthday birthday;
 

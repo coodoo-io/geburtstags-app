@@ -4,7 +4,7 @@ import 'package:geburtstags_app/core/viewmodels/birthday.viewmodel.dart';
 import 'package:geburtstags_app/locator.dart';
 
 class BirthdayForm extends StatelessWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({super.key, this.birthday, this.isEdit = false});
 
   final Birthday? birthday;
   final bool isEdit;

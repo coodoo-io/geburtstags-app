@@ -6,7 +6,7 @@ import 'package:geburtstags_app/ui/views/base.view.dart';
 import 'package:intl/intl.dart';
 
 class DashboardView extends StatelessWidget {
-  const DashboardView({Key? key}) : super(key: key);
+  const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
