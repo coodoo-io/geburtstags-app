@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
 class DashboardScreen extends ConsumerWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,8 +18,8 @@ class DashboardScreen extends ConsumerWidget {
           "Dashboard",
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: const Padding(
+        padding: EdgeInsets.all(20.0),
         child: TodaysBirthdaysList(),
       ),
     );

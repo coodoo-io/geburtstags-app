@@ -5,7 +5,7 @@ import 'package:geburtstags_app/domain/birthday/service/birthday.service.dart';
 import 'package:uuid/uuid.dart';
 
 class BirthdayForm extends ConsumerStatefulWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({super.key, this.birthday, this.isEdit = false});
 
   final Birthday? birthday;
   final bool isEdit;

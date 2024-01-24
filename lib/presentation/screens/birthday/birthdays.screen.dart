@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
 class BirthdaysScreen extends ConsumerWidget {
-  const BirthdaysScreen({Key? key}) : super(key: key);
+  const BirthdaysScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
