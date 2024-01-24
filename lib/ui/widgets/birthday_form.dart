@@ -60,7 +60,7 @@ class BirthdayForm extends StatelessWidget {
             },
             child: const Text(
               'Speichern',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
           ),
         ],
