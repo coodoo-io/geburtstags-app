@@ -5,7 +5,7 @@ import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
 
 class BirthdayCard extends StatelessWidget {
-  const BirthdayCard({Key? key, required this.birthday, this.isToday = false}) : super(key: key);
+  const BirthdayCard({super.key, required this.birthday, this.isToday = false});
 
   final Birthday birthday;
   final bool isToday;

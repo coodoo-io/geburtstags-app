@@ -3,10 +3,10 @@ import 'package:ms_undraw/ms_undraw.dart';
 
 class NoBirthdaysPlaceholder extends StatelessWidget {
   const NoBirthdaysPlaceholder({
-    Key? key,
+    super.key,
     required this.label,
     this.illustration = UnDrawIllustration.happy_birthday,
-  }) : super(key: key);
+  });
 
   final String label;
   final UnDrawIllustration illustration;

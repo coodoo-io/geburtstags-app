@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class BirthdayFormField extends StatelessWidget {
   const BirthdayFormField({
-    Key? key,
+    super.key,
     required this.label,
     required this.controller,
     this.focusNode,
     this.invalidValue = 31,
     this.maxLength = 2,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   final String label;
   final TextEditingController controller;

@@ -5,7 +5,7 @@ import 'package:geburtstags_app/shared/no_birthdays_placeholder.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

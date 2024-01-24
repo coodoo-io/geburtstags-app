@@ -6,7 +6,7 @@ import 'package:geburtstags_app/utils/snack_bar.util.dart';
 import 'package:ms_undraw/ms_undraw.dart';
 
 class BirthdayForm extends StatelessWidget {
-  const BirthdayForm({Key? key, this.birthday, this.isEdit = false}) : super(key: key);
+  const BirthdayForm({super.key, this.birthday, this.isEdit = false});
   final Birthday? birthday;
   final bool isEdit;
 

@@ -5,7 +5,7 @@ import 'package:geburtstags_app/themes/themes.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
