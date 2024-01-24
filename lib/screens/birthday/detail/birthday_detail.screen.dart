@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:intl/intl.dart';
 
-import '../../../repositories/birthday.repo.dart';
+import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
     required this.birthday,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Birthday birthday;
 

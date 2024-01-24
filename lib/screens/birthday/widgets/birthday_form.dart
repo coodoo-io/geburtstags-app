@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class BirthdayForm extends StatefulWidget {
-  const BirthdayForm({Key? key}) : super(key: key);
+  const BirthdayForm({super.key});
 
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
