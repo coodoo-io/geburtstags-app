@@ -5,13 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../repositories/birthday.repo.dart';
+import 'package:geburtstags_app/repositories/birthday.repo.dart';
 
 class BirthdayDetailScreen extends StatefulWidget {
   const BirthdayDetailScreen({
     required this.birthday,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Birthday birthday;
 
