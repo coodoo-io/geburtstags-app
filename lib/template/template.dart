@@ -4,13 +4,13 @@ import 'package:geburtstags_app/screens/dashboard.screen.dart';
 import 'package:geburtstags_app/screens/settings.screen.dart';
 
 class Template extends StatefulWidget {
-  const Template({Key? key}) : super(key: key);
+  const Template({super.key});
 
   @override
-  _TemplateState createState() => _TemplateState();
+  TemplateState createState() => TemplateState();
 }
 
-class _TemplateState extends State<Template> {
+class TemplateState extends State<Template> {
   int _index = 1;
 
   @override
