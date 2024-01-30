@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: 0.19.0
+  searchable_listview: ^2.10.1
 
 dev_dependencies:
   flutter_test:
