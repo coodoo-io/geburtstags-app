@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geburtstags_app/models/birthday.model.dart';
+import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:intl/intl.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
@@ -8,33 +10,31 @@ class GeburtstagsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat formater = DateFormat('dd.MM.yyyy');
-    DateFormat secondFormater = DateFormat('M.yy');
-    DateFormat fromDateFormat = DateFormat('yyyy-MM-dd');
 
-    List<Map<String, String>> birthdays = [
-      {'marcel': '1984-01-09'},
-      {'markus': '1984-02-09'},
-      {'julian': '1984.03-09'},
-      {'marcel': '1984-04-09'},
-    ];
+    final birthdayRepository = BirthdayRepository();
+    final secondBirthdayRepository = BirthdayRepository();
+    secondBirthdayRepository.insert(
+        FreezedBirthday(birthday: DateTime(1990, 01, 01), name: 'test'));
+
+    final birthdays = birthdayRepository.getBirthdays();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('GeburtstagsScreen'),
       ),
-      body: SearchableList<Map<String, String>>(
+      body: SearchableList<FreezedBirthday>(
         displaySortWidget: true,
-        sortPredicate: (a, b) => a.keys.first.compareTo(b.keys.first),
+        sortPredicate: (a, b) => a.name.compareTo(b.name),
         builder: (list, index, item) {
           return ListTile(
-            leading: Text(item.keys.first),
-            trailing: Text(item.values.last),
+            leading: Text(item.name),
+            trailing: Text(formater.format(item.birthday)),
           );
         },
         initialList: birthdays,
         filter: (p0) {
           return birthdays
-              .where((element) => element.keys.first.contains(p0))
+              .where((element) => element.name.contains(p0))
               .toList();
         },
         inputDecoration: InputDecoration(
