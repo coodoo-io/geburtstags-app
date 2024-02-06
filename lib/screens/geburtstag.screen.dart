@@ -2,26 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:geburtstags_app/screens/birthday/birthday_detail.screen.dart';
+import 'package:geburtstags_app/screens/birthday/birthday_form_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
-class GeburtstagsScreen extends StatelessWidget {
+class GeburtstagsScreen extends StatefulWidget {
   const GeburtstagsScreen({super.key});
+
+  @override
+  State<GeburtstagsScreen> createState() => _GeburtstagsScreenState();
+}
+
+class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
+  final birthdayRepository = BirthdayRepository();
 
   @override
   Widget build(BuildContext context) {
     DateFormat formater = DateFormat('dd.MM.yyyy');
-
-    final birthdayRepository = BirthdayRepository();
-    final secondBirthdayRepository = BirthdayRepository();
-    secondBirthdayRepository.insert(
-        FreezedBirthday(birthday: DateTime(1990, 01, 01), name: 'test'));
 
     final birthdays = birthdayRepository.getBirthdays();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('GeburtstagsScreen'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => const BirthdayForm(),
+              fullscreenDialog: true,
+            ),
+          );
+          setState(() {});
+        },
+        child: Icon(Icons.add),
       ),
       body: SearchableList<FreezedBirthday>(
         displaySortWidget: true,
