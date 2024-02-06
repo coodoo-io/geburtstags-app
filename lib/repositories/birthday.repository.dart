@@ -21,4 +21,8 @@ class BirthdayRepository {
   void insert(FreezedBirthday birthday) {
     birthdays.add(birthday);
   }
+
+  void update(FreezedBirthday birthday) {
+    birthday.copyWith(name: 'Name Update');
+  }
 }

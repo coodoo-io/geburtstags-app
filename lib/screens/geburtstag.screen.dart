@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:geburtstags_app/repositories/birthday.repository.dart';
+import 'package:geburtstags_app/screens/birthday/birthday_detail.screen.dart';
 import 'package:intl/intl.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
@@ -26,9 +27,24 @@ class GeburtstagsScreen extends StatelessWidget {
         displaySortWidget: true,
         sortPredicate: (a, b) => a.name.compareTo(b.name),
         builder: (list, index, item) {
-          return ListTile(
-            leading: Text(item.name),
-            trailing: Text(formater.format(item.birthday)),
+          return Column(
+            children: [
+              Text(item.notes!),
+              ListTile(
+                subtitle: Text(item.name),
+                trailing: Text(formater.format(item.birthday)),
+                leading: Text(item.notes!),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BirthdayDetail(
+                        birthday: item,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           );
         },
         initialList: birthdays,
