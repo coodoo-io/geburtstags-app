@@ -34,13 +34,8 @@ class GeburtstagsScreen extends StatelessWidget {
                 trailing: Text(formater.format(item.birthday)),
                 leading: Text(item.notes!),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => BirthdayDetail(
-                        birthday: item,
-                      ),
-                    ),
-                  );
+                  Navigator.of(context)
+                      .pushNamed(BirthdayDetail.routeName, arguments: item);
                 },
               ),
             ],

@@ -6,6 +6,8 @@ import 'package:geburtstags_app/screens/settings.screen.dart';
 class Template extends StatefulWidget {
   const Template({super.key});
 
+  static String routeName = (Template).toString();
+
   @override
   State<StatefulWidget> createState() => TemplateState();
 }

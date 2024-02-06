@@ -4,13 +4,17 @@ import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:intl/intl.dart';
 
 class BirthdayDetail extends StatelessWidget {
-  final FreezedBirthday birthday;
   final DateFormat formater = DateFormat('dd.MM.yyyy');
 
-  BirthdayDetail({required this.birthday});
+  static String routeName = (BirthdayDetail).toString();
+
+  BirthdayDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final birthday =
+        ModalRoute.of(context)!.settings.arguments as FreezedBirthday;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(birthday.name),
