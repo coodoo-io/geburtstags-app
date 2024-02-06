@@ -29,7 +29,6 @@ class GeburtstagsScreen extends StatelessWidget {
         builder: (list, index, item) {
           return Column(
             children: [
-              Text(item.notes!),
               ListTile(
                 subtitle: Text(item.name),
                 trailing: Text(formater.format(item.birthday)),
