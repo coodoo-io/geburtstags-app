@@ -4,25 +4,24 @@ class BirthdayRepository {
   static final BirthdayRepository _singleton = BirthdayRepository._internal();
 
   BirthdayRepository._internal() {
-    birthdays
-        .add(FreezedBirthday(birthday: DateTime(1984, 3, 9), name: 'Marcel'));
+    birthdays.add(Birthday(birthday: DateTime(1984, 3, 9), name: 'Marcel'));
   }
 
   factory BirthdayRepository() {
     return _singleton;
   }
 
-  final List<FreezedBirthday> birthdays = [];
+  final List<Birthday> birthdays = [];
 
-  List<FreezedBirthday> getBirthdays() {
+  List<Birthday> getBirthdays() {
     return birthdays;
   }
 
-  void insert(FreezedBirthday birthday) {
+  void insert(Birthday birthday) {
     birthdays.add(birthday);
   }
 
-  void update(FreezedBirthday birthday) {
-    birthday.copyWith(name: 'Name Update');
+  Birthday update(Birthday birthday) {
+    return birthday.copyWith(name: 'Name Update');
   }
 }

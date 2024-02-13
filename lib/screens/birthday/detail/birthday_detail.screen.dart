@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:geburtstags_app/app.dart';
 import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:intl/intl.dart';
@@ -12,8 +13,7 @@ class BirthdayDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final birthday =
-        ModalRoute.of(context)!.settings.arguments as FreezedBirthday;
+    final birthday = ModalRoute.of(context)!.settings.arguments as Birthday;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,10 +33,11 @@ class BirthdayDetail extends StatelessWidget {
               height: 16,
             ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('zurück'))
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('zurück'),
+            ),
           ],
         ),
       ),

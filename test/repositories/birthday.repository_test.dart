@@ -11,7 +11,7 @@ void main() {
   test('birthday.repository and contains two elements after insert', () async {
     final repo = BirthdayRepository();
     expect(repo.getBirthdays().length, 1);
-    repo.insert(FreezedBirthday(birthday: DateTime(1900), name: 'test'));
+    repo.insert(Birthday(birthday: DateTime(1900), name: 'test'));
     expect(repo.getBirthdays().length, 2);
   });
 }

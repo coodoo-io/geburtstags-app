@@ -15,29 +15,28 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$FreezedBirthday {
+mixin _$Birthday {
   DateTime get birthday => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FreezedBirthdayCopyWith<FreezedBirthday> get copyWith =>
+  $BirthdayCopyWith<Birthday> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FreezedBirthdayCopyWith<$Res> {
-  factory $FreezedBirthdayCopyWith(
-          FreezedBirthday value, $Res Function(FreezedBirthday) then) =
-      _$FreezedBirthdayCopyWithImpl<$Res, FreezedBirthday>;
+abstract class $BirthdayCopyWith<$Res> {
+  factory $BirthdayCopyWith(Birthday value, $Res Function(Birthday) then) =
+      _$BirthdayCopyWithImpl<$Res, Birthday>;
   @useResult
   $Res call({DateTime birthday, String name, String? notes});
 }
 
 /// @nodoc
-class _$FreezedBirthdayCopyWithImpl<$Res, $Val extends FreezedBirthday>
-    implements $FreezedBirthdayCopyWith<$Res> {
-  _$FreezedBirthdayCopyWithImpl(this._value, this._then);
+class _$BirthdayCopyWithImpl<$Res, $Val extends Birthday>
+    implements $BirthdayCopyWith<$Res> {
+  _$BirthdayCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -70,7 +69,7 @@ class _$FreezedBirthdayCopyWithImpl<$Res, $Val extends FreezedBirthday>
 
 /// @nodoc
 abstract class _$$FreezedBirthdayImplCopyWith<$Res>
-    implements $FreezedBirthdayCopyWith<$Res> {
+    implements $BirthdayCopyWith<$Res> {
   factory _$$FreezedBirthdayImplCopyWith(_$FreezedBirthdayImpl value,
           $Res Function(_$FreezedBirthdayImpl) then) =
       __$$FreezedBirthdayImplCopyWithImpl<$Res>;
@@ -81,7 +80,7 @@ abstract class _$$FreezedBirthdayImplCopyWith<$Res>
 
 /// @nodoc
 class __$$FreezedBirthdayImplCopyWithImpl<$Res>
-    extends _$FreezedBirthdayCopyWithImpl<$Res, _$FreezedBirthdayImpl>
+    extends _$BirthdayCopyWithImpl<$Res, _$FreezedBirthdayImpl>
     implements _$$FreezedBirthdayImplCopyWith<$Res> {
   __$$FreezedBirthdayImplCopyWithImpl(
       _$FreezedBirthdayImpl _value, $Res Function(_$FreezedBirthdayImpl) _then)
@@ -127,7 +126,7 @@ class _$FreezedBirthdayImpl implements _FreezedBirthday {
 
   @override
   String toString() {
-    return 'FreezedBirthday(birthday: $birthday, name: $name, notes: $notes)';
+    return 'Birthday(birthday: $birthday, name: $name, notes: $notes)';
   }
 
   @override
@@ -152,7 +151,7 @@ class _$FreezedBirthdayImpl implements _FreezedBirthday {
           this, _$identity);
 }
 
-abstract class _FreezedBirthday implements FreezedBirthday {
+abstract class _FreezedBirthday implements Birthday {
   factory _FreezedBirthday(
       {required final DateTime birthday,
       required final String name,

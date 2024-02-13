@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geburtstags_app/screens/birthday/birthday_detail.screen.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/templates/template.dart';
 
 class App extends StatelessWidget {
@@ -11,7 +11,8 @@ class App extends StatelessWidget {
       title: 'Geburtstags App',
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.red,
+        colorSchemeSeed: Colors.green,
+        appBarTheme: const AppBarTheme(elevation: 3),
       ),
       initialRoute: Template.routeName,
       routes: {
