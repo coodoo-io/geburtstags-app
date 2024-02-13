@@ -3,7 +3,8 @@ import 'package:geburtstags_app/common/constants.dart';
 import 'package:geburtstags_app/common/widgets/form_spacer_l.dart';
 import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:geburtstags_app/repositories/birthday.repository.dart';
-import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_form.screen.dart';
+import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_date_inputs.dart';
+import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_name_input.dart';
 
 class BirthdayForm extends StatefulWidget {
   final Birthday? birthday;
