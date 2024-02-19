@@ -22,6 +22,7 @@ class App extends StatelessWidget {
       //onGenerateRoute: (_) => Template.routeName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: false,
       ),
     );
   }
