@@ -11,6 +11,7 @@ class BirthdayTheme {
     const color = Colors.blue;
     final theme = isDark ? ThemeData.dark() : ThemeData.dark();
     return ThemeData(
+      useMaterial3: false,
       brightness: isDark ? Brightness.dark : Brightness.light,
       primarySwatch: color,
       primaryColor: color,
