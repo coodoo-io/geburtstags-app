@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Geburtstags App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: false,
       ),
       home: Container(),
     );
