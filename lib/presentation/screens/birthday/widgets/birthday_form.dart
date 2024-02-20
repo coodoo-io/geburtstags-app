@@ -68,7 +68,7 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
             },
             child: const Text(
               'Speichern',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ],
