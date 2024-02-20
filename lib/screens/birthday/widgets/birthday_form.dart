@@ -36,7 +36,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
           TextButton(
             child: const Text(
               'Speichern',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
