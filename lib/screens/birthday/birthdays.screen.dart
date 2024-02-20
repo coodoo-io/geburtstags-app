@@ -56,6 +56,9 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
               });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
+                  margin: const EdgeInsets.only(
+                      bottom: kBottomNavigationBarHeight + kFloatingActionButtonMargin + 10, left: 10, right: 10),
+                  behavior: SnackBarBehavior.floating,
                   content: Text(
                     '${birthday.name} gelöscht.',
                   ),
