@@ -58,7 +58,7 @@ class BirthdayForm extends ConsumerWidget {
             },
             child: const Text(
               'Speichern',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ],
