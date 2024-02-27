@@ -5,23 +5,17 @@ import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/edit/birthday_form.screen.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
-class GeburtstagsScreen extends StatefulWidget {
-  const GeburtstagsScreen({super.key});
+class GeburtstagsScreen extends StatelessWidget {
+  final formater = DateFormat('dd.MM.yyyy');
 
-  @override
-  State<GeburtstagsScreen> createState() => _GeburtstagsScreenState();
-}
-
-class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
-  final birthdayRepository = BirthdayRepository();
-
+  GeburtstagsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    DateFormat formater = DateFormat('dd.MM.yyyy');
-
-    final birthdays = birthdayRepository.getBirthdays();
+    /// Lauschen hier auf die Änderungen an den Geburtstagen
+    final birthdays = context.watch<BirthdayRepository>().birthdays;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +32,6 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
               fullscreenDialog: true,
             ),
           );
-          setState(() {});
         },
         child: const Icon(Icons.add),
       ),
@@ -56,7 +49,6 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
                   onTap: () async {
                     await Navigator.of(context)
                         .pushNamed(BirthdayDetail.routeName, arguments: item);
-                    setState(() {});
                   },
                 ),
               ],

@@ -21,18 +21,21 @@ class TemplateState extends State<Template> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (tabbedIndex) => setState(() => index = tabbedIndex),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_max_outlined), label: 'Dashboard'),
-          BottomNavigationBarItem(icon: Icon(Icons.cake_outlined), label: 'Geburtstage'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Einstellungen'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_max_outlined), label: 'Dashboard'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.cake_outlined), label: 'Geburtstage'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Einstellungen'),
         ],
         currentIndex: index,
       ),
       body: IndexedStack(
         index: index,
-        children: const [
+        children: [
           DashboardScreen(),
           GeburtstagsScreen(),
-          SettingsScreen(),
+          const SettingsScreen(),
         ],
       ),
     );

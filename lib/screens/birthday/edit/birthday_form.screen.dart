@@ -5,6 +5,7 @@ import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_date_inputs.dart';
 import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_name_input.dart';
+import 'package:provider/provider.dart';
 
 class BirthdayForm extends StatefulWidget {
   final Birthday? birthday;
@@ -110,7 +111,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
     if (isValid == false) {
       return;
     }
-    final repo = BirthdayRepository();
+    final repo = context.read<BirthdayRepository>();
     final newBirthday = Birthday(
       birthday: DateTime(
         int.parse(jahrController.text),

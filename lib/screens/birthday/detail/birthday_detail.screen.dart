@@ -7,6 +7,7 @@ import 'package:geburtstags_app/models/birthday.model.dart';
 import 'package:geburtstags_app/repositories/birthday.repository.dart';
 import 'package:geburtstags_app/screens/birthday/edit/birthday_form.screen.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BirthdayDetail extends StatefulWidget {
   static String routeName = (BirthdayDetail).toString();
@@ -66,7 +67,7 @@ class _BirthdayDetailState extends State<BirthdayDetail> {
                 }
               } else if (value == 1) {
                 log('Löschen');
-                final repo = BirthdayRepository();
+                final repo = context.read<BirthdayRepository>();
                 repo.delete(birthday!);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
