@@ -21,7 +21,13 @@ class BirthdayRepository {
     birthdays.add(birthday);
   }
 
-  Birthday update(Birthday birthday) {
-    return birthday.copyWith(name: 'Name Update');
+  Birthday update(Birthday oldBirthday, Birthday newBirthday) {
+    birthdays.remove(oldBirthday);
+    birthdays.add(newBirthday);
+    return newBirthday;
+  }
+
+  void delete(Birthday birthday) {
+    birthdays.remove(birthday);
   }
 }

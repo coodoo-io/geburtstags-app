@@ -32,7 +32,8 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
           await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) => BirthdayForm(
-                birthday: Birthday(birthday: DateTime(2000, 1, 2), name: 'Markus'),
+                birthday:
+                    Birthday(birthday: DateTime(2000, 1, 2), name: 'Markus'),
               ),
               fullscreenDialog: true,
             ),
@@ -52,8 +53,10 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
                 ListTile(
                   title: Text(item.name),
                   trailing: Text(formater.format(item.birthday)),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(BirthdayDetail.routeName, arguments: item);
+                  onTap: () async {
+                    await Navigator.of(context)
+                        .pushNamed(BirthdayDetail.routeName, arguments: item);
+                    setState(() {});
                   },
                 ),
               ],
@@ -61,7 +64,10 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
           },
           initialList: birthdays,
           filter: (p0) {
-            return birthdays.where((element) => element.name.toLowerCase().contains(p0.toLowerCase())).toList();
+            return birthdays
+                .where((element) =>
+                    element.name.toLowerCase().contains(p0.toLowerCase()))
+                .toList();
           },
           inputDecoration: InputDecoration(
             labelText: 'Search Birthday',

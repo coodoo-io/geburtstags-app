@@ -8,8 +8,9 @@ import 'package:geburtstags_app/screens/birthday/edit/widgets/birthday_name_inpu
 
 class BirthdayForm extends StatefulWidget {
   final Birthday? birthday;
+  final bool? edit;
 
-  const BirthdayForm({super.key, this.birthday});
+  const BirthdayForm({super.key, this.birthday, this.edit = false});
 
   @override
   State<BirthdayForm> createState() => _BirthdayFormState();
@@ -17,7 +18,7 @@ class BirthdayForm extends StatefulWidget {
 
 class _BirthdayFormState extends State<BirthdayForm> {
   final formKey = GlobalKey<FormState>();
-  late TextEditingController nameController;
+  final nameController = TextEditingController();
   final tagController = TextEditingController();
   final monatController = TextEditingController();
   final jahrController = TextEditingController();
@@ -26,17 +27,24 @@ class _BirthdayFormState extends State<BirthdayForm> {
 
   @override
   Widget build(BuildContext context) {
-    nameController = TextEditingController(text: widget.birthday != null ? widget.birthday!.name : '');
+    if (widget.edit!) {
+      ///Vorausfüllen des Formulares mit bestehendem Geburtstag
+      nameController.text = widget.birthday!.name;
+      tagController.text = '${widget.birthday!.birthday.day}';
+      monatController.text = '${widget.birthday!.birthday.month}';
+      jahrController.text = '${widget.birthday!.birthday.year}';
+    }
 
     return PopScope(
-      canPop: dataInputAvailable == false,
-      onPopInvoked: (didPop) {
+      canPop: dataInputAvailable == true,
+      onPopInvoked: (didPop) async {
         // Es muss geprüft werden ob der pop bereits durchgeführt wurde, dann benötigt man
         // keinen weiteren Dialog und die Navigation würde in einer AssertException enden.
         if (didPop) {
           return;
         }
-        _showNotSavedDialog(context);
+        final result = await _showNotSavedDialog(context);
+        return result;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -103,17 +111,22 @@ class _BirthdayFormState extends State<BirthdayForm> {
       return;
     }
     final repo = BirthdayRepository();
-    repo.insert(
-      Birthday(
-        birthday: DateTime(
-          int.parse(jahrController.text),
-          int.parse(monatController.text),
-          int.parse(tagController.text),
-        ),
-        name: nameController.text,
+    final newBirthday = Birthday(
+      birthday: DateTime(
+        int.parse(jahrController.text),
+        int.parse(monatController.text),
+        int.parse(tagController.text),
       ),
+      name: nameController.text,
     );
-    Navigator.of(context).pop();
+
+    /// Prüfen ob ich editiere oder hinzufüge
+    if (widget.edit!) {
+      repo.update(widget.birthday!, newBirthday);
+    } else {
+      repo.insert(newBirthday);
+    }
+    Navigator.of(context).pop(newBirthday);
   }
 
   Future<void> _showNotSavedDialog(BuildContext context) {
@@ -123,10 +136,11 @@ class _BirthdayFormState extends State<BirthdayForm> {
       builder: (BuildContext context) {
         return AlertDialog.adaptive(
           title: const Text('Abbrechen'),
-          content: const Text('Es sind noch ungespeicherte Eingaben vorhanden.'),
+          content:
+              const Text('Es sind noch ungespeicherte Eingaben vorhanden.'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
+              onPressed: () => Navigator.of(context).pop(true),
               child: const Text('Abbrechen'),
             ),
             TextButton(
