@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,6 +30,10 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    /// Special Case for web
+    if (kIsWeb) {
+      return _selectDateAndroid(context);
+    }
     if (Platform.isIOS) {
       return _selectDateIos(context);
     }
@@ -65,7 +70,8 @@ class _DatePickerState extends State<DatePicker> {
                 onDateTimeChanged: (picked) {
                   if (picked != selectedDate) {
                     setState(() => selectedDate = picked);
-                    widget.controller.text = DateFormat('dd.MM.yyyy').format(picked);
+                    widget.controller.text =
+                        DateFormat('dd.MM.yyyy').format(picked);
                   }
                 },
               ),
