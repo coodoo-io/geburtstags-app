@@ -79,7 +79,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         if (dateControllerDay.text.length == 2) {
-                          FocusScope.of(context).requestFocus(monthFocusNode);
+                          //FocusScope.of(context).requestFocus(monthFocusNode);
                         }
                       },
                       decoration: InputDecoration(
@@ -106,7 +106,7 @@ class _BirthdayFormState extends State<BirthdayForm> {
                       focusNode: monthFocusNode,
                       onChanged: (value) {
                         if (dateControllerMonth.text.length == 2) {
-                          FocusScope.of(context).requestFocus(yearFocusNode);
+                          //FocusScope.of(context).requestFocus(yearFocusNode);
                         }
                       },
                       decoration: InputDecoration(
