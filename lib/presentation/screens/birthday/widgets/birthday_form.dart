@@ -27,9 +27,12 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
 
     if (widget.isEdit) {
       nameController = TextEditingController(text: widget.birthday!.name);
-      dateControllerDay = TextEditingController(text: widget.birthday!.date.day.toString());
-      dateControllerMonth = TextEditingController(text: widget.birthday!.date.month.toString());
-      dateControllerYear = TextEditingController(text: widget.birthday!.date.year.toString());
+      dateControllerDay =
+          TextEditingController(text: widget.birthday!.date.day.toString());
+      dateControllerMonth =
+          TextEditingController(text: widget.birthday!.date.month.toString());
+      dateControllerYear =
+          TextEditingController(text: widget.birthday!.date.year.toString());
     }
 
     return Scaffold(
@@ -39,7 +42,8 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
           TextButton(
             onPressed: () async {
               if (formKey.currentState!.validate()) {
-                var id = widget.isEdit ? widget.birthday!.id : const Uuid().v1();
+                var id =
+                    widget.isEdit ? widget.birthday!.id : const Uuid().v1();
                 Birthday newBirthday = Birthday(
                   id: id,
                   name: nameController.text,
@@ -54,13 +58,17 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
                   await ref.read(updateBirthdayServiceProvider(
                     birthday: newBirthday,
                   ).future);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Änderung gespeichert')),
-                  );
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Änderung gespeichert')),
+                    );
+                  }
                 } else {
-                  await ref.read(addBirthdayServiceProvider(birthday: newBirthday).future);
+                  await ref.read(
+                      addBirthdayServiceProvider(birthday: newBirthday).future);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${nameController.text} hinzugefügt.')),
+                    SnackBar(
+                        content: Text('${nameController.text} hinzugefügt.')),
                   );
                 }
                 Navigator.pop(context, newBirthday);
