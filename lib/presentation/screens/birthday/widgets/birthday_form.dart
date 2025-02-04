@@ -105,9 +105,7 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
                       keyboardType: TextInputType.number,
                       maxLength: 2,
                       onChanged: (value) {
-                        if (dateControllerDay.text.length == 2) {
-                          FocusScope.of(context).requestFocus(monthFocusNode);
-                        }
+                        if (dateControllerDay.text.length == 2) {}
                       },
                       decoration: InputDecoration(
                         counterText: '',
@@ -136,9 +134,7 @@ class _BirthdayFormState extends ConsumerState<BirthdayForm> {
                       maxLength: 2,
                       focusNode: monthFocusNode,
                       onChanged: (value) {
-                        if (dateControllerMonth.text.length == 2) {
-                          FocusScope.of(context).requestFocus(yearFocusNode);
-                        }
+                        if (dateControllerMonth.text.length == 2) {}
                       },
                       decoration: InputDecoration(
                         counterText: '',

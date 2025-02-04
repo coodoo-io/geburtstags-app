@@ -51,7 +51,7 @@ class GetNextBirthdaysService extends _$GetNextBirthdaysService {
 Future<List<Birthday>> getTodaysBirthdaysService(
   GetTodaysBirthdaysServiceRef ref,
 ) async {
-  List<Birthday> birthdays = await ref.read(getAllBirthdaysServiceProvider.future);
+  List<Birthday> birthdays = await ref.watch(getAllBirthdaysServiceProvider.future);
   List<Birthday> todayBirthdays = [];
 
   birthdays.map((birthday) {

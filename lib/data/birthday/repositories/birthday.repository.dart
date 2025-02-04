@@ -14,8 +14,8 @@ class BirthdayRepository {
 
   Future<List<Birthday>> getAll() async {
     // throw Exception('g');
-    await Future.delayed(const Duration(seconds: 5));
-    return Future.value(_inMemoryBirthdayList);
+    //await Future.delayed(const Duration(seconds: 5));
+    return Future.value([..._inMemoryBirthdayList, ...await birthdayStore.getCelebrityBirthdays()]);
   }
 
   Future<Birthday> insert(Birthday birthday) async {
