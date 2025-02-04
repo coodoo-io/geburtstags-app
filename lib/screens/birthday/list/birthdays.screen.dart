@@ -45,9 +45,8 @@ class _GeburtstagsScreenState extends State<GeburtstagsScreen> {
       body: Padding(
         padding: const EdgeInsets.all(kScreenPadding),
         child: SearchableList<Birthday>(
-          displaySortWidget: true,
           sortPredicate: (a, b) => a.name.compareTo(b.name),
-          builder: (list, index, item) {
+          itemBuilder: (item) {
             return Column(
               children: [
                 ListTile(

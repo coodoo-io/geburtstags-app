@@ -20,19 +20,24 @@ mixin _$Birthday {
   String get name => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
-  $BirthdayCopyWith<Birthday> get copyWith => throw _privateConstructorUsedError;
+  /// Create a copy of Birthday
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $BirthdayCopyWith<Birthday> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BirthdayCopyWith<$Res> {
-  factory $BirthdayCopyWith(Birthday value, $Res Function(Birthday) then) = _$BirthdayCopyWithImpl<$Res, Birthday>;
+  factory $BirthdayCopyWith(Birthday value, $Res Function(Birthday) then) =
+      _$BirthdayCopyWithImpl<$Res, Birthday>;
   @useResult
   $Res call({DateTime birthday, String name, String? notes});
 }
 
 /// @nodoc
-class _$BirthdayCopyWithImpl<$Res, $Val extends Birthday> implements $BirthdayCopyWith<$Res> {
+class _$BirthdayCopyWithImpl<$Res, $Val extends Birthday>
+    implements $BirthdayCopyWith<$Res> {
   _$BirthdayCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -40,6 +45,8 @@ class _$BirthdayCopyWithImpl<$Res, $Val extends Birthday> implements $BirthdayCo
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Birthday
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -65,8 +72,10 @@ class _$BirthdayCopyWithImpl<$Res, $Val extends Birthday> implements $BirthdayCo
 }
 
 /// @nodoc
-abstract class _$$FreezedBirthdayImplCopyWith<$Res> implements $BirthdayCopyWith<$Res> {
-  factory _$$FreezedBirthdayImplCopyWith(_$FreezedBirthdayImpl value, $Res Function(_$FreezedBirthdayImpl) then) =
+abstract class _$$FreezedBirthdayImplCopyWith<$Res>
+    implements $BirthdayCopyWith<$Res> {
+  factory _$$FreezedBirthdayImplCopyWith(_$FreezedBirthdayImpl value,
+          $Res Function(_$FreezedBirthdayImpl) then) =
       __$$FreezedBirthdayImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -74,11 +83,15 @@ abstract class _$$FreezedBirthdayImplCopyWith<$Res> implements $BirthdayCopyWith
 }
 
 /// @nodoc
-class __$$FreezedBirthdayImplCopyWithImpl<$Res> extends _$BirthdayCopyWithImpl<$Res, _$FreezedBirthdayImpl>
+class __$$FreezedBirthdayImplCopyWithImpl<$Res>
+    extends _$BirthdayCopyWithImpl<$Res, _$FreezedBirthdayImpl>
     implements _$$FreezedBirthdayImplCopyWith<$Res> {
-  __$$FreezedBirthdayImplCopyWithImpl(_$FreezedBirthdayImpl _value, $Res Function(_$FreezedBirthdayImpl) _then)
+  __$$FreezedBirthdayImplCopyWithImpl(
+      _$FreezedBirthdayImpl _value, $Res Function(_$FreezedBirthdayImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Birthday
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,7 +119,8 @@ class __$$FreezedBirthdayImplCopyWithImpl<$Res> extends _$BirthdayCopyWithImpl<$
 /// @nodoc
 
 class _$FreezedBirthdayImpl implements _FreezedBirthday {
-  _$FreezedBirthdayImpl({required this.birthday, required this.name, this.notes = ''});
+  _$FreezedBirthdayImpl(
+      {required this.birthday, required this.name, this.notes = ''});
 
   @override
   final DateTime birthday;
@@ -126,7 +140,8 @@ class _$FreezedBirthdayImpl implements _FreezedBirthday {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FreezedBirthdayImpl &&
-            (identical(other.birthday, birthday) || other.birthday == birthday) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.notes, notes) || other.notes == notes));
   }
@@ -134,16 +149,21 @@ class _$FreezedBirthdayImpl implements _FreezedBirthday {
   @override
   int get hashCode => Object.hash(runtimeType, birthday, name, notes);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Birthday
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FreezedBirthdayImplCopyWith<_$FreezedBirthdayImpl> get copyWith =>
-      __$$FreezedBirthdayImplCopyWithImpl<_$FreezedBirthdayImpl>(this, _$identity);
+      __$$FreezedBirthdayImplCopyWithImpl<_$FreezedBirthdayImpl>(
+          this, _$identity);
 }
 
 abstract class _FreezedBirthday implements Birthday {
-  factory _FreezedBirthday({required final DateTime birthday, required final String name, final String? notes}) =
-      _$FreezedBirthdayImpl;
+  factory _FreezedBirthday(
+      {required final DateTime birthday,
+      required final String name,
+      final String? notes}) = _$FreezedBirthdayImpl;
 
   @override
   DateTime get birthday;
@@ -151,7 +171,11 @@ abstract class _FreezedBirthday implements Birthday {
   String get name;
   @override
   String? get notes;
+
+  /// Create a copy of Birthday
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$FreezedBirthdayImplCopyWith<_$FreezedBirthdayImpl> get copyWith => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FreezedBirthdayImplCopyWith<_$FreezedBirthdayImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
