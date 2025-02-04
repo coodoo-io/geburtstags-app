@@ -2,6 +2,7 @@ import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:provider/provider.dart';
 
 class BirthdayForm extends StatefulWidget {
   const BirthdayForm({super.key, this.birthday, this.isEdit = false});
@@ -53,13 +54,13 @@ class _BirthdayFormState extends State<BirthdayForm> {
                 );
 
                 if (widget.isEdit) {
-                  BirthdayRepo().update(
+                  context.read<BirthdayRepo>().update(
                       oldBirthday: widget.birthday!, newBirthday: birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Änderung gespeichert')),
                   );
                 } else {
-                  BirthdayRepo().insert(birthday);
+                  context.read<BirthdayRepo>().insert(birthday);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text('${nameController.text} hinzugefügt.')),

@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.controller.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class BirthdaysScreen extends StatefulWidget {
+class BirthdaysScreen extends StatelessWidget {
   const BirthdaysScreen({super.key});
 
   @override
-  State<BirthdaysScreen> createState() => _BirthdaysScreenState();
-}
-
-class _BirthdaysScreenState extends State<BirthdaysScreen> {
-  @override
   Widget build(BuildContext context) {
-    final repo = BirthdayRepo();
-    final birthdays = repo.getBirthdays();
+    final birthdays = context.watch<BirthdayRepo>().getBirthdays();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -23,7 +19,7 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () => setState(() {}),
+            onPressed: () => null,
             icon: const Icon(
               Icons.refresh,
             ),
@@ -51,13 +47,15 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
               ),
             ),
             onDismissed: (direction) {
-              setState(() {
-                repo.delete(birthday);
-              });
+              context.read<BirthdayRepo>().delete(birthday);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   margin: const EdgeInsets.only(
-                      bottom: kBottomNavigationBarHeight + kFloatingActionButtonMargin + 10, left: 10, right: 10),
+                      bottom: kBottomNavigationBarHeight +
+                          kFloatingActionButtonMargin +
+                          10,
+                      left: 10,
+                      right: 10),
                   behavior: SnackBarBehavior.floating,
                   content: Text(
                     '${birthday.name} gelöscht.',
@@ -66,17 +64,14 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
               );
             },
             child: ListTile(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                context.read<BirthdayDetailController>().setBirthday(birthday);
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BirthdayDetailScreen(
-                      birthday: birthday,
-                    ),
-                  ),
-                ).then(
-                  (value) => setState(
-                    () {},
+                    builder: (context) {
+                      return BirthdayDetailScreen();
+                    },
                   ),
                 );
               },
@@ -91,21 +86,16 @@ class _BirthdaysScreenState extends State<BirthdaysScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (BuildContext context) {
-                    return const BirthdayForm();
-                  },
-                ),
-              )
-              .then(
-                (value) => setState(() {
-                  // refresh birthday list
-                }),
-              );
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (BuildContext context) {
+                return const BirthdayForm();
+              },
+            ),
+          );
+          ;
         },
         child: const Icon(
           Icons.add,

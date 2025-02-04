@@ -1,14 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 
-class BirthdayRepo {
-  static final BirthdayRepo _birthdayRepo = BirthdayRepo._internal();
-
-  factory BirthdayRepo() {
-    return _birthdayRepo;
-  }
-
-  BirthdayRepo._internal() {
+class BirthdayRepo extends ChangeNotifier {
+  BirthdayRepo() {
     _addInitalBirthdays();
   }
 
@@ -38,7 +33,8 @@ class BirthdayRepo {
     List<Birthday> list = [];
 
     for (var i = 0; i < _birthdays.length; i++) {
-      if (_birthdays[i].date.day == DateTime.now().day && _birthdays[i].date.month == DateTime.now().month) {
+      if (_birthdays[i].date.day == DateTime.now().day &&
+          _birthdays[i].date.month == DateTime.now().month) {
         list.add(_birthdays[i]);
       }
     }
@@ -48,16 +44,19 @@ class BirthdayRepo {
 
   Birthday insert(Birthday birthday) {
     _birthdays.add(birthday);
+    notifyListeners();
     return birthday;
   }
 
   void update({required Birthday oldBirthday, required Birthday newBirthday}) {
     _birthdays.remove(oldBirthday);
     _birthdays.add(newBirthday);
+    notifyListeners();
   }
 
   void delete(Birthday birthday) {
     _birthdays.remove(birthday);
+    notifyListeners();
   }
 
   void _addInitalBirthdays() {

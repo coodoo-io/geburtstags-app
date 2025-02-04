@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.controller.dart';
 import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.screen.dart';
 import 'package:geburtstags_app/utils/datetime.util.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  @override
   Widget build(BuildContext context) {
-    final repo = BirthdayRepo();
+    final repo = context.watch<BirthdayRepo>();
     final nextbirthdays = repo.getNextFiveBirthdays();
     final todaysBirthdays = repo.getTodaysBirthdays();
 
@@ -25,7 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () => setState(() {}),
+            onPressed: () => null,
             icon: const Icon(Icons.refresh),
           ),
         ],
@@ -64,16 +61,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: ListTile(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
-                                  ),
-                                ),
+                                onTap: () async {
+                                  context
+                                      .read<BirthdayDetailController>()
+                                      .setBirthday(birthday);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthdayDetailScreen(),
+                                    ),
+                                  );
+                                },
                                 leading: const CircleAvatar(
                                   radius: 25,
                                   backgroundColor: Colors.white,
@@ -137,23 +141,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       itemBuilder: (context, index) {
                         final dateTimeUtil = DateTimeUtil();
                         final birthday = nextbirthdays[index];
-                        final daysUntilBirthday = dateTimeUtil.remainingDaysUntilBirthday(birthday.date);
-                        final getNextAge = dateTimeUtil.getNextAge(birthday.date);
+                        final daysUntilBirthday = dateTimeUtil
+                            .remainingDaysUntilBirthday(birthday.date);
+                        final getNextAge =
+                            dateTimeUtil.getNextAge(birthday.date);
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Card(
                             elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: ListTile(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BirthdayDetailScreen(birthday: birthday),
-                                  ),
-                                ).then((value) => setState(() {})),
+                                onTap: () {
+                                  context
+                                      .read<BirthdayDetailController>()
+                                      .setBirthday(birthday);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BirthdayDetailScreen(),
+                                    ),
+                                  );
+                                },
                                 leading: const CircleAvatar(
                                   radius: 25,
                                   child: Icon(
@@ -176,7 +189,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       height: 5,
                                     ),
                                     Text(
-                                      daysUntilBirthday == 1 ? "In einem Tag" : "In $daysUntilBirthday Tagen",
+                                      daysUntilBirthday == 1
+                                          ? "In einem Tag"
+                                          : "In $daysUntilBirthday Tagen",
                                       style: TextStyle(
                                         fontStyle: FontStyle.italic,
                                         color: Colors.green.shade700,

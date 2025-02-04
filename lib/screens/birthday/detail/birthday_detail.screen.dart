@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:geburtstags_app/models/birthday.dart';
 import 'package:geburtstags_app/repositories/birthday.repo.dart';
+import 'package:geburtstags_app/screens/birthday/detail/birthday_detail.controller.dart';
 import 'package:geburtstags_app/screens/birthday/widgets/birthday_form.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class BirthdayDetailScreen extends StatefulWidget {
-  const BirthdayDetailScreen({
-    required this.birthday,
-    super.key,
-  });
-
-  final Birthday birthday;
-
-  @override
-  State<BirthdayDetailScreen> createState() => _BirthdayDetailScreenState();
-}
-
-class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
-  Birthday? birthday;
+class BirthdayDetailScreen extends StatelessWidget {
+  BirthdayDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Wenn die Detail Seite aufgerufen wid, ist birthday null. Dann wollen wir die übergebenen Daten verwenden.
     // Wenn wir updaten wollen, z.B. den Namen ändern wollen wir nicht nochmal die übergebenen Daten verwenden sondern die aktualisierten Daten.
-    birthday ??= widget.birthday;
+
+    final birthday = context.watch<BirthdayDetailController>().birthday;
 
     void showAlertDialog() {
       showDialog(
@@ -51,7 +42,11 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       margin: const EdgeInsets.only(
-                          bottom: kBottomNavigationBarHeight + kFloatingActionButtonMargin + 10, left: 10, right: 10),
+                          bottom: kBottomNavigationBarHeight +
+                              kFloatingActionButtonMargin +
+                              10,
+                          left: 10,
+                          right: 10),
                       behavior: SnackBarBehavior.floating,
                       content: Text(
                         '${birthday!.name} gelöscht.',
@@ -102,10 +97,8 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
                   },
                 ),
               );
-
-              setState(() {
-                birthday = response;
-              });
+              context.read<BirthdayDetailController>().setBirthday(response);
+              //set
             }
             if (value == 1) {
               showAlertDialog();
@@ -113,55 +106,61 @@ class _BirthdayDetailScreenState extends State<BirthdayDetailScreen> {
           }),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Name
-            const Text(
-              'Name:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              birthday!.name,
-            ),
-            // Datum
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Geburtsdatum:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              DateFormat('dd.MM.yyyy').format(
-                birthday!.date,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            // Zurück
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                "Zurück",
+      body: (birthday == null)
+          ? const Center(
+              child: Text(
+                "Keine Daten vorhanden",
               ),
             )
-          ],
-        ),
-      ),
+          : Padding(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Name
+                  const Text(
+                    'Name:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    birthday!.name,
+                  ),
+                  // Datum
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Geburtsdatum:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    DateFormat('dd.MM.yyyy').format(
+                      birthday!.date,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // Zurück
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      "Zurück",
+                    ),
+                  )
+                ],
+              ),
+            ),
     );
   }
 }
